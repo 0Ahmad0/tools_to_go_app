@@ -61,12 +61,17 @@ The **TOOLS TO GO** project aims to solve the following challenges:
 
 ## Project Structure
 lib/
-│
+
 ├── main.dart          # Entry point of the application
+
 ├── models/            # Data models for tools and users
+
 ├── services/          # Backend integration, APIs, and utilities
+
 ├── ui/                # User interface components
+
 ├── providers/         # State management logic
+
 └── utils/             # Common utilities and constants
 
 ---
