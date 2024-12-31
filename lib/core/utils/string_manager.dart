@@ -11,7 +11,7 @@ class StringManager {
   static const String enterHereToTypeText = "Enter here to type";
   static const String chooseStrongPasswordText = "Choose strong password";
   static const String rewritePasswordAgainText = "Rewrite password again";
-  static const String chatScreenText = "Chat";
+  static const String chatScreenText = "المحادثات";
   static const String searchProjectText = "Search project";
   static const String technicalSupportText = "Technical Support";
   static const String frequentlyAskedQuestionText = "Frequently Asked Question";
@@ -56,7 +56,7 @@ class StringManager {
   static const String loginText = 'تسجيل الدخول';
   static const String signUpText = 'إنشاء الحساب';
   static const String createAccountNowText = 'Create Account Now';
-  static const String submitText = 'Submit';
+  static const String submitText = 'إرسال';
   static const String continueToPaymentText = 'Continue To Payment';
   static const String updateAppointmentText = 'Update Appointment';
   static const String continueText = 'Continue';
@@ -75,7 +75,9 @@ class StringManager {
   static const String saveChangesText = 'Save changes';
   static const String cancelText = 'Cancel';
   static const String doYouWantToSignoutText = 'Do you want to sign out?';
-  static const String searchText = 'Search';
+  static const String searchText = 'البحث';
+  static const String searchResultText = 'نتائج البحث';
+  static const String searchToolsText = 'ابحث عن المعدات...';
   static const String newRequestText = 'New Requests';
   static const String newAppointmentRequestsText = 'New Appointment Requests';
   static const String appointmentRequestsText = 'Appointment Requests';
@@ -88,11 +90,14 @@ class StringManager {
   ///Splash Screen
   static const String splashScreenText = 'Your Car\'s Health Is Our Priority';
 
+  ///ToolDetails Screen
+  static const String toolDetailsText = 'تفاصيل المنتج';
+  static const String orderNowText = 'حجز الآن';
   ///Auth Screen
   static const String accountText = 'الحساب';
   static const String goodToSeeYouText = 'Good to see you!';
   static const String loginToYourAccountText = 'Login to your account';
-  static const String enterEmailHintText = 'Enter Email';
+  static const String enterEmailHintText = 'أدخل بريدك الالكتروني';
   static const String enterPasswordHintText = 'Password';
   static const String forgotPasswordLoginText = 'هل نسيت كلمة المرور؟';
   static const String doNotHaveAnAccountText = 'Don\'t Have An Account ? ';
@@ -112,9 +117,9 @@ class StringManager {
   static const String condition4Text = '1 special character';
 
   ///ForgotPassword Screen
-  static const String forgotPasswordText = 'Forgot Password';
+  static const String forgotPasswordText = 'نسيت كلمة المرور';
   static const String pleaseEnterValidEmailText =
-      'Please enter your valid email. we will send you a email link to verify your account';
+  'يرجى إدخال بريد الكتروني صالح, سنرسل لك رابط تحقق إلى حسابك';
 
   ///Check inbox Screen
   static const String checkYourInboxText = 'Check Your Inbox';
@@ -130,7 +135,7 @@ class StringManager {
   static const String messageText = 'Message';
   static const String notificationText = 'Notification';
   static const String paymentText = 'Payment';
-  static const String settingText = 'Setting';
+  static const String settingText = 'الإعدادت';
   static const String signOutText = 'SignOut';
   static const String privacyPolicyText = 'Privacy Policy';
   static const String termsAndConditionsText = 'Terms & Conditions';
@@ -143,6 +148,9 @@ class StringManager {
   static const String moreText = 'More';
 
   /// Home Screen
+  static const String electricityText = 'أدوات كهربائية';
+  static const String netherMeText = 'بالقرب مني';
+  static const String vipToolsText = 'المعدات المميزة';
   static const String welcomeBackText = 'Welcome Back!';
   static const String whatAreYouLookingText = 'what are looking for ?';
   static const String servicesText = 'Services';
@@ -158,7 +166,7 @@ class StringManager {
   static const String servicesControlPanelText = 'Manage appointments, services, and client communications';
   static const String serviceProviderText = 'Service Provider';
   static const String becomeCarText = 'Become a Consultant or Service Provider and Start Earning Today';
-  static const String homeText = 'Home';
+  static const String homeText = 'الصفحة الرئيسية';
 
   /// Notification Screen
   static const String noNotificationText =
@@ -170,7 +178,8 @@ class StringManager {
       'Currently you don’t have any';
 
   ///Consultant Service Screen
-  static const String sortByText = 'Sort By';
+  static const String sortByText = 'الترتيب حسب : ';
+  static const String filtersText = 'الفلاتر';
 
   ///Service Provider Screen
   static const String kmFromLocation = 'km from Location';

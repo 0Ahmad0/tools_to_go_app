@@ -16,7 +16,7 @@ class NavbarScreen extends StatefulWidget {
 }
 
 class _NavbarScreenState extends State<NavbarScreen> {
-   int _currentIndex = 2;
+   int _currentIndex = 0;
 
   _onTap(index){
     setState(() {

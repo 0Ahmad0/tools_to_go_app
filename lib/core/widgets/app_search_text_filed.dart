@@ -7,7 +7,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 var _borderTextFiled = ({Color color = ColorManager.primaryColor}) =>
     OutlineInputBorder(
-        borderRadius: BorderRadius.circular(100.r),
+        borderRadius: BorderRadius.circular(12.r),
         borderSide: BorderSide(color: color));
 
 class AppSearchTextFiled extends StatelessWidget {
@@ -39,8 +39,8 @@ class AppSearchTextFiled extends StatelessWidget {
         border: _borderTextFiled(color: ColorManager.grayColor),
         enabledBorder: _borderTextFiled(color: ColorManager.hintTextColor),
         focusedBorder: _borderTextFiled(color: Colors.transparent),
-        filled: true,
-        fillColor: ColorManager.grayColor,
+        // filled: true,
+        // fillColor: ColorManager.grayColor,
       ),
     );
   }

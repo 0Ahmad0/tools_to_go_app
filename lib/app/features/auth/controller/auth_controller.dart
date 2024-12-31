@@ -90,6 +90,7 @@ class AuthController extends GetxController {
     return null;
   }
 
+
   /*
   Future<void> login(BuildContext context) async {
     String userName = emailController.value.text;

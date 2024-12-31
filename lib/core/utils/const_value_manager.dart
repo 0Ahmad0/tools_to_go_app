@@ -1,9 +1,10 @@
 
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:tools_to_go_app/app/features/navbar/screens/chats_screen.dart';
 
-import '../../app/features/navbar/screens/chat_screen.dart';
-import '../../app/features/navbar/screens/project_progress_screen.dart';
-import '../../app/features/navbar/screens/support_screen.dart';
+import '../../app/features/navbar/screens/home_screen.dart';
+import '../../app/features/navbar/screens/search_screen.dart';
+import '../../app/features/navbar/screens/setting_screen.dart';
 import '/core/helpers/get_color_status_appointments.dart';
 import '/core/routing/routes.dart';
 import '/core/utils/assets_manager.dart';
@@ -323,19 +324,24 @@ class ConstValueManager {
   };
   static List<NavbarItem> navBarList = [
     NavbarItem(
-      route: SupportScreen(),
-      icon: FontAwesomeIcons.headphones,
-      label: 'Support',
+      route: HomeScreen(),
+      icon: Icons.home,
+      label: 'الرئيسية',
     ),
     NavbarItem(
-      route: ProjectProgressScreen(),
-      icon: Icons.incomplete_circle_outlined,
-      label: 'T-Support',
+      route: SearchScreen(),
+      icon: Icons.search,
+      label: 'البحث',
     ),
     NavbarItem(
-      route: ChatScreen(),
+      route: ChatsScreen(),
       icon: Icons.chat,
-      label: 'Chat',
+      label: 'المحادثات',
+    ),
+    NavbarItem(
+      route: SettingScreen(),
+      icon: Icons.settings,
+      label: 'الإعدادات',
     ),
   ];
 

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:tools_to_go_app/app/features/tool_details/screen/tool_details_screen.dart';
 
 import '../../app/features/auth/screens/auth_screen.dart';
 import '../../app/features/auth/screens/check_inbox_screen.dart';
@@ -37,6 +38,10 @@ class AppRouter {
       case Routes.messagesRoute:
         return MaterialPageRoute(
           builder: (_) => MessagesScreen(),
+        );
+        case Routes.toolDetailsRoute:
+        return MaterialPageRoute(
+          builder: (_) => ToolDetailsScreen(),
         );
       default:
         return MaterialPageRoute(
