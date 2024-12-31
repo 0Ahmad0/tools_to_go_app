@@ -24,7 +24,7 @@ class ConstValueManager {
   static const String geminiApi = "AIzaSyCDePmxP17rWSPSa_o-420-53dpMxYyZa8";
 
   /// Button Size
-  static const double heightButtonSize = 56;
+  static const double heightButtonSize = 48;
 
   /// Length  Appointments TabBar
   static const int lengthAppointmentsTabBar = 3;

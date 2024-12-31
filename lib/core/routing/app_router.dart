@@ -1,9 +1,8 @@
 import 'package:flutter/material.dart';
 
+import '../../app/features/auth/screens/auth_screen.dart';
 import '../../app/features/auth/screens/check_inbox_screen.dart';
 import '../../app/features/auth/screens/forgot_password_screen.dart';
-import '../../app/features/auth/screens/login_screen.dart';
-import '../../app/features/auth/screens/sign_up_screen.dart';
 import '../../app/features/messages/screens/messages_screen.dart';
 import '../../app/features/navbar/screens/navbar_screen.dart';
 import '../../app/features/splash/splash_screen.dart';
@@ -19,11 +18,7 @@ class AppRouter {
 
       case Routes.loginRoute:
         return MaterialPageRoute(
-          builder: (_) => LoginScreen(),
-        );
-      case Routes.signUpRoute:
-        return MaterialPageRoute(
-          builder: (_) => SignUpScreen(),
+          builder: (_) => AuthScreen(),
         );
       case Routes.forgotPasswordRoute:
         return MaterialPageRoute(

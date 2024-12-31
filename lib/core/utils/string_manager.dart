@@ -1,10 +1,13 @@
 class StringManager {
   /// Global
   static const String appName = "ToolsToGo";
+
   static const String yourJobText = "Your Job";
   static const String selectTheTypeText = "Select the type";
-  static const String passwordText = "Password";
-  static const String confirmPasswordText = "Confirm password";
+  static const String passwordText = "كلمة المرور";
+  static const String enterPasswordText = "أدخل كلمة المرور";
+  static const String confirmPasswordText = "تأكيد كلمة المرور";
+  static const String enterConfirmPasswordText = "أعد إدخال كلمة المرور";
   static const String enterHereToTypeText = "Enter here to type";
   static const String chooseStrongPasswordText = "Choose strong password";
   static const String rewritePasswordAgainText = "Rewrite password again";
@@ -50,8 +53,8 @@ class StringManager {
   """;
   static const String requiredField = "Filed Is Required";
   static const String unCorrectPassword = "UnCorrect Password";
-  static const String loginText = 'Login';
-  static const String signUpText = 'Signup';
+  static const String loginText = 'تسجيل الدخول';
+  static const String signUpText = 'إنشاء الحساب';
   static const String createAccountNowText = 'Create Account Now';
   static const String submitText = 'Submit';
   static const String continueToPaymentText = 'Continue To Payment';
@@ -85,12 +88,13 @@ class StringManager {
   ///Splash Screen
   static const String splashScreenText = 'Your Car\'s Health Is Our Priority';
 
-  ///Login Screen
+  ///Auth Screen
+  static const String accountText = 'الحساب';
   static const String goodToSeeYouText = 'Good to see you!';
   static const String loginToYourAccountText = 'Login to your account';
   static const String enterEmailHintText = 'Enter Email';
   static const String enterPasswordHintText = 'Password';
-  static const String forgotPasswordLoginText = 'Forgot the password ? ';
+  static const String forgotPasswordLoginText = 'هل نسيت كلمة المرور؟';
   static const String doNotHaveAnAccountText = 'Don\'t Have An Account ? ';
 
   ///Signup Screen
@@ -119,7 +123,6 @@ class StringManager {
   static const String goToLoginText = 'Go to login';
 
   /// Profile Screen
-  static const String accountText = 'Account';
   static const String profileText = 'Profile';
   static const String personalInformationText = 'Personal Information';
   static const String securityText = 'Security';
@@ -346,8 +349,10 @@ class StringManager {
   static const uploadedFilesText = "Uploaded Files";
   static const rejectText = "Reject";
   static const acceptText = "Accept";
-  static const emailText = "Email";
-  static const nameText = "Name";
+  static const emailText = "البريد الالكتروني";
+  static const enterEmailText = "أدخل بريدك الالكتروني";
+  static const nameText = "الاسم";
+  static const enterNameText = "أدخل اسمك الكامل";
   static const phoneText = "Phone";
   static const personalBioText = "Personal Bio";
   static const systemSettingsText = "System Settings";

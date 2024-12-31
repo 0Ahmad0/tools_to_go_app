@@ -1,7 +1,3 @@
-import '/app/features/auth/screens/login_screen.dart';
-import '/app/features/auth/screens/sign_up_screen.dart';
-import '/app/features/navbar/screens/navbar_screen.dart';
-import '/app/features/splash/splash_screen.dart';
 import '/core/helpers/extensions.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -42,30 +38,31 @@ class ToolsToGoApp extends StatelessWidget {
               ),
               appBarTheme: AppBarTheme(
                 centerTitle: true,
-                titleTextStyle: StyleManager.font18Medium(),
-                backgroundColor: ColorManager.whiteColor,
+                titleTextStyle: StyleManager.font18SemiBold()
+                    .copyWith(fontFamily: GoogleFonts.tajawal().fontFamily),
+                backgroundColor: ColorManager.grayColor,
                 shadowColor: ColorManager.whiteColor,
                 surfaceTintColor: ColorManager.whiteColor,
                 elevation: 1.0,
               ),
               tabBarTheme: TabBarTheme(
-                labelColor: ColorManager.whiteColor,
+                labelColor: ColorManager.primaryColor,
                 indicatorSize: TabBarIndicatorSize.tab,
                 overlayColor: MaterialStateProperty.all(
-                    ColorManager.primaryColor.withOpacity(.1)),
-                unselectedLabelColor: ColorManager.primaryColor,
+                  ColorManager.primaryColor.withOpacity(.1),
+                ),
+                unselectedLabelColor: ColorManager.hintTextColor,
                 indicator: BoxDecoration(
-                    color: ColorManager.primaryColor,
-                    borderRadius: BorderRadius.circular(8.r)),
+                  color: ColorManager.whiteColor,
+                ),
               ),
               inputDecorationTheme: InputDecorationTheme(
-
                 contentPadding:
                     EdgeInsets.symmetric(horizontal: 14.w, vertical: 14.h),
                 suffixIconColor: ColorManager.primaryColor,
               ),
               scaffoldBackgroundColor: ColorManager.whiteColor,
-              fontFamily: GoogleFonts.poppins().fontFamily,
+              fontFamily: GoogleFonts.tajawal().fontFamily,
               outlinedButtonTheme: OutlinedButtonThemeData(
                 style: ElevatedButton.styleFrom(
                   minimumSize: Size(
@@ -82,8 +79,7 @@ class ToolsToGoApp extends StatelessWidget {
               elevatedButtonTheme: ElevatedButtonThemeData(
                 style: ElevatedButton.styleFrom(
                   shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(8.r)
-                  ),
+                      borderRadius: BorderRadius.circular(8.r)),
                   minimumSize: Size(
                     double.maxFinite,
                     ConstValueManager.heightButtonSize,

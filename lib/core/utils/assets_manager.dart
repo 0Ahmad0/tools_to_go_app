@@ -4,7 +4,7 @@ const _pathJsons = 'assets/lottie';
 
 class AssetsManager {
   ///<==== Images ====>
-  static const logoIMG = '$_pathImages/logo.png';
+  static const logoIMG = '$_pathImages/logo_with_text.png';
 
   ///<==== Svg ====>
   static const usernameIcon = '$_pathSVGs/username.svg';
