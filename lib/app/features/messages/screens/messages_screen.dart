@@ -16,7 +16,7 @@ import '../widgets/sender_text_widget.dart';
 
 var _borderTextFiled = ({Color color = ColorManager.primaryColor}) =>
     OutlineInputBorder(
-        borderRadius: BorderRadius.circular(100.r),
+        borderRadius: BorderRadius.circular(8.r),
         borderSide: BorderSide(color: color, width: 1.sp));
 
 class MessagesScreen extends StatefulWidget {
@@ -41,26 +41,21 @@ class _MessagesScreenState extends State<MessagesScreen> {
     return Scaffold(
       appBar: AppBar(
         elevation: 0.0,
-        actions: [
-          IconButton(
-              onPressed: () {},
-              icon: Icon(
-                Icons.more_vert,
-              ))
-        ],
+        // actions: [
+        //   IconButton(
+        //       onPressed: () {},
+        //       icon: Icon(
+        //         Icons.more_vert,
+        //       ))
+        // ],
         leading: CustomBackButton(),
         titleSpacing: 0,
         leadingWidth: 30.w,
         title: ListTile(
           leading: CircleAvatar(),
           title: Text(
-            'Omar Alreffaie',
+            'البائع',
             style: StyleManager.font14Bold(),
-          ),
-          subtitle: Text(
-            'Admin',
-            style:
-                StyleManager.font12Regular(color: ColorManager.hintTextColor),
           ),
         ),
       ),

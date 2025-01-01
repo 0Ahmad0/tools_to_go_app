@@ -5,6 +5,16 @@ class StringManager {
   static const String yourJobText = "Your Job";
   static const String selectTheTypeText = "Select the type";
   static const String passwordText = "كلمة المرور";
+  static const String arabicText = "العربية";
+  static const String englishText = "الإنجليزية";
+  static const String darkModeText = "داكن";
+  static const String lightModeText = "فاتح";
+  static const String selectBookDateText = "اختر تاريخ الحجز";
+  static const String confirmBookingText = "تأكيد الحجز";
+
+
+
+  static const String bookingOperationText = "عملية الحجز";
   static const String enterPasswordText = "أدخل كلمة المرور";
   static const String confirmPasswordText = "تأكيد كلمة المرور";
   static const String enterConfirmPasswordText = "أعد إدخال كلمة المرور";
@@ -72,7 +82,8 @@ class StringManager {
   static const String statusText = 'Status';
   static const String scheduleText = 'Schedule';
   static const String scheduleAtText = 'Schedule at';
-  static const String saveChangesText = 'Save changes';
+  static const String saveChangesText = 'حفظ التغييرات';
+  static const String enableNotificationText = 'تفعيل الإشعارات';
   static const String cancelText = 'Cancel';
   static const String doYouWantToSignoutText = 'Do you want to sign out?';
   static const String searchText = 'البحث';
@@ -135,7 +146,8 @@ class StringManager {
   static const String securityText = 'Security';
   static const String privacyText = 'Privacy';
   static const String messageText = 'Message';
-  static const String notificationText = 'Notification';
+  static const String notificationText = 'الإشعارات';
+  static const String modeText = 'المظهر';
   static const String paymentText = 'Payment';
   static const String settingText = 'الإعدادت';
   static const String signOutText = 'SignOut';
@@ -190,7 +202,7 @@ class StringManager {
 
   ///EducationalResources Screen
   static const String educationalContentText = 'Educational Content';
-  static const String detailsText = 'Details';
+  static const String detailsText = 'التفاصيل';
   static const String professionalismText = 'Professionalism';
   static const String timeScaleText = 'Timescale';
   static const String punctualityText = 'Punctuality';
@@ -238,7 +250,8 @@ class StringManager {
   static const String cardHolderNameText = 'Card Holder Name ';
   static const String expirationDateText = 'Expiration Date';
   static const String cvvText = 'CVV';
-  static const String payText = 'Pay';
+  static const String payText = 'الدفع';
+  static const String datesText = 'التواريخ';
   static const String expirationDateHintText = 'MM/YY';
 
   ///PaymentSuccessful Screen
@@ -298,7 +311,7 @@ class StringManager {
   static const String pushNotificationText = 'Push Notification';
   static const String changePasswordText = 'Change Password';
   static const String locationText = 'Location';
-  static const String languageText = 'Language';
+  static const String languageText = 'اللغة';
 
   ///Change Password Screen
   static const String currentPasswordText = 'Current password';

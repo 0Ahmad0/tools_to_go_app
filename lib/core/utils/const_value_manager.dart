@@ -43,6 +43,12 @@ class ConstValueManager {
     'Account Updates'
   ];
 
+  static List<String> bookingList = [
+    StringManager.datesText,
+    StringManager.detailsText,
+    StringManager.payText,
+  ];
+
   static List<String> contactOptionList = [
     'Live Chat',
     'Send Email',

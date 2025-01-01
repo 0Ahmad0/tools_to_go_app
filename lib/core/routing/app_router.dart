@@ -4,6 +4,7 @@ import 'package:tools_to_go_app/app/features/tool_details/screen/tool_details_sc
 import '../../app/features/auth/screens/auth_screen.dart';
 import '../../app/features/auth/screens/check_inbox_screen.dart';
 import '../../app/features/auth/screens/forgot_password_screen.dart';
+import '../../app/features/booking_tool/screens/booking_tool_screen.dart';
 import '../../app/features/messages/screens/messages_screen.dart';
 import '../../app/features/navbar/screens/navbar_screen.dart';
 import '../../app/features/splash/splash_screen.dart';
@@ -39,9 +40,13 @@ class AppRouter {
         return MaterialPageRoute(
           builder: (_) => MessagesScreen(),
         );
-        case Routes.toolDetailsRoute:
+      case Routes.toolDetailsRoute:
         return MaterialPageRoute(
           builder: (_) => ToolDetailsScreen(),
+        );
+      case Routes.bookingToolRoute:
+        return MaterialPageRoute(
+          builder: (_) => BookingToolScreen(),
         );
       default:
         return MaterialPageRoute(

@@ -1,12 +1,16 @@
 import 'package:animate_do/animate_do.dart';
+import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:tools_to_go_app/core/helpers/spacing.dart';
-import 'package:tools_to_go_app/core/utils/color_manager.dart';
-import 'package:tools_to_go_app/core/utils/string_manager.dart';
-import 'package:tools_to_go_app/core/utils/style_manager.dart';
-import 'package:tools_to_go_app/core/widgets/app_button.dart';
-import 'package:tools_to_go_app/core/widgets/app_padding.dart';
+import 'package:tools_to_go_app/app/features/auth/controller/auth_controller.dart';
+import 'package:tools_to_go_app/core/helpers/extensions.dart';
+import 'package:tools_to_go_app/core/routing/routes.dart';
+import '/core/helpers/spacing.dart';
+import '/core/utils/color_manager.dart';
+import '/core/utils/string_manager.dart';
+import '/core/utils/style_manager.dart';
+import '/core/widgets/app_button.dart';
+import '/core/widgets/app_padding.dart';
 
 class ToolDetailsScreen extends StatefulWidget {
   const ToolDetailsScreen({super.key});
@@ -48,37 +52,27 @@ class _ToolDetailsScreenState extends State<ToolDetailsScreen> {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       verticalSpace(20.h),
-                      Row(
-                        children: [
-                          IconButton(
-                            onPressed: () {},
-                            icon: CircleAvatar(
-                              backgroundColor: ColorManager.grayColor,
-                              child: Icon(Icons.arrow_back_ios_new),
-                            ),
-                          ),
-                          Flexible(
-                            child: Container(
-                              alignment: Alignment.center,
-                              width: double.infinity,
-                              height: 250.h,
-                              decoration: BoxDecoration(
-                                  color: ColorManager.grayColor,
-                                  borderRadius: BorderRadius.circular(12.r)),
-                              child: Text(
-                                '1',
-                                style: StyleManager.font20SemiBold(),
-                              ),
-                            ),
-                          ),
-                          IconButton(
-                            onPressed: () {},
-                            icon: CircleAvatar(
-                              backgroundColor: ColorManager.grayColor,
-                              child: Icon(Icons.arrow_forward_ios),
-                            ),
-                          ),
-                        ],
+                      CarouselSlider(
+                        items: [1, 2, 3, 4, 5]
+                            .map((item) => Container(
+                                  alignment: Alignment.center,
+                                  width: double.infinity,
+                                  height: 250.h,
+                                  decoration: BoxDecoration(
+                                      color: ColorManager.grayColor,
+                                      borderRadius:
+                                          BorderRadius.circular(12.r)),
+                                  child: Text(
+                                    item.toString(),
+                                    style: StyleManager.font20SemiBold(),
+                                  ),
+                                ))
+                            .toList(),
+                        options: CarouselOptions(
+                          autoPlay: true,
+                          enlargeCenterPage: true,
+
+                        ),
                       ),
                       verticalSpace(20.h),
                       Text(
@@ -124,10 +118,9 @@ class _ToolDetailsScreenState extends State<ToolDetailsScreen> {
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: getFeaturesToolAsList(featuresTool)
                             .map((e) => Text(
-                                  '* '+e,
-                                  style: StyleManager.font14SemiBold().copyWith(
-                                    height: 1.8
-                                  ),
+                                  '* ' + e,
+                                  style: StyleManager.font14SemiBold()
+                                      .copyWith(height: 1.8),
                                 ))
                             .toList(),
                       )
@@ -135,7 +128,9 @@ class _ToolDetailsScreenState extends State<ToolDetailsScreen> {
                   ),
                 ),
               ),
-              AppButton(onPressed: () {}, text: StringManager.orderNowText)
+              AppButton(onPressed: () {
+                context.pushNamed(Routes.bookingToolRoute);
+              }, text: StringManager.orderNowText)
             ],
           ),
         ),
