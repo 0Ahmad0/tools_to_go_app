@@ -60,7 +60,8 @@ class _BookingToolScreenState extends State<BookingToolScreen> {
               ),
               verticalSpace(20.h),
               Container(
-                padding: EdgeInsets.symmetric(horizontal: 12.w, vertical: 12.h),
+                padding: EdgeInsets.symmetric(
+                    horizontal: 8.w, vertical: 10.h),
                 decoration: BoxDecoration(
                   color: ColorManager.grayColor,
                   borderRadius: BorderRadius.circular(8.r),
@@ -79,8 +80,8 @@ class _BookingToolScreenState extends State<BookingToolScreen> {
                                   duration: Duration(milliseconds: 600),
                                   alignment: Alignment.center,
                                   padding: EdgeInsets.symmetric(
-                                    horizontal: 12.w,
-                                    vertical: 10.h,
+                                    horizontal: 8.w,
+                                    vertical: 8.h,
                                   ),
                                   decoration: BoxDecoration(
                                     color: _currentIndex == index

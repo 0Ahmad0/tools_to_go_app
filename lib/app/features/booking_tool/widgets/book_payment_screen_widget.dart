@@ -30,7 +30,7 @@ class BookPaymentScreenWidget extends StatelessWidget {
             dense: true,
             contentPadding: EdgeInsets.zero,
             title: Text('Apple Pay'),
-            value: false,
+            value: true,
             groupValue: [],
             onChanged: (value) {}),
       ],
