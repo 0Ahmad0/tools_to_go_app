@@ -20,6 +20,7 @@ dependencies:
   flutter_svg:
   google_fonts:
   intl:
+  carousel_slider:
   image_picker:
   file_picker:
   get:

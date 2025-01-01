@@ -93,6 +93,8 @@ class StringManager {
   ///ToolDetails Screen
   static const String toolDetailsText = 'تفاصيل المنتج';
   static const String orderNowText = 'حجز الآن';
+  static const String descriptionText = 'الوصف';
+  static const String featuresText = 'المواصفات';
   ///Auth Screen
   static const String accountText = 'الحساب';
   static const String goodToSeeYouText = 'Good to see you!';
