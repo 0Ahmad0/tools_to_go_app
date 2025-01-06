@@ -39,8 +39,8 @@ class _BookDatesScreenWidgetState extends State<BookDatesScreenWidget> {
             headerStyle: DateRangePickerHeaderStyle(
                 backgroundColor: ColorManager.grayColor
             ),
-            showActionButtons: true,
-            onSubmit: (value){
+            // showActionButtons: true,
+            onSelectionChanged: (value){
               print(value);
               print('////////////////////');
               print(controller.displayDate);

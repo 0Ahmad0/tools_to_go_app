@@ -1,3 +1,4 @@
+import 'package:animate_do/animate_do.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:tools_to_go_app/app/features/auth/controller/auth_controller.dart';
@@ -13,34 +14,36 @@ class ChatsScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: Text(StringManager.chatScreenText),
-      ),
-      body: AppPaddingWidget(
-        horizontalPadding: 12.w,
-        child: SingleChildScrollView(
-          child: Column(
-            children: [
-              ListTile(
-                onTap: (){
-                  context.pushNamed(Routes.messagesRoute);
-                },
-                contentPadding: EdgeInsets.zero,
-                dense: true,
-                leading: CircleAvatar(),
-                title: Text(
-                  'البائع',
-                  style: StyleManager.font14SemiBold(),
+    return FadeInUp(
+      child: Scaffold(
+        appBar: AppBar(
+          title: Text(StringManager.chatScreenText),
+        ),
+        body: AppPaddingWidget(
+          horizontalPadding: 12.w,
+          child: SingleChildScrollView(
+            child: Column(
+              children: [
+                ListTile(
+                  onTap: (){
+                    context.pushNamed(Routes.messagesRoute);
+                  },
+                  contentPadding: EdgeInsets.zero,
+                  dense: true,
+                  leading: CircleAvatar(),
+                  title: Text(
+                    'البائع',
+                    style: StyleManager.font14SemiBold(),
+                  ),
+                  subtitle: Text(
+                    'آخر رسالة...',
+                    maxLines: 1,
+                    overflow: TextOverflow.ellipsis,
+                    style: StyleManager.font12Regular(),
+                  ),
                 ),
-                subtitle: Text(
-                  'آخر رسالة...',
-                  maxLines: 1,
-                  overflow: TextOverflow.ellipsis,
-                  style: StyleManager.font12Regular(),
-                ),
-              ),
-            ],
+              ],
+            ),
           ),
         ),
       ),

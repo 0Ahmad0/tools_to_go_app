@@ -1,3 +1,4 @@
+import 'package:animate_do/animate_do.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:tools_to_go_app/core/helpers/spacing.dart';
@@ -20,72 +21,74 @@ class _SearchScreenState extends State<SearchScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: Text(StringManager.searchText),
-      ),
-      body: AppPaddingWidget(
-        horizontalPadding: 12.w,
-        child: CustomScrollView(
-          slivers: [
-            SliverToBoxAdapter(
-              child: Text(
-                StringManager.searchResultText,
-                style: StyleManager.font24Bold(),
+    return FadeInUp(
+      child: Scaffold(
+        appBar: AppBar(
+          title: Text(StringManager.searchText),
+        ),
+        body: AppPaddingWidget(
+          horizontalPadding: 12.w,
+          child: CustomScrollView(
+            slivers: [
+              SliverToBoxAdapter(
+                child: Text(
+                  StringManager.searchResultText,
+                  style: StyleManager.font24Bold(),
+                ),
               ),
-            ),
-            SliverToBoxAdapter(
-              child: verticalSpace(10.h),
-            ),
-            SliverToBoxAdapter(
-              child: AppSearchTextFiled(
-                hintText: StringManager.searchToolsText,
+              SliverToBoxAdapter(
+                child: verticalSpace(10.h),
               ),
-            ),
-            SliverToBoxAdapter(
-              child: verticalSpace(10.h),
-            ),
-            SliverToBoxAdapter(
-              child: Row(
-                children: [
-                  Text(StringManager.sortByText),
-                  SizedBox(
-                    width: 100.w,
-                    child: DropdownButton(
-                      value: sortKey,
-                      isExpanded: true,
-                      icon: Icon(Icons.keyboard_arrow_down),
-                      items: ['الصلة', 'السعر', 'التقييم']
-                          .map((item) => DropdownMenuItem(
-                                child: Center(
-                                  child: Text(
-                                    item,
-                                    style: StyleManager.font12SemiBold(),
+              SliverToBoxAdapter(
+                child: AppSearchTextFiled(
+                  hintText: StringManager.searchToolsText,
+                ),
+              ),
+              SliverToBoxAdapter(
+                child: verticalSpace(10.h),
+              ),
+              SliverToBoxAdapter(
+                child: Row(
+                  children: [
+                    Text(StringManager.sortByText),
+                    SizedBox(
+                      width: 100.w,
+                      child: DropdownButton(
+                        value: sortKey,
+                        isExpanded: true,
+                        icon: Icon(Icons.keyboard_arrow_down),
+                        items: ['الصلة', 'السعر', 'التقييم']
+                            .map((item) => DropdownMenuItem(
+                                  child: Center(
+                                    child: Text(
+                                      item,
+                                      style: StyleManager.font12SemiBold(),
+                                    ),
                                   ),
-                                ),
-                                value: item,
-                              ))
-                          .toList(),
-                      onChanged: (value) {
-                        setState(() {
-                          sortKey = value.toString();
-                        });
-                      },
+                                  value: item,
+                                ))
+                            .toList(),
+                        onChanged: (value) {
+                          setState(() {
+                            sortKey = value.toString();
+                          });
+                        },
+                      ),
                     ),
-                  ),
-                  const Spacer(),
-                  Text(StringManager.filtersText),
-                ],
+                    const Spacer(),
+                    Text(StringManager.filtersText),
+                  ],
+                ),
               ),
-            ),
-            SliverToBoxAdapter(
-              child: verticalSpace(10.h),
-            ),
-            SliverList.separated(
-                itemBuilder: (context, index) =>
-                    SearchItemWidget(index: ++index),
-                separatorBuilder: (_, __) => verticalSpace(10.h))
-          ],
+              SliverToBoxAdapter(
+                child: verticalSpace(10.h),
+              ),
+              SliverList.separated(
+                  itemBuilder: (context, index) =>
+                      SearchItemWidget(index: ++index),
+                  separatorBuilder: (_, __) => verticalSpace(10.h))
+            ],
+          ),
         ),
       ),
     );

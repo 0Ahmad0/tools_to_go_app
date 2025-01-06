@@ -14,13 +14,13 @@ class HomeScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      drawer: Drawer(),
-      appBar: AppBar(
-        title: Text(StringManager.homeText),
-      ),
-      body: FadeInUp(
-        child: AppPaddingWidget(
+    return FadeInUp(
+      child: Scaffold(
+        drawer: Drawer(),
+        appBar: AppBar(
+          title: Text(StringManager.homeText),
+        ),
+        body: AppPaddingWidget(
           horizontalPadding: 12.w,
           child: Container(
             padding: EdgeInsets.symmetric(horizontal: 20.w, vertical: 12.h),
