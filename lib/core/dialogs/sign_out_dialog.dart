@@ -1,5 +1,5 @@
-import 'dart:ui';
 
+import 'dart:ui' as ui;
 import 'package:animate_do/animate_do.dart';
 import '/core/helpers/extensions.dart';
 import '/core/helpers/spacing.dart';
@@ -19,7 +19,7 @@ class SignOutDialog extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BackdropFilter(
-      filter: ImageFilter.blur(
+      filter: ui.ImageFilter.blur(
         sigmaX: 3,
         sigmaY: 3,
       ),
