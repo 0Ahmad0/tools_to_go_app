@@ -13,6 +13,9 @@ class StringManager {
   static const String confirmBookingText = "تأكيد الحجز";
   static const String activeOrderText = "الطلبات النشطة";
   static const String completeOrderTodayText = "الطلبات المنتهية";
+  static const String addNewToolText = "أضف معدات جديدة";
+  static const String nameToolText = "اسم الأداة";
+  static const String nameToolHintText = "أدخل اسم الأداة";
 
 
 
