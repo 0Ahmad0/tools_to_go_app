@@ -13,9 +13,25 @@ class StringManager {
   static const String confirmBookingText = "تأكيد الحجز";
   static const String activeOrderText = "الطلبات النشطة";
   static const String completeOrderTodayText = "الطلبات المنتهية";
-  static const String addNewToolText = "أضف معدات جديدة";
+  static const String addNewToolsText = "أضف معدات جديدة";
   static const String nameToolText = "اسم الأداة";
   static const String nameToolHintText = "أدخل اسم الأداة";
+  static const String addNewProductText = "أضف منتج جديد";
+  static const String imageProductText = "صورة المنتج";
+  static const String nameProductText = "اسم المنتج";
+  static const String nameProductHintText = "أدخل اسم المنتج";
+  static const String priceProductText = "سعر المنتج";
+  static const String priceProductHintText = "أدخل سعر المنتج";
+  static const String descriptionProductText = "وصف المنتج";
+  static const String descriptionProductHintText = "أدخل وصف المنتج";
+  static const String propertyProductText = "مواصفات المنتج";
+  static const String propertyProductHintText = "أدخل مواصفات المنتج";
+  static const String dateOfBookText = "تاريخ حجز المنتج : ";
+  static const String locationBookText = "موقع الحجز : ";
+  static const String approvedRequestText = "قبول الطلب";
+  static const String cancelRequestText = "رفض الطلب";
+  static const String mapViewText = "المشاهدة على الخريطة";
+
 
 
 
@@ -36,7 +52,8 @@ class StringManager {
   static const String reportAnIssueText = "Report An Issue";
   static const String selectTheIssueText = "Select The Issue";
   static const String describeTheIssueText = "Describe The Issue";
-  static const String attachFilesText = "Attach Files";
+  static const String attachFilesText = "صور أخرى للمنتج";
+  static const String attachFilesHintText = "اختر صور أخرى للمنتج";
   static const String rateOurServiceText = "Rate Our Service";
   static const String satisfiedText = "Satisfied  👍  ";
   static const String notSatisfiedText = "Not Satisfied  👎  ";
@@ -78,7 +95,9 @@ class StringManager {
   static const String updateAppointmentText = 'Update Appointment';
   static const String continueText = 'Continue';
   static const String errorText = 'Error';
-  static const String deleteText = 'Delete';
+  static const String deleteText = 'حذف';
+  static const String deleteProductText = 'حذف المنتج';
+  static const String areYouSureDeleteProductText = 'هل أنت متأكد من حذف المنتج ؟';
   static const String editYourBioText = 'Edit your bio';
   static const String availabilityHintFromText = 'Set your available time from';
   static const String availabilityHintToText = 'Set your available time to';
@@ -100,7 +119,7 @@ class StringManager {
   static const String newAppointmentRequestsText = 'New Appointment Requests';
   static const String appointmentRequestsText = 'Appointment Requests';
   static const String newText = 'New';
-  static const String requestsText = 'Requests';
+  static const String requestsText = 'طلبات الحجز';
   static const String requestedToBeText = 'Requested To Be a';
   static const String viewText = 'View';
   static const String dismissText = 'Dismiss';
@@ -148,7 +167,7 @@ class StringManager {
   static const String goToLoginText = 'Go to login';
 
   /// Profile Screen
-  static const String profileText = 'Profile';
+  static const String profileText = 'الصفحة الشخصية';
   static const String personalInformationText = 'Personal Information';
   static const String securityText = 'Security';
   static const String privacyText = 'Privacy';
@@ -157,7 +176,7 @@ class StringManager {
   static const String modeText = 'المظهر';
   static const String paymentText = 'Payment';
   static const String settingText = 'الإعدادت';
-  static const String signOutText = 'SignOut';
+  static const String signOutText = 'تسجيل خروج';
   static const String privacyPolicyText = 'Privacy Policy';
   static const String termsAndConditionsText = 'Terms & Conditions';
   static const String refundAndCancellationPolicyRouteText =
