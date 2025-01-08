@@ -11,6 +11,8 @@ class StringManager {
   static const String lightModeText = "فاتح";
   static const String selectBookDateText = "اختر تاريخ الحجز";
   static const String confirmBookingText = "تأكيد الحجز";
+  static const String activeOrderText = "الطلبات النشطة";
+  static const String completeOrderTodayText = "الطلبات المنتهية";
 
 
 
@@ -22,6 +24,8 @@ class StringManager {
   static const String chooseStrongPasswordText = "Choose strong password";
   static const String rewritePasswordAgainText = "Rewrite password again";
   static const String chatScreenText = "المحادثات";
+  static const String typeUserText = "نوع المستخدم";
+  static const String typeUserHintText = "اختر نوع المستخدم";
   static const String searchProjectText = "Search project";
   static const String technicalSupportText = "Technical Support";
   static const String frequentlyAskedQuestionText = "Frequently Asked Question";
@@ -310,7 +314,7 @@ class StringManager {
   /// Setting Screen
   static const String pushNotificationText = 'Push Notification';
   static const String changePasswordText = 'Change Password';
-  static const String locationText = 'Location';
+  static const String locationText = 'الموقع';
   static const String languageText = 'اللغة';
 
   ///Change Password Screen
@@ -434,7 +438,7 @@ You can’t undo this action""";
   static const workshopNameHintText = "Enter Your Workshop Name";
   static const categoryRepairServicesText = "Repair Services";
   static const categoryInspectionAndDiagnosticsText = "Inspection & Diagnostics";
-  static const enterYourLocationText = "Enter Your Workshop Location";
+  static const enterYourLocationText = "أدخل الموقع الخاص بك";
   ///
   static const consultantControlPanelText = "Consultant Control Panel";
   static const serviceProviderControlPanelText = "Service Provider Control Panel";

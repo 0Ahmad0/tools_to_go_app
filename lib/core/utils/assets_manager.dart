@@ -19,6 +19,9 @@ class AssetsManager {
   static const  fileDownloadIcon = '$_pathSVGs/file_download.svg';
   static const  dateIcon = '$_pathSVGs/date.svg';
   static const  bookmarkIcon = '$_pathSVGs/bookmark.svg';
+  static const  completeOrdersIcon = '$_pathSVGs/complete_orders.png';
+  static const  activeOrderIcon = '$_pathSVGs/active_order.png';
+
 
   ///<==== Json ====>
 

@@ -3,6 +3,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:tools_to_go_app/app/features/auth/controller/auth_controller.dart';
+import 'package:tools_to_go_app/core/helpers/extensions.dart';
+import 'package:tools_to_go_app/core/routing/routes.dart';
+import 'package:tools_to_go_app/core/utils/const_value_manager.dart';
 
 import '../../../../core/helpers/spacing.dart';
 import '../../../../core/utils/color_manager.dart';
@@ -12,8 +15,20 @@ import '../../../../core/widgets/app_button.dart';
 import '../../../../core/widgets/app_padding.dart';
 import '../../../../core/widgets/app_textfield.dart';
 
-class SignupScreenWidget extends StatelessWidget {
+var _borderTextFiled = ({Color color = ColorManager.primaryColor}) =>
+    OutlineInputBorder(
+        borderRadius: BorderRadius.circular(8.r),
+        borderSide: BorderSide(color: color, width: 1.sp));
+
+class SignupScreenWidget extends StatefulWidget {
   const SignupScreenWidget({super.key});
+
+  @override
+  State<SignupScreenWidget> createState() => _SignupScreenWidgetState();
+}
+
+class _SignupScreenWidgetState extends State<SignupScreenWidget> {
+  String? typeUser;
 
   @override
   Widget build(BuildContext context) {
@@ -27,7 +42,8 @@ class SignupScreenWidget extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.stretch,
               children: [
                 Container(
-                  padding: EdgeInsets.symmetric(horizontal: 20.w, vertical: 12.h),
+                  padding:
+                      EdgeInsets.symmetric(horizontal: 20.w, vertical: 12.h),
                   decoration: BoxDecoration(
                       color: ColorManager.whiteColor,
                       border: Border.all(color: ColorManager.hintTextColor),
@@ -47,7 +63,6 @@ class SignupScreenWidget extends StatelessWidget {
                         // validator: (value)=>controller.validateFullName(value!),
                         hintText: StringManager.enterNameText,
                       ),
-
                       verticalSpace(20.h),
                       Text(StringManager.emailText),
                       verticalSpace(10.h),
@@ -66,7 +81,7 @@ class SignupScreenWidget extends StatelessWidget {
                         obscureText: true,
                         suffixIcon: true,
                       ),
-                    verticalSpace(20.h),
+                      verticalSpace(20.h),
                       Text(StringManager.confirmPasswordText),
                       verticalSpace(10.h),
                       AppTextField(
@@ -77,7 +92,78 @@ class SignupScreenWidget extends StatelessWidget {
                         suffixIcon: true,
                       ),
                       verticalSpace(20.h),
-                      AppButton(onPressed: (){}, text: StringManager.signUpText,)
+                      Text(StringManager.typeUserText),
+                      verticalSpace(10.h),
+                      DropdownButtonFormField(
+                        value: typeUser,
+                        icon: Icon(Icons.keyboard_arrow_down),
+                        decoration: InputDecoration(
+                          focusedBorder: _borderTextFiled(),
+                          border: _borderTextFiled(),
+                          enabledBorder: _borderTextFiled(),
+                          errorBorder:
+                              _borderTextFiled(color: ColorManager.errorColor),
+                          iconColor: ColorManager.grayColor,
+                        ),
+                        hint: Text(StringManager.typeUserHintText,
+                            style: StyleManager.font14Regular(
+                              color: ColorManager.hintTextColor,
+                            )),
+                        items: ConstValueManager.typeUserList
+                            .map(
+                              (e) => DropdownMenuItem(
+                                child: Text(e),
+                                value: e,
+                              ),
+                            )
+                            .toList(),
+                        onChanged: (value) {
+                          typeUser = value;
+                          setState(() {});
+                        },
+                        validator: (value) {
+                          if (value == null) {
+                            return 'يرجى اختيار نوع المستخدم';
+                          }
+                        },
+                      ),
+                      Visibility(
+                        visible: typeUser == 'مستخدم عادي',
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            verticalSpace(20.h),
+                            Text(StringManager.locationText),
+                            verticalSpace(10.h),
+                            AppTextField(
+                              // controller: ,
+                              // validator: (value)=>controller.validatePassword(value!),
+                              hintText: StringManager.enterYourLocationText,
+                            ),
+                          ],
+                        ),
+                      ),
+                      verticalSpace(20.h),
+                      AppButton(
+                        onPressed: () {
+                          if (typeUser == 'مستخدم عادي') {
+                            context.pushReplacement(
+                              Routes.navbarRoute
+                            );
+                          }
+                          if (typeUser == 'عامل توصيل') {
+                            context.pushReplacement(
+                                Routes.orderTakerHomeRoute
+                            );
+                          }
+                          if (typeUser == 'مالك معدات') {
+                            context.pushReplacement(
+                                Routes.ownerHomeRoute
+                            );
+                          }
+                        },
+                        text: StringManager.signUpText,
+                      )
                     ],
                   ),
                 ),
@@ -87,6 +173,5 @@ class SignupScreenWidget extends StatelessWidget {
         ),
       ),
     );
-
   }
 }

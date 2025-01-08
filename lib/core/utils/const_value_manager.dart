@@ -43,6 +43,12 @@ class ConstValueManager {
     'Account Updates'
   ];
 
+  static List<String> typeUserList = [
+    'مستخدم عادي',
+    'عامل توصيل',
+    'مالك معدات',
+  ];
+
   static List<String> bookingList = [
     StringManager.datesText,
     StringManager.detailsText,

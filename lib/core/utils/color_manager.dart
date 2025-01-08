@@ -26,7 +26,10 @@ class ColorManager{
   static Color rateStarColor =  Color(0xfffdf301);
 
   static Color activeColor =  Color(0xff00B69B);
+
   static Color blockedColor =  Color(0xffEF3826);
+
+  static Color orangeColor =  Color(0xffffac00);
 
 
 
