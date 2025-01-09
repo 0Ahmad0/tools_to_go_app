@@ -42,6 +42,7 @@ class _ShowLocationOnMapScreenState extends State<ShowLocationOnMapScreen> {
             markerId: const MarkerId('StringManager.locationBookText'),
             position: customLocation,
             infoWindow: const InfoWindow(
+
               title: StringManager.locationText,
               snippet: StringManager.userLocationBookText,
             ),

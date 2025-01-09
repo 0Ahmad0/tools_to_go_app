@@ -38,6 +38,8 @@ class StringManager {
   static const String profileUpdateSuccessFullText = "تم تحديث الملف الشخصي بنجاح!";
   static const String pickLocationText = "حدد الموقع الخاص بك";
   static const String confirmLocationText = "تحديد";
+  static const String deliveryProductText = "تسليم الطلب";
+  static const String areYouSureDeliveredProductToCustomerText = "هل وصلت إلى عنوان العميل وقمت بتسليم الطلب ؟";
 
 
 
@@ -111,7 +113,7 @@ class StringManager {
   static const String to = 'To';
   static const String availabilityText = 'Availability';
   static const String availabilityHintText = 'Set your available time';
-  static const String noText = 'No';
+  static const String noText = 'لا';
   static const String statusText = 'Status';
   static const String scheduleText = 'Schedule';
   static const String scheduleAtText = 'Schedule at';
@@ -338,9 +340,9 @@ class StringManager {
   static const String dateOfBirthText = 'Date of birth';
   static const String firstNameText = 'First name';
   static const String detected_face_pick_photo_text = 'Detected Face Pick Photo';
-  static const String pick_from_camera_text = 'Pick from Camera';
-  static const String pick_from_gallery_text = 'Pick from Gallery';
-  static const String delete_photo_text = 'Delete Photo';
+  static const String pick_from_camera_text = 'اختيار صورة من الكاميرا';
+  static const String pick_from_gallery_text = 'اختيار صورة من المعرض';
+  static const String delete_photo_text = 'حذف الصورة';
 
   /// Setting Screen
   static const String pushNotificationText = 'Push Notification';

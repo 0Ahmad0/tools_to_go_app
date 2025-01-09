@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:tools_to_go_app/app/features/auth/screens/change_password_screen.dart';
+import 'package:tools_to_go_app/core/dialogs/general_dialog.dart';
 import 'package:tools_to_go_app/core/helpers/spacing.dart';
 import 'package:tools_to_go_app/core/utils/color_manager.dart';
+import 'package:tools_to_go_app/core/utils/string_manager.dart';
 import 'package:tools_to_go_app/core/utils/style_manager.dart';
 
 class OrderTakerOrderWidget extends StatelessWidget {
@@ -13,7 +15,16 @@ class OrderTakerOrderWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ListTile(
-      onTap: () {},
+      onTap: () {
+        showDialog(
+            context: context,
+            builder: (context) => GeneralDialog(
+                  title: StringManager.deliveryProductText,
+                  subTitle: StringManager.areYouSureDeliveredProductToCustomerText,
+                  onOkTap: () {},
+              cancelText: StringManager.noText,
+                ));
+      },
       leading: CircleAvatar(
         backgroundColor: ColorManager.primaryColor,
         child: FittedBox(
@@ -49,17 +60,15 @@ class OrderTakerOrderWidget extends StatelessWidget {
             ),
             verticalSpace(10.h),
             Container(
-              padding: EdgeInsets.symmetric(
-                  horizontal: 12.w, vertical: 4.h),
+              padding: EdgeInsets.symmetric(horizontal: 12.w, vertical: 4.h),
               decoration: BoxDecoration(
                 color: ColorManager.orangeColor,
                 borderRadius: BorderRadius.circular(100.r),
               ),
               child: Text(
                 'في الانتظار',
-                style: StyleManager.font12Regular(
-                  color: ColorManager.whiteColor
-                ),
+                style:
+                    StyleManager.font12Regular(color: ColorManager.whiteColor),
               ),
             )
           ],
