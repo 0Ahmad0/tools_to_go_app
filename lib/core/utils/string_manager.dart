@@ -30,7 +30,10 @@ class StringManager {
   static const String locationBookText = "موقع الحجز : ";
   static const String approvedRequestText = "قبول الطلب";
   static const String cancelRequestText = "رفض الطلب";
+  static const String areYouSureCancelRequestText = "هل أنت متأكد من رفض الطلب ؟ ";
   static const String mapViewText = "المشاهدة على الخريطة";
+  static const String addOrderTakerText = "اختيار عامل توصيل";
+  static const String areYouSureAddOrderTakerText = "هل أنت متأكد من اختيار عامل التوصيل ؟ ";
 
 
 
@@ -110,7 +113,8 @@ class StringManager {
   static const String scheduleAtText = 'Schedule at';
   static const String saveChangesText = 'حفظ التغييرات';
   static const String enableNotificationText = 'تفعيل الإشعارات';
-  static const String cancelText = 'Cancel';
+  static const String cancelText = 'إلفاء';
+  static const String okText = 'نعم';
   static const String doYouWantToSignoutText = 'Do you want to sign out?';
   static const String searchText = 'البحث';
   static const String searchResultText = 'نتائج البحث';
@@ -176,7 +180,8 @@ class StringManager {
   static const String modeText = 'المظهر';
   static const String paymentText = 'Payment';
   static const String settingText = 'الإعدادت';
-  static const String signOutText = 'تسجيل خروج';
+  static const String logoutText = 'تسجيل خروج';
+  static const String areYouSureLogoutText = 'هل أنت متأكد من تسحيل الخروج ؟ ';
   static const String privacyPolicyText = 'Privacy Policy';
   static const String termsAndConditionsText = 'Terms & Conditions';
   static const String refundAndCancellationPolicyRouteText =

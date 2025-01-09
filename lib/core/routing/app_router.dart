@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:tools_to_go_app/app/features/notification/screens/notification_screen.dart';
 import 'package:tools_to_go_app/app/features/order_taker/home/screens/order_taker_home_screen.dart';
 import 'package:tools_to_go_app/app/features/order_taker/map_view/screens/order_taker_map_view_screen.dart';
 import 'package:tools_to_go_app/app/features/owner_tools/add_tool/screens/owner_add_tool_screen.dart';
@@ -52,6 +53,10 @@ class AppRouter {
       case Routes.bookingToolRoute:
         return MaterialPageRoute(
           builder: (_) => BookingToolScreen(),
+        );
+      case Routes.notificationRoute:
+        return MaterialPageRoute(
+          builder: (_) => NotificationScreen(),
         );
 
       ///Owner

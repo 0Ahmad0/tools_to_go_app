@@ -2,11 +2,14 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:intl/intl.dart';
+import 'package:tools_to_go_app/app/features/owner_tools/tools_requests/widgets/select_order_taker_widget.dart';
 import 'package:tools_to_go_app/core/helpers/spacing.dart';
 import 'package:tools_to_go_app/core/utils/color_manager.dart';
 import 'package:tools_to_go_app/core/utils/string_manager.dart';
 import 'package:tools_to_go_app/core/utils/style_manager.dart';
 import 'package:tools_to_go_app/core/widgets/app_button.dart';
+
+import '../../../../../core/dialogs/delete_dialog.dart';
 
 class OwnerToolsRequestsWidget extends StatelessWidget {
   const OwnerToolsRequestsWidget({super.key});
@@ -50,8 +53,8 @@ class OwnerToolsRequestsWidget extends StatelessWidget {
                           style: StyleManager.font14SemiBold()),
                       TextSpan(
                         text: DateFormat.yMd().add_jm().format(
-                              DateTime.now(),
-                            ),
+                          DateTime.now(),
+                        ),
                       ),
                     ]),
                   ),
@@ -76,7 +79,19 @@ class OwnerToolsRequestsWidget extends StatelessWidget {
               Expanded(
                 child: InkWell(
                   borderRadius: BorderRadius.circular(8.r),
-                  onTap: () {},
+                  onTap: () {
+                    showModalBottomSheet(
+                      isScrollControlled: true,
+                      showDragHandle: true,
+                      backgroundColor: ColorManager.whiteColor,
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.vertical(
+                          top: Radius.circular(14.r),
+                        )
+                      ),
+                        context: context,
+                        builder: (context) => SelectOrderTakerWidget());
+                  },
                   child: Container(
                     alignment: Alignment.center,
                     padding: EdgeInsets.symmetric(
@@ -85,7 +100,6 @@ class OwnerToolsRequestsWidget extends StatelessWidget {
                     ),
                     decoration: BoxDecoration(
                       color: ColorManager.successColor,
-
                       borderRadius: BorderRadius.circular(8.r),
                     ),
                     child: Text(
@@ -100,7 +114,17 @@ class OwnerToolsRequestsWidget extends StatelessWidget {
               Expanded(
                 child: InkWell(
                   borderRadius: BorderRadius.circular(8.r),
-                  onTap: () {},
+                  onTap: () {
+                    showDialog(
+                      context: context,
+                      builder: (context) =>
+                          DeleteDialog(
+                            title: StringManager.cancelRequestText,
+                            subTitle: StringManager.areYouSureCancelRequestText,
+                            onDeleteTap: () {},
+                          ),
+                    );
+                  },
                   child: Container(
                     alignment: Alignment.center,
                     padding: EdgeInsets.symmetric(
@@ -108,9 +132,9 @@ class OwnerToolsRequestsWidget extends StatelessWidget {
                       vertical: 10.h,
                     ),
                     decoration: BoxDecoration(
-                      border: Border.all(
-                        color: ColorManager.errorColor,
-                      ),
+                        border: Border.all(
+                          color: ColorManager.errorColor,
+                        ),
                         borderRadius: BorderRadius.circular(8.r)),
                     child: Text(
                       StringManager.cancelRequestText,

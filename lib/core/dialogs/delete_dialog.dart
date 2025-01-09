@@ -14,11 +14,22 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:get/get_core/src/get_main.dart';
 
-class DeleteProductDialog extends StatelessWidget {
-
+class DeleteDialog extends StatelessWidget {
   final VoidCallback? onDeleteTap;
+  final String title;
+  final String subTitle;
+  final String cancelText;
+  final String okText;
 
-  const DeleteProductDialog({super.key, this.onDeleteTap});
+  const DeleteDialog({
+    super.key,
+    this.onDeleteTap,
+    required this.title,
+    required this.subTitle,
+    this.cancelText = StringManager.cancelText,
+    this.okText = StringManager.okText,
+  });
+
   @override
   Widget build(BuildContext context) {
     return BackdropFilter(
@@ -47,12 +58,12 @@ class DeleteProductDialog extends StatelessWidget {
                       children: [
                         Text(
                           textAlign: TextAlign.center,
-                          StringManager.deleteProductText,
+                          title,
                           style: StyleManager.font18SemiBold(),
                         ),
                         verticalSpace(10.h),
                         Text(
-                          StringManager.areYouSureDeleteProductText,
+                          subTitle,
                           textAlign: TextAlign.center,
                           style: StyleManager.font14Regular(
                             color: ColorManager.errorColor,
@@ -65,17 +76,19 @@ class DeleteProductDialog extends StatelessWidget {
                               onPressed: () {
                                 context.pop();
                               },
-                              child: Text(StringManager.cancelText),
+                              child: Text(
+                                  cancelText,
+                                style: StyleManager.font14Regular(),
+                              ),
                             ),
                             horizontalSpace(10.w),
                             Flexible(
                                 child: TextButton(
                               onPressed: onDeleteTap,
                               child: Text(
-                                StringManager.deleteText,
+                                okText,
                                 style: StyleManager.font14Regular(
-                                  color: ColorManager.errorColor
-                                ),
+                                    color: ColorManager.errorColor),
                               ),
                             )),
                           ],

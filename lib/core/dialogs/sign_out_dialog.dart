@@ -44,7 +44,7 @@ class SignOutDialog extends StatelessWidget {
                       children: [
                         Text(
                           textAlign: TextAlign.center,
-                          StringManager.signOutText,
+                          StringManager.logoutText,
                           style: StyleManager.font20Bold(),
                         ),
                         verticalSpace(10.h),
@@ -60,7 +60,7 @@ class SignOutDialog extends StatelessWidget {
                                 child: AppButton(
                               onPressed: () {
                               },
-                              text: StringManager.signOutText,
+                              text: StringManager.logoutText,
                             )),
                             horizontalSpace(20.w),
                             Flexible(

@@ -4,6 +4,7 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:tools_to_go_app/app/features/auth/controller/auth_controller.dart';
 import 'package:tools_to_go_app/app/features/navbar/widgets/chat_item_widget.dart';
 import 'package:tools_to_go_app/app/features/owner_tools/home/widgets/owner_home_tool_widget.dart';
+import 'package:tools_to_go_app/core/dialogs/delete_dialog.dart';
 import 'package:tools_to_go_app/core/helpers/extensions.dart';
 import 'package:tools_to_go_app/core/helpers/spacing.dart';
 import 'package:tools_to_go_app/core/routing/routes.dart';
@@ -74,6 +75,7 @@ class OwnerHomeScreen extends StatelessWidget {
               dense: true,
               onTap: () {
                 context.pop();
+                context.pushNamed(Routes.notificationRoute);
               },
               leading: Icon(Icons.notifications),
               title: Text(
@@ -82,15 +84,35 @@ class OwnerHomeScreen extends StatelessWidget {
               ),
             ),
             const Spacer(),
-            ListTile(
-              dense: true,
-              onTap: () {},
-              leading: Icon(Icons.logout),
-              title: Text(
-                StringManager.signOutText,
-                style: StyleManager.font14SemiBold(),
+            Container(
+              color: ColorManager.orangeColor,
+              child: ListTile(
+                dense: true,
+                onTap: () {
+                  showDialog(
+                    context: context,
+                    builder: (context) => DeleteDialog(
+                      title: StringManager.logoutText,
+                      subTitle: StringManager.areYouSureLogoutText,
+                      onDeleteTap: () {
+                        context.pushReplacement(Routes.loginRoute);
+                      },
+                    ),
+                  );
+                },
+                leading: Icon(
+                  Icons.logout,
+                  color: ColorManager.whiteColor,
+                ),
+                title: Text(
+                  StringManager.logoutText,
+                  style: StyleManager.font14SemiBold(
+                      color: ColorManager.whiteColor
+                  ),
+                ),
               ),
             ),
+
           ],
         ),
       ),
@@ -105,13 +127,10 @@ class OwnerHomeScreen extends StatelessWidget {
       ),
       body: AppPaddingWidget(
         child: ListView.separated(
-          padding: EdgeInsets.only(
-            bottom: 70.h
-          ),
-            itemBuilder: (context,index)=>OwnerHomeToolWidget(),
-            separatorBuilder: (_,__)=>verticalSpace(20.h),
-            itemCount: 13
-        ),
+            padding: EdgeInsets.only(bottom: 70.h),
+            itemBuilder: (context, index) => OwnerHomeToolWidget(),
+            separatorBuilder: (_, __) => verticalSpace(20.h),
+            itemCount: 13),
       ),
     );
   }

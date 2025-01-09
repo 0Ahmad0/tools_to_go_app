@@ -7,6 +7,7 @@ class Routes {
   static const String messagesRoute = '/messagesScreen';
   static const String toolDetailsRoute = '/toolDetailsScreen';
   static const String bookingToolRoute = '/bookingToolScreen';
+  static const String notificationRoute = '/notificationScreen';
 
   ///Owner
   static const String ownerHomeRoute = '/ownerHomeScreen';

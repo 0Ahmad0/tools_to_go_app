@@ -1,7 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:tools_to_go_app/core/dialogs/delete_product_dialog.dart';
+import 'package:tools_to_go_app/core/dialogs/delete_dialog.dart';
 import 'package:tools_to_go_app/core/utils/assets_manager.dart';
 import 'package:tools_to_go_app/core/utils/color_manager.dart';
 import 'package:tools_to_go_app/core/utils/string_manager.dart';
@@ -45,7 +45,6 @@ class OwnerHomeToolWidget extends StatelessWidget {
                 Flexible(
                   child: ListTile(
                     dense: true,
-                    onTap: () {},
                     title: Text(
                       'مثقاب كهربائي',
                       style: StyleManager.font14SemiBold(),
@@ -78,10 +77,13 @@ class OwnerHomeToolWidget extends StatelessWidget {
           child: IconButton(
             onPressed: () {
               showDialog(
-                  context: context,
-                  builder: (context) => DeleteProductDialog(
-                        onDeleteTap: () {},
-                      ));
+                context: context,
+                builder: (context) => DeleteDialog(
+                  title: StringManager.deleteProductText,
+                  subTitle: StringManager.areYouSureDeleteProductText,
+                  onDeleteTap: () {},
+                ),
+              );
             },
             icon: CircleAvatar(
               radius: 16.sp,

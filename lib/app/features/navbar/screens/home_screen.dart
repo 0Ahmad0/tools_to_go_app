@@ -3,11 +3,15 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:tools_to_go_app/app/features/navbar/widgets/home_tool_item_widget.dart';
+import 'package:tools_to_go_app/core/helpers/extensions.dart';
 import 'package:tools_to_go_app/core/helpers/spacing.dart';
 import 'package:tools_to_go_app/core/utils/color_manager.dart';
 import 'package:tools_to_go_app/core/utils/string_manager.dart';
 import 'package:tools_to_go_app/core/utils/style_manager.dart';
 import 'package:tools_to_go_app/core/widgets/app_padding.dart';
+
+import '../../../../core/dialogs/delete_dialog.dart';
+import '../../../../core/routing/routes.dart';
 
 class HomeScreen extends StatelessWidget {
   const HomeScreen({super.key});
@@ -16,7 +20,85 @@ class HomeScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return FadeInUp(
       child: Scaffold(
-        drawer: Drawer(),
+        drawer: Drawer(
+          child: Column(
+            children: [
+              UserAccountsDrawerHeader(
+                margin: EdgeInsets.zero,
+                decoration: BoxDecoration(
+                  color: ColorManager.orangeColor,
+                ),
+                accountName: Text(
+                  'ياسر',
+                  style: StyleManager.font14SemiBold(),
+                ),
+                accountEmail: Text(
+                  'email@gmail.com',
+                  style: StyleManager.font12SemiBold(),
+                ),
+                currentAccountPicture: CircleAvatar(
+                  child: Icon(FontAwesomeIcons.userLarge),
+                ),
+              ),
+              ListTile(
+                dense: true,
+                onTap: () {},
+                leading: Icon(
+                  Icons.person,
+                ),
+                title: Text(
+                  StringManager.profileText,
+                  style: StyleManager.font14SemiBold(),
+                ),
+              ),
+              Divider(
+                height: 0,
+              ),
+              ListTile(
+                dense: true,
+                onTap: () {
+                  context.pop();
+                  context.pushNamed(Routes.notificationRoute);
+                },
+                leading: Icon(Icons.notifications),
+                title: Text(
+                  StringManager.notificationText,
+                  style: StyleManager.font14SemiBold(),
+                ),
+              ),
+              const Spacer(),
+              Container(
+                color: ColorManager.orangeColor,
+                child: ListTile(
+                  dense: true,
+                  onTap: () {
+                    showDialog(
+                      context: context,
+                      builder: (context) => DeleteDialog(
+                        title: StringManager.logoutText,
+                        subTitle: StringManager.areYouSureLogoutText,
+                        onDeleteTap: () {
+                          context.pushReplacement(Routes.loginRoute);
+                        },
+                      ),
+                    );
+                  },
+                  leading: Icon(
+                    Icons.logout,
+                    color: ColorManager.whiteColor,
+                  ),
+                  title: Text(
+                    StringManager.logoutText,
+                    style: StyleManager.font14SemiBold(
+                        color: ColorManager.whiteColor
+                    ),
+                  ),
+                ),
+              ),
+
+            ],
+          ),
+        ),
         appBar: AppBar(
           title: Text(StringManager.homeText),
         ),

@@ -11,6 +11,7 @@ import 'package:tools_to_go_app/core/utils/string_manager.dart';
 import 'package:tools_to_go_app/core/utils/style_manager.dart';
 import 'package:tools_to_go_app/core/widgets/app_padding.dart';
 
+import '../../../../../core/dialogs/delete_dialog.dart';
 import '../../../../../core/routing/routes.dart';
 
 class OrderTakerHomeScreen extends StatelessWidget {
@@ -74,6 +75,7 @@ class OrderTakerHomeScreen extends StatelessWidget {
               dense: true,
               onTap: () {
                 context.pop();
+                context.pushNamed(Routes.notificationRoute);
               },
               leading: Icon(Icons.notifications),
               title: Text(
@@ -82,19 +84,37 @@ class OrderTakerHomeScreen extends StatelessWidget {
               ),
             ),
             const Spacer(),
-            ListTile(
-              dense: true,
-              onTap: () {},
-              leading: Icon(Icons.logout),
-              title: Text(
-                StringManager.signOutText,
-                style: StyleManager.font14SemiBold(),
+            Container(
+              color: ColorManager.orangeColor,
+              child: ListTile(
+                dense: true,
+                onTap: () {
+                  showDialog(
+                    context: context,
+                    builder: (context) => DeleteDialog(
+                      title: StringManager.logoutText,
+                      subTitle: StringManager.areYouSureLogoutText,
+                      onDeleteTap: () {
+                        context.pushReplacement(Routes.loginRoute);
+                      },
+                    ),
+                  );
+                },
+                leading: Icon(
+                  Icons.logout,
+                  color: ColorManager.whiteColor,
+                ),
+                title: Text(
+                  StringManager.logoutText,
+                  style: StyleManager.font14SemiBold(
+                    color: ColorManager.whiteColor
+                  ),
+                ),
               ),
             ),
           ],
         ),
       ),
-
       body: CustomScrollView(
         slivers: [
           SliverToBoxAdapter(
