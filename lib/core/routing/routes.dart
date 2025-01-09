@@ -8,6 +8,8 @@ class Routes {
   static const String toolDetailsRoute = '/toolDetailsScreen';
   static const String bookingToolRoute = '/bookingToolScreen';
   static const String notificationRoute = '/notificationScreen';
+  static const String profileRoute = '/profileScreen';
+  static const String showLocationOnMapRoute = '/showLocationOnMapScreen';
 
   ///Owner
   static const String ownerHomeRoute = '/ownerHomeScreen';

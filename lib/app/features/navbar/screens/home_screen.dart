@@ -42,7 +42,10 @@ class HomeScreen extends StatelessWidget {
               ),
               ListTile(
                 dense: true,
-                onTap: () {},
+                onTap: () {
+                  context.pop();
+                  context.pushNamed(Routes.profileRoute);
+                },
                 leading: Icon(
                   Icons.person,
                 ),

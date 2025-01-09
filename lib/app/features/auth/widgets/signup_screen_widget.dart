@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:tools_to_go_app/app/features/auth/controller/auth_controller.dart';
+import 'package:tools_to_go_app/app/features/auth/widgets/select_location_user_widget.dart';
 import 'package:tools_to_go_app/core/helpers/extensions.dart';
 import 'package:tools_to_go_app/core/routing/routes.dart';
 import 'package:tools_to_go_app/core/utils/const_value_manager.dart';
@@ -136,8 +137,14 @@ class _SignupScreenWidgetState extends State<SignupScreenWidget> {
                             Text(StringManager.locationText),
                             verticalSpace(10.h),
                             AppTextField(
-                              // controller: ,
-                              // validator: (value)=>controller.validatePassword(value!),
+                              readOnly: true,
+                              onTap: () {
+                                showDialog(
+                                  barrierDismissible: true,
+                                  context: context,
+                                  builder: (context) => SelectLocationUserWidget(),
+                                );
+                              },
                               hintText: StringManager.enterYourLocationText,
                             ),
                           ],

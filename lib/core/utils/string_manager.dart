@@ -28,12 +28,16 @@ class StringManager {
   static const String propertyProductHintText = "أدخل مواصفات المنتج";
   static const String dateOfBookText = "تاريخ حجز المنتج : ";
   static const String locationBookText = "موقع الحجز : ";
+  static const String userLocationBookText = "موقع الحجز";
   static const String approvedRequestText = "قبول الطلب";
   static const String cancelRequestText = "رفض الطلب";
   static const String areYouSureCancelRequestText = "هل أنت متأكد من رفض الطلب ؟ ";
   static const String mapViewText = "المشاهدة على الخريطة";
   static const String addOrderTakerText = "اختيار عامل توصيل";
   static const String areYouSureAddOrderTakerText = "هل أنت متأكد من اختيار عامل التوصيل ؟ ";
+  static const String profileUpdateSuccessFullText = "تم تحديث الملف الشخصي بنجاح!";
+  static const String pickLocationText = "حدد الموقع الخاص بك";
+  static const String confirmLocationText = "تحديد";
 
 
 
@@ -147,7 +151,7 @@ class StringManager {
 
   ///Signup Screen
   static const String createAccountText = 'Create an account';
-  static const String enterNameHintText = 'Enter Name';
+  static const String enterNameHintText = 'أدخل الاسم الكامل';
   static const String enterPhoneHintText = 'Enter Phone';
   static const String enterSetPasswordHintText = 'Set Password';
   static const String enterConfirmPasswordHintText = 'Confirm Password';
@@ -171,7 +175,7 @@ class StringManager {
   static const String goToLoginText = 'Go to login';
 
   /// Profile Screen
-  static const String profileText = 'الصفحة الشخصية';
+  static const String profileText = 'الملف الشخصي';
   static const String personalInformationText = 'Personal Information';
   static const String securityText = 'Security';
   static const String privacyText = 'Privacy';

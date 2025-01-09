@@ -45,7 +45,10 @@ class OrderTakerHomeScreen extends StatelessWidget {
             ),
             ListTile(
               dense: true,
-              onTap: () {},
+              onTap: () {
+                context.pop();
+                context.pushNamed(Routes.profileRoute);
+              },
               leading: Icon(
                 Icons.person,
               ),
@@ -61,6 +64,7 @@ class OrderTakerHomeScreen extends StatelessWidget {
               dense: true,
               onTap: () {
                 context.pop();
+                context.pushNamed(Routes.showLocationOnMapRoute);
               },
               leading: Icon(Icons.map),
               title: Text(

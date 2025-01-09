@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:tools_to_go_app/app/features/notification/screens/notification_screen.dart';
 import 'package:tools_to_go_app/app/features/order_taker/home/screens/order_taker_home_screen.dart';
-import 'package:tools_to_go_app/app/features/order_taker/map_view/screens/order_taker_map_view_screen.dart';
 import 'package:tools_to_go_app/app/features/owner_tools/add_tool/screens/owner_add_tool_screen.dart';
 import 'package:tools_to_go_app/app/features/owner_tools/home/screens/owner_home_screen.dart';
 import 'package:tools_to_go_app/app/features/owner_tools/tools_requests/screens/owner_tools_requestes_screen.dart';
+import 'package:tools_to_go_app/app/features/profile/screens/profile_screen.dart';
 import 'package:tools_to_go_app/app/features/tool_details/screen/tool_details_screen.dart';
 
 import '../../app/features/auth/screens/auth_screen.dart';
@@ -13,6 +13,7 @@ import '../../app/features/auth/screens/forgot_password_screen.dart';
 import '../../app/features/booking_tool/screens/booking_tool_screen.dart';
 import '../../app/features/messages/screens/messages_screen.dart';
 import '../../app/features/navbar/screens/navbar_screen.dart';
+import '../../app/features/order_taker/show_location_on_map/screens/show_location_on_map_screen.dart';
 import '../../app/features/splash/splash_screen.dart';
 import 'routes.dart';
 
@@ -58,6 +59,10 @@ class AppRouter {
         return MaterialPageRoute(
           builder: (_) => NotificationScreen(),
         );
+        case Routes.profileRoute:
+        return MaterialPageRoute(
+          builder: (_) => ProfileScreen(),
+        );
 
       ///Owner
       case Routes.ownerHomeRoute:
@@ -80,9 +85,9 @@ class AppRouter {
         return MaterialPageRoute(
           builder: (_) => OrderTakerHomeScreen(),
         );
-      case Routes.orderTakerMapViewRoute:
+      case Routes.showLocationOnMapRoute:
         return MaterialPageRoute(
-          builder: (_) => OrderTakerMapViewScreen(),
+          builder: (_) => ShowLocationOnMapScreen(),
         );
 
       default:
