@@ -94,7 +94,7 @@ class StringManager {
   By clicking Sign Up, you agree to our <b>Terms and Conditions</b> and <b>Privacy Policy</b>.
   </span>
   """;
-  static const String requiredField = "Filed Is Required";
+  static const String requiredField = "هذا الحقل مطلوب";
   static const String unCorrectPassword = "UnCorrect Password";
   static const String loginText = 'تسجيل الدخول';
   static const String signUpText = 'إنشاء الحساب';
