@@ -130,6 +130,9 @@ class StringManager {
   static const String appointmentRequestsText = 'Appointment Requests';
   static const String newText = 'New';
   static const String requestsText = 'طلبات الحجز';
+  static const String myRequestsText = 'طلباتي';
+  static const String myCurrentRequestsText = 'طلباتي الحالية';
+  static const String myCompletedOrdersText = 'طلباتي المنتهية';
   static const String requestedToBeText = 'Requested To Be a';
   static const String viewText = 'View';
   static const String dismissText = 'Dismiss';

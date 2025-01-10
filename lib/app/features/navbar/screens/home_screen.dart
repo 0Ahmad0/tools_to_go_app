@@ -44,13 +44,69 @@ class HomeScreen extends StatelessWidget {
                 dense: true,
                 onTap: () {
                   context.pop();
-                  context.pushNamed(Routes.profileRoute);
+                  context.pushNamed(Routes.customerRequestsRoute);
                 },
                 leading: Icon(
-                  Icons.person,
+                  Icons.shopping_cart,
                 ),
                 title: Text(
-                  StringManager.profileText,
+                  StringManager.myRequestsText,
+                  style: StyleManager.font14SemiBold(),
+                ),
+              ),
+              Divider(
+                height: 0,
+              ),
+
+              ListTile(
+                dense: true,
+                onTap: () {
+                  context.pop();
+                  context.pushNamed(Routes.customerSearchRoute);
+                },
+                leading: Icon(
+                  Icons.search,
+                ),
+                title: Text(
+                  StringManager.searchText,
+                  style: StyleManager.font14SemiBold(),
+                ),
+              ),
+              Divider(
+                height: 0,
+              ),
+              ListTile(
+                dense: true,
+                onTap: () {
+                  context.pop();
+                  context.pushNamed(Routes.customerChatsRoute);
+                },
+                leading: Icon(
+                  Icons.chat_sharp,
+                ),
+                trailing: Badge.count(
+                  count: 1,
+                  textStyle: StyleManager.font10Bold(),
+                ),
+                title: Text(
+                  StringManager.chatScreenText,
+                  style: StyleManager.font14SemiBold(),
+                ),
+              ),
+              Divider(
+                height: 0,
+              ),
+              ListTile(
+                dense: true,
+                onTap: () {
+                  context.pop();
+                  context.pushNamed(Routes.customerSettingRoute);
+                },
+                leading: Icon(
+                  Icons.settings,
+                ),
+                title: Text(
+                  StringManager.settingText,
                   style: StyleManager.font14SemiBold(),
                 ),
               ),
@@ -63,12 +119,34 @@ class HomeScreen extends StatelessWidget {
                   context.pop();
                   context.pushNamed(Routes.notificationRoute);
                 },
+                trailing: Badge.count(
+                  count: 1,
+                  textStyle: StyleManager.font10Bold(),
+                ),
                 leading: Icon(Icons.notifications),
                 title: Text(
                   StringManager.notificationText,
                   style: StyleManager.font14SemiBold(),
                 ),
               ),
+              Divider(
+                height: 0,
+              ),
+              ListTile(
+                dense: true,
+                onTap: () {
+                  context.pop();
+                  context.pushNamed(Routes.profileRoute);
+                },
+                leading: Icon(
+                  Icons.person,
+                ),
+                title: Text(
+                  StringManager.profileText,
+                  style: StyleManager.font14SemiBold(),
+                ),
+              ),
+
               const Spacer(),
               Container(
                 color: ColorManager.orangeColor,
@@ -93,12 +171,10 @@ class HomeScreen extends StatelessWidget {
                   title: Text(
                     StringManager.logoutText,
                     style: StyleManager.font14SemiBold(
-                        color: ColorManager.whiteColor
-                    ),
+                        color: ColorManager.whiteColor),
                   ),
                 ),
               ),
-
             ],
           ),
         ),

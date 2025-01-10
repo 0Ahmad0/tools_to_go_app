@@ -67,7 +67,7 @@ class LoginScreenWidget extends StatelessWidget {
                           child: Text(StringManager.forgotPasswordLoginText)),
                       verticalSpace(20.h),
                       AppButton(onPressed: (){
-                        context.pushReplacement(Routes.navbarRoute);
+                        context.pushReplacement(Routes.customerHomeRoute);
                         // if(controller.formKey.currentState!.validate()){
                         //
                         // }

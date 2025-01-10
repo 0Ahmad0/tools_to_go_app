@@ -155,7 +155,7 @@ class _SignupScreenWidgetState extends State<SignupScreenWidget> {
                         onPressed: () {
                           if (typeUser == 'مستخدم عادي') {
                             context.pushReplacement(
-                              Routes.navbarRoute
+                              Routes.customerHomeRoute
                             );
                           }
                           if (typeUser == 'عامل توصيل') {
