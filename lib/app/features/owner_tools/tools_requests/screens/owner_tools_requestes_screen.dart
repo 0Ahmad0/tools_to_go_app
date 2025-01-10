@@ -1,3 +1,4 @@
+import 'package:animate_do/animate_do.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:tools_to_go_app/app/features/auth/screens/change_password_screen.dart';
@@ -10,17 +11,19 @@ class OwnerToolsRequestsScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: Text(
-          StringManager.requestsText,
+    return FadeInUp(
+      child: Scaffold(
+        appBar: AppBar(
+          title: Text(
+            StringManager.requestsText,
+          ),
         ),
+        body: ListView.separated(
+            padding: EdgeInsets.symmetric(horizontal: 12.w, vertical: 10.h),
+            itemBuilder: (context, index) => OwnerToolsRequestsWidget(),
+            separatorBuilder: (_, __) => verticalSpace(20.h),
+            itemCount: 4),
       ),
-      body: ListView.separated(
-          padding: EdgeInsets.symmetric(horizontal: 12.w, vertical: 10.h),
-          itemBuilder: (context, index) => OwnerToolsRequestsWidget(),
-          separatorBuilder: (_, __) => verticalSpace(20.h),
-          itemCount: 4),
     );
   }
 }

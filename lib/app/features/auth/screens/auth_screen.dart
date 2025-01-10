@@ -1,3 +1,4 @@
+import 'package:animate_do/animate_do.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:tools_to_go_app/core/utils/color_manager.dart';
@@ -13,25 +14,27 @@ class AuthScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return DefaultTabController(
       length: 2,
-      child: Scaffold(
-        appBar: AppBar(
-          title: Text(StringManager.accountText),
-          bottom: TabBar(
-            tabs: [
-              Tab(
-                text: StringManager.loginText,
-              ),
-              Tab(
-                text: StringManager.signUpText,
-              ),
+      child: FadeInUp(
+        child: Scaffold(
+          appBar: AppBar(
+            title: Text(StringManager.accountText),
+            bottom: TabBar(
+              tabs: [
+                Tab(
+                  text: StringManager.loginText,
+                ),
+                Tab(
+                  text: StringManager.signUpText,
+                ),
+              ],
+            ),
+          ),
+          body: TabBarView(
+            children: [
+              LoginScreenWidget(),
+              SignupScreenWidget(),
             ],
           ),
-        ),
-        body: TabBarView(
-          children: [
-            LoginScreenWidget(),
-            SignupScreenWidget(),
-          ],
         ),
       ),
     );

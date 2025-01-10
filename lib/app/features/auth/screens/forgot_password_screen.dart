@@ -35,53 +35,55 @@ class _ForgotPasswordScreenState extends State<ForgotPasswordScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        leading: CustomBackButton(),
-      ),
-      body: SingleChildScrollView(
-        child: AppPaddingWidget(
-          child: FadeInRight(
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                verticalSpace(20.h),
-                Text(
-                  StringManager.forgotPasswordText,
-                  style: StyleManager.font24Medium(),
-                ),
-                verticalSpace(10.h),
-                Text(
-                  StringManager.pleaseEnterValidEmailText,
-                  textAlign: TextAlign.start,
-                ),
-                verticalSpace(40.h),
-                Form(
-                  key: formKey,
-                  child: AppTextField(
-                    controller: emailController,
-                    validator: (value){
-                      if(value!.trim().isEmpty){
-                        return StringManager.requiredField;
-                      }
-                      if(!value.isEmail){
-                        return StringManager.pleaseEnterValidEmailText;
-                      }
-                      return null;
-                    },
-                    hintText: StringManager.enterEmailHintText,
-                    iconData: AssetsManager.usernameIcon,
+    return FadeInUp(
+      child: Scaffold(
+        appBar: AppBar(
+          leading: CustomBackButton(),
+        ),
+        body: SingleChildScrollView(
+          child: AppPaddingWidget(
+            child: FadeInRight(
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  verticalSpace(20.h),
+                  Text(
+                    StringManager.forgotPasswordText,
+                    style: StyleManager.font24Medium(),
                   ),
-                ),
-                verticalSpace(40.h),
-                AppButton(onPressed: (){
-                  if(formKey.currentState!.validate()){
-                  context.pushReplacement(Routes.checkYourInboxRoute);
-            
-                  }
-                }, text: StringManager.submitText)
-            
-              ],
+                  verticalSpace(10.h),
+                  Text(
+                    StringManager.pleaseEnterValidEmailText,
+                    textAlign: TextAlign.start,
+                  ),
+                  verticalSpace(40.h),
+                  Form(
+                    key: formKey,
+                    child: AppTextField(
+                      controller: emailController,
+                      validator: (value){
+                        if(value!.trim().isEmpty){
+                          return StringManager.requiredField;
+                        }
+                        if(!value.isEmail){
+                          return StringManager.pleaseEnterValidEmailText;
+                        }
+                        return null;
+                      },
+                      hintText: StringManager.enterEmailHintText,
+                      iconData: AssetsManager.usernameIcon,
+                    ),
+                  ),
+                  verticalSpace(40.h),
+                  AppButton(onPressed: (){
+                    if(formKey.currentState!.validate()){
+                    context.pushReplacement(Routes.checkYourInboxRoute);
+
+                    }
+                  }, text: StringManager.submitText)
+
+                ],
+              ),
             ),
           ),
         ),

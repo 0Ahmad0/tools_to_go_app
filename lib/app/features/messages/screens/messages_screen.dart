@@ -1,3 +1,5 @@
+import 'package:animate_do/animate_do.dart';
+
 import '/app/features/auth/screens/change_password_screen.dart';
 import '/core/helpers/sizer.dart';
 import '/core/helpers/spacing.dart';
@@ -38,82 +40,84 @@ class _MessagesScreenState extends State<MessagesScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        elevation: 0.0,
-        // actions: [
-        //   IconButton(
-        //       onPressed: () {},
-        //       icon: Icon(
-        //         Icons.more_vert,
-        //       ))
-        // ],
-        leading: CustomBackButton(),
-        titleSpacing: 0,
-        leadingWidth: 30.w,
-        title: ListTile(
-          leading: CircleAvatar(),
-          title: Text(
-            'البائع',
-            style: StyleManager.font14Bold(),
+    return FadeInUp(
+      child: Scaffold(
+        appBar: AppBar(
+          elevation: 0.0,
+          // actions: [
+          //   IconButton(
+          //       onPressed: () {},
+          //       icon: Icon(
+          //         Icons.more_vert,
+          //       ))
+          // ],
+          leading: CustomBackButton(),
+          titleSpacing: 0,
+          leadingWidth: 30.w,
+          title: ListTile(
+            leading: CircleAvatar(),
+            title: Text(
+              'البائع',
+              style: StyleManager.font14Bold(),
+            ),
           ),
         ),
-      ),
-      body: Column(
-        crossAxisAlignment: CrossAxisAlignment.end,
-        children: [
-          _listMessages.isEmpty
-              ? Flexible(
-                child: Center(
-                            child: Text("No Messages Yet!!😢",
-                            style: StyleManager.font14Bold(),),
-                          ),
-              )
-              : Expanded(
-                  child: ListView.builder(
-                    padding:
-                        EdgeInsets.symmetric(horizontal: 20.w, vertical: 10.h),
-                    itemCount: _listMessages.length,
-                    itemBuilder: (context, index) => index.isEven
-                        ? SenderTextWidget(text: _listMessages[index])
-                        : ReceiverTextWidget(text: _listMessages[index]),
-                  ),
-                ),
-          AppPaddingWidget(
-            horizontalPadding: 10.w,
-            child: TextField(
-              controller: _messageController,
-              maxLines: 1,
-              minLines: 1,
-              decoration: InputDecoration(
-                  focusedBorder: _borderTextFiled(),
-                  border: _borderTextFiled(color: Colors.transparent),
-                  enabledBorder: _borderTextFiled(color: Colors.transparent),
-                  errorBorder: _borderTextFiled(color: ColorManager.errorColor),
-                  iconColor: ColorManager.grayColor,
-                  filled: true,
-                  fillColor: ColorManager.grayColor,
-                  suffixIcon: IconButton(
-                    onPressed: () {
-                      if(_messageController.text.trim().isNotEmpty)
-                      _listMessages.add(_messageController.text);
-                      _messageController.clear();
-                      setState(() {
-
-                      });
-                    },
-                    icon: SvgPicture.asset(
-                      AssetsManager.messageSendButtonIcon,
+        body: Column(
+          crossAxisAlignment: CrossAxisAlignment.end,
+          children: [
+            _listMessages.isEmpty
+                ? Flexible(
+                  child: Center(
+                              child: Text("No Messages Yet!!😢",
+                              style: StyleManager.font14Bold(),),
+                            ),
+                )
+                : Expanded(
+                    child: ListView.builder(
+                      padding:
+                          EdgeInsets.symmetric(horizontal: 20.w, vertical: 10.h),
+                      itemCount: _listMessages.length,
+                      itemBuilder: (context, index) => index.isEven
+                          ? SenderTextWidget(text: _listMessages[index])
+                          : ReceiverTextWidget(text: _listMessages[index]),
                     ),
                   ),
-                  prefixIcon: IconButton(
-                      onPressed: () {},
+            AppPaddingWidget(
+              horizontalPadding: 10.w,
+              child: TextField(
+                controller: _messageController,
+                maxLines: 1,
+                minLines: 1,
+                decoration: InputDecoration(
+                    focusedBorder: _borderTextFiled(),
+                    border: _borderTextFiled(color: Colors.transparent),
+                    enabledBorder: _borderTextFiled(color: Colors.transparent),
+                    errorBorder: _borderTextFiled(color: ColorManager.errorColor),
+                    iconColor: ColorManager.grayColor,
+                    filled: true,
+                    fillColor: ColorManager.grayColor,
+                    suffixIcon: IconButton(
+                      onPressed: () {
+                        if(_messageController.text.trim().isNotEmpty)
+                        _listMessages.add(_messageController.text);
+                        _messageController.clear();
+                        setState(() {
+
+                        });
+                      },
                       icon: SvgPicture.asset(
-                        AssetsManager.chatSquareIcon,
-                      ))),
-            ),
-          )
-        ],
+                        AssetsManager.messageSendButtonIcon,
+                      ),
+                    ),
+                    prefixIcon: IconButton(
+                        onPressed: () {},
+                        icon: SvgPicture.asset(
+                          AssetsManager.chatSquareIcon,
+                        ))),
+              ),
+            )
+          ],
+        ),
       ),
     );
   }

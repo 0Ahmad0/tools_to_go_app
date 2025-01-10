@@ -1,5 +1,6 @@
 import 'dart:io';
 
+import 'package:animate_do/animate_do.dart';
 import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -91,133 +92,135 @@ class _OwnerAddToolScreenState extends State<OwnerAddToolScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: Text(StringManager.addNewToolsText),
-      ),
-      body: AppPaddingWidget(
-        child: Form(
-          key: _formKey,
-          child: SingleChildScrollView(
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.stretch,
-              children: [
-                GestureDetector(
-                  onTap: _pickImage,
-                  child: Container(
-                    clipBehavior: Clip.antiAliasWithSaveLayer,
-                    height: 150,
-                    decoration: BoxDecoration(
-                      color: Colors.grey[200],
-                      border: Border.all(color: Colors.grey),
-                      borderRadius: BorderRadius.circular(10),
-                    ),
-                    child: _selectedToolImage == null
-                        ? Center(child: Text(StringManager.imageProductText))
-                        : ClipRRect(
-                            borderRadius: BorderRadius.circular(10),
-                            child: Image.file(_selectedToolImage!,
-                                fit: BoxFit.cover),
-                          ),
-                  ),
-                ),
-                verticalSpace(20.h),
-                Text(
-                  StringManager.nameProductText,
-                  style: StyleManager.font14SemiBold(),
-                ),
-                verticalSpace(10.h),
-                AppTextField(
-                  controller: _nameToolController,
-                  hintText: StringManager.nameProductHintText,
-                  validator: (value) =>
-                      value!.trim().isEmpty ? 'الرجاء إدخال اسم صحيح' : null,
-                ),
-                verticalSpace(20.h),
-                Text(
-                  StringManager.priceProductText,
-                  style: StyleManager.font14SemiBold(),
-                ),
-                verticalSpace(10.h),
-                AppTextField(
-                  controller: _priceToolController,
-                  hintText: StringManager.priceProductHintText,
-                  validator: (value) =>
-                      value!.trim().isEmpty ? 'الرجاء إدخال سعر صحيح' : null,
-                ),
-                verticalSpace(20.h),
-                Text(
-                  StringManager.descriptionProductText,
-                  style: StyleManager.font14SemiBold(),
-                ),
-                verticalSpace(10.h),
-                AppTextField(
-                  controller: _descriptionToolController,
-                  hintText: StringManager.descriptionProductHintText,
-                  minLine: 2,
-                  maxLine: 6,
-                  keyboardType: TextInputType.multiline,
-                  textInputAction: TextInputAction.newline,
-                  validator: (value) =>
-                      value!.isEmpty ? 'الرجاء إدخال وصف صحيح' : null,
-                ),
-                verticalSpace(20.h),
-                Text(
-                  StringManager.attachFilesText,
-                  style: StyleManager.font14SemiBold(),
-                ),
-                verticalSpace(10.h),
-                InkWell(
-                  borderRadius: BorderRadius.circular(12.r),
-                  onTap: () {
-                    _pickMultipleFile();
-                  },
-                  child: Container(
-                    padding:
-                    EdgeInsets.symmetric(horizontal: 12.w, vertical: 14.h),
-                    decoration: BoxDecoration(
-                      color: ColorManager.whiteColor,
-                      border: Border.all(
-                        color: ColorManager.primaryColor
+    return FadeInUp(
+      child: Scaffold(
+        appBar: AppBar(
+          title: Text(StringManager.addNewToolsText),
+        ),
+        body: AppPaddingWidget(
+          child: Form(
+            key: _formKey,
+            child: SingleChildScrollView(
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.stretch,
+                children: [
+                  GestureDetector(
+                    onTap: _pickImage,
+                    child: Container(
+                      clipBehavior: Clip.antiAliasWithSaveLayer,
+                      height: 150,
+                      decoration: BoxDecoration(
+                        color: Colors.grey[200],
+                        border: Border.all(color: Colors.grey),
+                        borderRadius: BorderRadius.circular(10),
                       ),
-                      borderRadius: BorderRadius.circular(12.r),
-                    ),
-                    child: Row(
-                      children: [
-                        Text(
-                          StringManager.attachFilesHintText,
-                          style: StyleManager.font14Regular(
-                            color: ColorManager.hintTextColor,
-                          ),
-                        ),
-                        const Spacer(),
-                        Row(
-                          children: [
-                            Visibility(
-                                visible: _files.isNotEmpty,
-                                child: Text(
-                                  '${_files.length} صورة ',
-                                  style: StyleManager.font12Regular(
-                                      color: ColorManager.blueColor
-                                  ),
-                                )),
-                            horizontalSpace(4.w),
-                            Icon(
-                              Icons.attach_file,
-                            )
-                          ],
-                        )
-                      ],
+                      child: _selectedToolImage == null
+                          ? Center(child: Text(StringManager.imageProductText))
+                          : ClipRRect(
+                              borderRadius: BorderRadius.circular(10),
+                              child: Image.file(_selectedToolImage!,
+                                  fit: BoxFit.cover),
+                            ),
                     ),
                   ),
-                ),
+                  verticalSpace(20.h),
+                  Text(
+                    StringManager.nameProductText,
+                    style: StyleManager.font14SemiBold(),
+                  ),
+                  verticalSpace(10.h),
+                  AppTextField(
+                    controller: _nameToolController,
+                    hintText: StringManager.nameProductHintText,
+                    validator: (value) =>
+                        value!.trim().isEmpty ? 'الرجاء إدخال اسم صحيح' : null,
+                  ),
+                  verticalSpace(20.h),
+                  Text(
+                    StringManager.priceProductText,
+                    style: StyleManager.font14SemiBold(),
+                  ),
+                  verticalSpace(10.h),
+                  AppTextField(
+                    controller: _priceToolController,
+                    hintText: StringManager.priceProductHintText,
+                    validator: (value) =>
+                        value!.trim().isEmpty ? 'الرجاء إدخال سعر صحيح' : null,
+                  ),
+                  verticalSpace(20.h),
+                  Text(
+                    StringManager.descriptionProductText,
+                    style: StyleManager.font14SemiBold(),
+                  ),
+                  verticalSpace(10.h),
+                  AppTextField(
+                    controller: _descriptionToolController,
+                    hintText: StringManager.descriptionProductHintText,
+                    minLine: 2,
+                    maxLine: 6,
+                    keyboardType: TextInputType.multiline,
+                    textInputAction: TextInputAction.newline,
+                    validator: (value) =>
+                        value!.isEmpty ? 'الرجاء إدخال وصف صحيح' : null,
+                  ),
+                  verticalSpace(20.h),
+                  Text(
+                    StringManager.attachFilesText,
+                    style: StyleManager.font14SemiBold(),
+                  ),
+                  verticalSpace(10.h),
+                  InkWell(
+                    borderRadius: BorderRadius.circular(12.r),
+                    onTap: () {
+                      _pickMultipleFile();
+                    },
+                    child: Container(
+                      padding:
+                      EdgeInsets.symmetric(horizontal: 12.w, vertical: 14.h),
+                      decoration: BoxDecoration(
+                        color: ColorManager.whiteColor,
+                        border: Border.all(
+                          color: ColorManager.primaryColor
+                        ),
+                        borderRadius: BorderRadius.circular(12.r),
+                      ),
+                      child: Row(
+                        children: [
+                          Text(
+                            StringManager.attachFilesHintText,
+                            style: StyleManager.font14Regular(
+                              color: ColorManager.hintTextColor,
+                            ),
+                          ),
+                          const Spacer(),
+                          Row(
+                            children: [
+                              Visibility(
+                                  visible: _files.isNotEmpty,
+                                  child: Text(
+                                    '${_files.length} صورة ',
+                                    style: StyleManager.font12Regular(
+                                        color: ColorManager.blueColor
+                                    ),
+                                  )),
+                              horizontalSpace(4.w),
+                              Icon(
+                                Icons.attach_file,
+                              )
+                            ],
+                          )
+                        ],
+                      ),
+                    ),
+                  ),
 
-                verticalSpace(20.h),
-                AppButton(
-                  onPressed: () => _addProduct(context),
-                  text: StringManager.addNewProductText,
-                ),
-              ],
+                  verticalSpace(20.h),
+                  AppButton(
+                    onPressed: () => _addProduct(context),
+                    text: StringManager.addNewProductText,
+                  ),
+                ],
+              ),
             ),
           ),
         ),

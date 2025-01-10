@@ -1,3 +1,4 @@
+import 'package:animate_do/animate_do.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
@@ -18,123 +19,125 @@ class OwnerHomeScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: Text(StringManager.homeText),
-      ),
-      drawer: Drawer(
-        child: Column(
-          children: [
-            UserAccountsDrawerHeader(
-              margin: EdgeInsets.zero,
-              decoration: BoxDecoration(
-                color: ColorManager.orangeColor,
+    return FadeInUp(
+      child: Scaffold(
+        appBar: AppBar(
+          title: Text(StringManager.homeText),
+        ),
+        drawer: Drawer(
+          child: Column(
+            children: [
+              UserAccountsDrawerHeader(
+                margin: EdgeInsets.zero,
+                decoration: BoxDecoration(
+                  color: ColorManager.orangeColor,
+                ),
+                accountName: Text(
+                  'ياسر',
+                  style: StyleManager.font14SemiBold(),
+                ),
+                accountEmail: Text(
+                  'email@gmail.com',
+                  style: StyleManager.font12SemiBold(),
+                ),
+                currentAccountPicture: CircleAvatar(
+                  child: Icon(FontAwesomeIcons.userLarge),
+                ),
               ),
-              accountName: Text(
-                'ياسر',
-                style: StyleManager.font14SemiBold(),
-              ),
-              accountEmail: Text(
-                'email@gmail.com',
-                style: StyleManager.font12SemiBold(),
-              ),
-              currentAccountPicture: CircleAvatar(
-                child: Icon(FontAwesomeIcons.userLarge),
-              ),
-            ),
-            ListTile(
-              dense: true,
-              onTap: () {
-                context.pop();
-                context.pushNamed(Routes.profileRoute);
-
-              },
-              leading: Icon(
-                Icons.person,
-              ),
-              title: Text(
-                StringManager.profileText,
-                style: StyleManager.font14SemiBold(),
-              ),
-            ),
-            Divider(
-              height: 0,
-            ),
-            ListTile(
-              dense: true,
-              onTap: () {
-                context.pop();
-                context.pushNamed(Routes.ownerToolsRequestsRoute);
-              },
-              leading: Icon(Icons.shopping_cart),
-              title: Text(
-                StringManager.requestsText,
-                style: StyleManager.font14SemiBold(),
-              ),
-            ),
-            Divider(
-              height: 0,
-            ),
-            ListTile(
-              dense: true,
-              onTap: () {
-                context.pop();
-                context.pushNamed(Routes.notificationRoute);
-              },
-              leading: Icon(Icons.notifications),
-              title: Text(
-                StringManager.notificationText,
-                style: StyleManager.font14SemiBold(),
-              ),
-            ),
-            const Spacer(),
-            Container(
-              color: ColorManager.orangeColor,
-              child: ListTile(
+              ListTile(
                 dense: true,
                 onTap: () {
-                  showDialog(
-                    context: context,
-                    builder: (context) => DeleteDialog(
-                      title: StringManager.logoutText,
-                      subTitle: StringManager.areYouSureLogoutText,
-                      onDeleteTap: () {
-                        context.pushReplacement(Routes.loginRoute);
-                      },
-                    ),
-                  );
+                  context.pop();
+                  context.pushNamed(Routes.profileRoute);
+
                 },
                 leading: Icon(
-                  Icons.logout,
-                  color: ColorManager.whiteColor,
+                  Icons.person,
                 ),
                 title: Text(
-                  StringManager.logoutText,
-                  style: StyleManager.font14SemiBold(
-                      color: ColorManager.whiteColor
+                  StringManager.profileText,
+                  style: StyleManager.font14SemiBold(),
+                ),
+              ),
+              Divider(
+                height: 0,
+              ),
+              ListTile(
+                dense: true,
+                onTap: () {
+                  context.pop();
+                  context.pushNamed(Routes.ownerToolsRequestsRoute);
+                },
+                leading: Icon(Icons.shopping_cart),
+                title: Text(
+                  StringManager.requestsText,
+                  style: StyleManager.font14SemiBold(),
+                ),
+              ),
+              Divider(
+                height: 0,
+              ),
+              ListTile(
+                dense: true,
+                onTap: () {
+                  context.pop();
+                  context.pushNamed(Routes.notificationRoute);
+                },
+                leading: Icon(Icons.notifications),
+                title: Text(
+                  StringManager.notificationText,
+                  style: StyleManager.font14SemiBold(),
+                ),
+              ),
+              const Spacer(),
+              Container(
+                color: ColorManager.orangeColor,
+                child: ListTile(
+                  dense: true,
+                  onTap: () {
+                    showDialog(
+                      context: context,
+                      builder: (context) => DeleteDialog(
+                        title: StringManager.logoutText,
+                        subTitle: StringManager.areYouSureLogoutText,
+                        onDeleteTap: () {
+                          context.pushReplacement(Routes.loginRoute);
+                        },
+                      ),
+                    );
+                  },
+                  leading: Icon(
+                    Icons.logout,
+                    color: ColorManager.whiteColor,
+                  ),
+                  title: Text(
+                    StringManager.logoutText,
+                    style: StyleManager.font14SemiBold(
+                        color: ColorManager.whiteColor
+                    ),
                   ),
                 ),
               ),
-            ),
 
-          ],
+            ],
+          ),
         ),
-      ),
-      floatingActionButton: FloatingActionButton.extended(
-        onPressed: () {
-          context.pushNamed(Routes.ownerAddToolRoute);
-        },
-        label: Text(StringManager.addNewToolsText),
-        icon: Icon(
-          Icons.add,
+        floatingActionButton: FloatingActionButton.extended(
+          onPressed: () {
+            context.pushNamed(Routes.ownerAddToolRoute);
+          },
+          label: Text(StringManager.addNewToolsText),
+          icon: Icon(
+            Icons.add,
+          ),
         ),
-      ),
-      body: AppPaddingWidget(
-        child: ListView.separated(
-            padding: EdgeInsets.only(bottom: 70.h),
-            itemBuilder: (context, index) => OwnerHomeToolWidget(),
-            separatorBuilder: (_, __) => verticalSpace(20.h),
-            itemCount: 13),
+        body: AppPaddingWidget(
+          child: ListView.separated(
+              padding: EdgeInsets.only(bottom: 70.h),
+              itemBuilder: (context, index) => OwnerHomeToolWidget(),
+              separatorBuilder: (_, __) => verticalSpace(20.h),
+              itemCount: 13),
+        ),
       ),
     );
   }

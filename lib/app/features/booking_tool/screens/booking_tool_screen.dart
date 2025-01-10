@@ -1,3 +1,4 @@
+import 'package:animate_do/animate_do.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:tools_to_go_app/app/features/auth/screens/change_password_screen.dart';
@@ -36,77 +37,79 @@ class _BookingToolScreenState extends State<BookingToolScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: Text(StringManager.bookingOperationText),
-      ),
-      body: AppPaddingWidget(
-        horizontalPadding: 12.w,
-        child: AnimatedContainer(
-          duration: Duration(milliseconds: 600),
-          width: double.infinity,
-          padding: EdgeInsets.symmetric(horizontal: 20.w, vertical: 12.h),
-          decoration: BoxDecoration(
-              color: ColorManager.whiteColor,
-              border: Border.all(color: ColorManager.hintTextColor),
-              borderRadius: BorderRadius.circular(12.r)),
-          child: Column(
-            mainAxisSize: MainAxisSize.min,
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Text(
-                StringManager.bookingOperationText,
-                style: StyleManager.font24Bold(),
-              ),
-              verticalSpace(20.h),
-              Container(
-                padding: EdgeInsets.symmetric(
-                    horizontal: 8.w, vertical: 10.h),
-                decoration: BoxDecoration(
-                  color: ColorManager.grayColor,
-                  borderRadius: BorderRadius.circular(8.r),
+    return FadeInUp(
+      child: Scaffold(
+        appBar: AppBar(
+          title: Text(StringManager.bookingOperationText),
+        ),
+        body: AppPaddingWidget(
+          horizontalPadding: 12.w,
+          child: AnimatedContainer(
+            duration: Duration(milliseconds: 600),
+            width: double.infinity,
+            padding: EdgeInsets.symmetric(horizontal: 20.w, vertical: 12.h),
+            decoration: BoxDecoration(
+                color: ColorManager.whiteColor,
+                border: Border.all(color: ColorManager.hintTextColor),
+                borderRadius: BorderRadius.circular(12.r)),
+            child: Column(
+              mainAxisSize: MainAxisSize.min,
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text(
+                  StringManager.bookingOperationText,
+                  style: StyleManager.font24Bold(),
                 ),
-                child: Row(
-                    children: List.generate(
-                        ConstValueManager.bookingList.length,
-                        (index) => Flexible(
-                              child: InkWell(
-                                onTap: () {
-                                  setState(() {
-                                    _currentIndex = index;
-                                  });
-                                },
-                                child: AnimatedContainer(
-                                  duration: Duration(milliseconds: 600),
-                                  alignment: Alignment.center,
-                                  padding: EdgeInsets.symmetric(
-                                    horizontal: 8.w,
-                                    vertical: 8.h,
-                                  ),
-                                  decoration: BoxDecoration(
-                                    color: _currentIndex == index
-                                        ? ColorManager.whiteColor
-                                        : null,
-                                    borderRadius: BorderRadius.circular(4.r),
-                                  ),
-                                  child: Text(
-                                    ConstValueManager.bookingList[index],
-                                    style: StyleManager.font14Regular(
-                                        color: _currentIndex == index
-                                            ? ColorManager.primaryColor
-                                            : ColorManager.hintTextColor),
+                verticalSpace(20.h),
+                Container(
+                  padding: EdgeInsets.symmetric(
+                      horizontal: 8.w, vertical: 10.h),
+                  decoration: BoxDecoration(
+                    color: ColorManager.grayColor,
+                    borderRadius: BorderRadius.circular(8.r),
+                  ),
+                  child: Row(
+                      children: List.generate(
+                          ConstValueManager.bookingList.length,
+                          (index) => Flexible(
+                                child: InkWell(
+                                  onTap: () {
+                                    setState(() {
+                                      _currentIndex = index;
+                                    });
+                                  },
+                                  child: AnimatedContainer(
+                                    duration: Duration(milliseconds: 600),
+                                    alignment: Alignment.center,
+                                    padding: EdgeInsets.symmetric(
+                                      horizontal: 8.w,
+                                      vertical: 8.h,
+                                    ),
+                                    decoration: BoxDecoration(
+                                      color: _currentIndex == index
+                                          ? ColorManager.whiteColor
+                                          : null,
+                                      borderRadius: BorderRadius.circular(4.r),
+                                    ),
+                                    child: Text(
+                                      ConstValueManager.bookingList[index],
+                                      style: StyleManager.font14Regular(
+                                          color: _currentIndex == index
+                                              ? ColorManager.primaryColor
+                                              : ColorManager.hintTextColor),
+                                    ),
                                   ),
                                 ),
-                              ),
-                            ))),
-              ),
-              verticalSpace(10.h),
-              _getCurrentScreen(_currentIndex),
-              verticalSpace(20.h),
-              AppButton(onPressed: (){}, text:
-              StringManager.confirmBookingText)
+                              ))),
+                ),
+                verticalSpace(10.h),
+                _getCurrentScreen(_currentIndex),
+                verticalSpace(20.h),
+                AppButton(onPressed: (){}, text:
+                StringManager.confirmBookingText)
 
-            ],
+              ],
+            ),
           ),
         ),
       ),

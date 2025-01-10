@@ -37,101 +37,103 @@ class _ToolDetailsScreenState extends State<ToolDetailsScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: Text(StringManager.toolDetailsText),
-      ),
-      body: FadeInDown(
-        child: AppPaddingWidget(
-          horizontalPadding: 12.w,
-          child: Column(
-            children: [
-              Expanded(
-                child: SingleChildScrollView(
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      verticalSpace(20.h),
-                      CarouselSlider(
-                        items: [1, 2, 3, 4, 5]
-                            .map((item) => Container(
-                                  alignment: Alignment.center,
-                                  width: double.infinity,
-                                  height: 250.h,
-                                  decoration: BoxDecoration(
-                                      color: ColorManager.grayColor,
-                                      borderRadius:
-                                          BorderRadius.circular(12.r)),
-                                  child: Text(
-                                    item.toString(),
-                                    style: StyleManager.font20SemiBold(),
-                                  ),
-                                ))
-                            .toList(),
-                        options: CarouselOptions(
-                          autoPlay: true,
-                          enlargeCenterPage: true,
+    return FadeInUp(
+      child: Scaffold(
+        appBar: AppBar(
+          title: Text(StringManager.toolDetailsText),
+        ),
+        body: FadeInDown(
+          child: AppPaddingWidget(
+            horizontalPadding: 12.w,
+            child: Column(
+              children: [
+                Expanded(
+                  child: SingleChildScrollView(
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        verticalSpace(20.h),
+                        CarouselSlider(
+                          items: [1, 2, 3, 4, 5]
+                              .map((item) => Container(
+                                    alignment: Alignment.center,
+                                    width: double.infinity,
+                                    height: 250.h,
+                                    decoration: BoxDecoration(
+                                        color: ColorManager.grayColor,
+                                        borderRadius:
+                                            BorderRadius.circular(12.r)),
+                                    child: Text(
+                                      item.toString(),
+                                      style: StyleManager.font20SemiBold(),
+                                    ),
+                                  ))
+                              .toList(),
+                          options: CarouselOptions(
+                            autoPlay: true,
+                            enlargeCenterPage: true,
 
+                          ),
                         ),
-                      ),
-                      verticalSpace(20.h),
-                      Text(
-                        'مثقاب كهربائي احترافي',
-                        style: StyleManager.font16SemiBold(),
-                      ),
-                      verticalSpace(10.h),
-                      Row(
-                        crossAxisAlignment: CrossAxisAlignment.center,
-                        children: [
-                          Icon(
-                            Icons.star,
-                            color: ColorManager.rateStarColor,
-                            size: 20.sp,
-                          ),
-                          horizontalSpace(10.w),
-                          Text(
-                            '4.5 (20 تقييم)',
-                          ),
-                        ],
-                      ),
-                      verticalSpace(10.h),
-                      Text(
-                        '25 ريال/يوم',
-                        style: StyleManager.font14SemiBold(),
-                      ),
-                      verticalSpace(20.h),
-                      Text(
-                        StringManager.descriptionText,
-                        style: StyleManager.font18SemiBold(),
-                      ),
-                      Text(
-                        'مثقاب كهربائي احترافي وقوي متعدد الاستخدامات, مثالي للأعمال المنزلية و المهنية',
-                        style:
-                            StyleManager.font14Regular().copyWith(height: 1.8),
-                      ),
-                      verticalSpace(20.h),
-                      Text(
-                        StringManager.featuresText,
-                        style: StyleManager.font18SemiBold(),
-                      ),
-                      Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: getFeaturesToolAsList(featuresTool)
-                            .map((e) => Text(
-                                  '* ' + e,
-                                  style: StyleManager.font14SemiBold()
-                                      .copyWith(height: 1.8),
-                                ))
-                            .toList(),
-                      )
-                    ],
+                        verticalSpace(20.h),
+                        Text(
+                          'مثقاب كهربائي احترافي',
+                          style: StyleManager.font16SemiBold(),
+                        ),
+                        verticalSpace(10.h),
+                        Row(
+                          crossAxisAlignment: CrossAxisAlignment.center,
+                          children: [
+                            Icon(
+                              Icons.star,
+                              color: ColorManager.rateStarColor,
+                              size: 20.sp,
+                            ),
+                            horizontalSpace(10.w),
+                            Text(
+                              '4.5 (20 تقييم)',
+                            ),
+                          ],
+                        ),
+                        verticalSpace(10.h),
+                        Text(
+                          '25 ريال/يوم',
+                          style: StyleManager.font14SemiBold(),
+                        ),
+                        verticalSpace(20.h),
+                        Text(
+                          StringManager.descriptionText,
+                          style: StyleManager.font18SemiBold(),
+                        ),
+                        Text(
+                          'مثقاب كهربائي احترافي وقوي متعدد الاستخدامات, مثالي للأعمال المنزلية و المهنية',
+                          style:
+                              StyleManager.font14Regular().copyWith(height: 1.8),
+                        ),
+                        verticalSpace(20.h),
+                        Text(
+                          StringManager.featuresText,
+                          style: StyleManager.font18SemiBold(),
+                        ),
+                        Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: getFeaturesToolAsList(featuresTool)
+                              .map((e) => Text(
+                                    '* ' + e,
+                                    style: StyleManager.font14SemiBold()
+                                        .copyWith(height: 1.8),
+                                  ))
+                              .toList(),
+                        )
+                      ],
+                    ),
                   ),
                 ),
-              ),
-              AppButton(onPressed: () {
-                context.pushNamed(Routes.bookingToolRoute);
-              }, text: StringManager.orderNowText)
-            ],
+                AppButton(onPressed: () {
+                  context.pushNamed(Routes.bookingToolRoute);
+                }, text: StringManager.orderNowText)
+              ],
+            ),
           ),
         ),
       ),

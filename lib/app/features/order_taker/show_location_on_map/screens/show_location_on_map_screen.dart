@@ -1,3 +1,5 @@
+import 'package:animate_do/animate_do.dart';
+
 import '/core/utils/string_manager.dart';
 import '/core/widgets/custome_back_button.dart';
 import 'package:flutter/material.dart';
@@ -26,31 +28,33 @@ class _ShowLocationOnMapScreenState extends State<ShowLocationOnMapScreen> {
   Widget build(BuildContext context) {
     final LatLng customLocation = LatLng(widget.latitude??24.7136, widget.longitude??46.6753);
 
-    return Scaffold(
-      appBar: AppBar(
-        title: Text(StringManager.locationText),
-      ),
-      body: GoogleMap(
-
-        initialCameraPosition: CameraPosition(
-          target: customLocation,
-          zoom: 14,
+    return FadeInUp(
+      child: Scaffold(
+        appBar: AppBar(
+          title: Text(StringManager.locationText),
         ),
-        markers: {
-          Marker(
+        body: GoogleMap(
 
-            markerId: const MarkerId('StringManager.locationBookText'),
-            position: customLocation,
-            infoWindow: const InfoWindow(
-
-              title: StringManager.locationText,
-              snippet: StringManager.userLocationBookText,
-            ),
+          initialCameraPosition: CameraPosition(
+            target: customLocation,
+            zoom: 14,
           ),
-        },
-        onMapCreated: (GoogleMapController controller) {
-          _mapController = controller;
-        },
+          markers: {
+            Marker(
+
+              markerId: const MarkerId('StringManager.locationBookText'),
+              position: customLocation,
+              infoWindow: const InfoWindow(
+
+                title: StringManager.locationText,
+                snippet: StringManager.userLocationBookText,
+              ),
+            ),
+          },
+          onMapCreated: (GoogleMapController controller) {
+            _mapController = controller;
+          },
+        ),
       ),
     );
   }
