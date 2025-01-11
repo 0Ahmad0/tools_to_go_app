@@ -81,6 +81,27 @@ class OrderTakerHomeScreen extends StatelessWidget {
                 dense: true,
                 onTap: () {
                   context.pop();
+                  context.pushNamed(Routes.customerChatsRoute);
+                },
+                leading: Icon(
+                  Icons.chat_sharp,
+                ),
+                trailing: Badge.count(
+                  count: 1,
+                  textStyle: StyleManager.font10Bold(),
+                ),
+                title: Text(
+                  StringManager.chatScreenText,
+                  style: StyleManager.font14SemiBold(),
+                ),
+              ),
+              Divider(
+                height: 0,
+              ),
+              ListTile(
+                dense: true,
+                onTap: () {
+                  context.pop();
                   context.pushNamed(Routes.notificationRoute);
                 },
                 leading: Icon(Icons.notifications),
