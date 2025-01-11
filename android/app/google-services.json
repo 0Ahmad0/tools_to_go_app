@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "388332881838",
+    "project_id": "toolstogo-f2728",
+    "storage_bucket": "toolstogo-f2728.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:388332881838:android:ad9d417137d0c3e5a72a3f",
+        "android_client_info": {
+          "package_name": "com.example.tools_to"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDUcirmQLo8_yLRcu6OnfOw4lQE0OFmx90"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
