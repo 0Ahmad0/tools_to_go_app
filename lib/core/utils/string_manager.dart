@@ -30,6 +30,7 @@ class StringManager {
   static const String locationBookText = "موقع الحجز : ";
   static const String userLocationBookText = "موقع الحجز";
   static const String approvedRequestText = "قبول الطلب";
+  static const String areYouSureApprovedRequestText = "هل أنت متاكد من قبول الطلب ؟ ";
   static const String cancelRequestText = "رفض الطلب";
   static const String areYouSureCancelRequestText = "هل أنت متأكد من رفض الطلب ؟ ";
   static const String mapViewText = "المشاهدة على الخريطة";
@@ -40,6 +41,7 @@ class StringManager {
   static const String confirmLocationText = "تحديد";
   static const String deliveryProductText = "تسليم الطلب";
   static const String areYouSureDeliveredProductToCustomerText = "هل وصلت إلى عنوان العميل وقمت بتسليم الطلب ؟";
+  static const String withOrderTakerText = "مع عامل توصيل؟";
 
 
 

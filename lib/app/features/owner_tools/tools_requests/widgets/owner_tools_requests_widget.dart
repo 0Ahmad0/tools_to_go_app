@@ -2,7 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:intl/intl.dart';
-import 'package:tools_to_go_app/app/features/owner_tools/tools_requests/widgets/select_order_taker_widget.dart';
+import 'package:tools_to_go_app/core/dialogs/general_dialog.dart';
 import 'package:tools_to_go_app/core/helpers/spacing.dart';
 import 'package:tools_to_go_app/core/utils/color_manager.dart';
 import 'package:tools_to_go_app/core/utils/string_manager.dart';
@@ -78,20 +78,18 @@ class OwnerToolsRequestsWidget extends StatelessWidget {
             children: [
               Expanded(
                 child: InkWell(
-                  borderRadius: BorderRadius.circular(8.r),
                   onTap: () {
-                    showModalBottomSheet(
-                      isScrollControlled: true,
-                      showDragHandle: true,
-                      backgroundColor: ColorManager.whiteColor,
-                      shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.vertical(
-                          top: Radius.circular(14.r),
-                        )
-                      ),
-                        context: context,
-                        builder: (context) => SelectOrderTakerWidget());
+                    showDialog(
+                      context: context,
+                      builder: (context) =>
+                          GeneralDialog(
+                            title: StringManager.approvedRequestText,
+                            subTitle: StringManager.areYouSureApprovedRequestText,
+                            onOkTap: () {},
+                          ),
+                    );
                   },
+                  borderRadius: BorderRadius.circular(8.r),
                   child: Container(
                     alignment: Alignment.center,
                     padding: EdgeInsets.symmetric(

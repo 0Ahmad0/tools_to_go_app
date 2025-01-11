@@ -128,28 +128,6 @@ class _SignupScreenWidgetState extends State<SignupScreenWidget> {
                           }
                         },
                       ),
-                      Visibility(
-                        visible: typeUser == 'مستخدم عادي',
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            verticalSpace(20.h),
-                            Text(StringManager.locationText),
-                            verticalSpace(10.h),
-                            AppTextField(
-                              readOnly: true,
-                              onTap: () {
-                                showDialog(
-                                  barrierDismissible: true,
-                                  context: context,
-                                  builder: (context) => SelectLocationUserWidget(),
-                                );
-                              },
-                              hintText: StringManager.enterYourLocationText,
-                            ),
-                          ],
-                        ),
-                      ),
                       verticalSpace(20.h),
                       AppButton(
                         onPressed: () {

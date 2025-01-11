@@ -21,7 +21,7 @@ class CustomersRequestsScreen extends StatelessWidget {
                   text: StringManager.myCompletedOrdersText,
                 ),
                 Tab(
-                  text: StringManager.myCompletedOrdersText,
+                  text: StringManager.myCurrentRequestsText,
                 ),
               ],
             ),
