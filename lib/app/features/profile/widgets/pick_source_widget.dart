@@ -30,28 +30,31 @@ class PickSourceWidget extends StatelessWidget {
         ListTile(
           onTap: onPickGallery,
           dense: true,
-          title: Text(StringManager.pick_from_camera_text),
+          title: Text(StringManager.pick_from_gallery_text),
           leading: CircleAvatar(
             backgroundColor: ColorManager.orangeColor.withOpacity(.5),
             child: Icon(Icons.photo_outlined),
           ),
         ),
-        Divider(),
-        ListTile(
-          onTap: onDelete,
-          dense: true,
-          title: Text(
-            StringManager.delete_photo_text,
-            style: StyleManager.font14Regular(color: ColorManager.errorColor),
-          ),
-          leading: CircleAvatar(
-            backgroundColor: ColorManager.errorColor,
-            child: Icon(
-              Icons.delete_outline,
-              color: ColorManager.whiteColor,
+        if(onDelete!=null)...[
+
+          Divider(),
+          ListTile(
+            onTap: onDelete,
+            dense: true,
+            title: Text(
+              StringManager.delete_photo_text,
+              style: StyleManager.font14Regular(color: ColorManager.errorColor),
+            ),
+            leading: CircleAvatar(
+              backgroundColor: ColorManager.errorColor,
+              child: Icon(
+                Icons.delete_outline,
+                color: ColorManager.whiteColor,
+              ),
             ),
           ),
-        ),
+        ]
       ],
     );
   }
