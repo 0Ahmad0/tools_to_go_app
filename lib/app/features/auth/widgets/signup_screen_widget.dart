@@ -9,6 +9,7 @@ import 'package:tools_to_go_app/core/routing/routes.dart';
 import 'package:tools_to_go_app/core/utils/const_value_manager.dart';
 
 import '../../../../core/helpers/spacing.dart';
+import '../../../../core/utils/app_constant.dart';
 import '../../../../core/utils/color_manager.dart';
 import '../../../../core/utils/string_manager.dart';
 import '../../../../core/utils/style_manager.dart';
@@ -30,7 +31,13 @@ class SignupScreenWidget extends StatefulWidget {
 
 class _SignupScreenWidgetState extends State<SignupScreenWidget> {
   String? typeUser;
-
+  late AuthController authController;
+  @override
+  void initState() {
+    authController= Get.put(AuthController());
+    authController.init();
+    super.initState();
+  }
   @override
   Widget build(BuildContext context) {
     return FadeInLeft(
@@ -38,7 +45,7 @@ class _SignupScreenWidgetState extends State<SignupScreenWidget> {
         horizontalPadding: 12.w,
         child: SingleChildScrollView(
           child: Form(
-            // key: controller.formKey,
+            key: authController.formKey,
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.stretch,
               children: [
@@ -60,24 +67,24 @@ class _SignupScreenWidgetState extends State<SignupScreenWidget> {
                       Text(StringManager.nameText),
                       verticalSpace(10.h),
                       AppTextField(
-                        // controller: controller.nameController,
-                        // validator: (value)=>controller.validateFullName(value!),
+                        controller: authController.nameController,
+                        validator: (value)=>authController.validateFullName(value!),
                         hintText: StringManager.enterNameText,
                       ),
                       verticalSpace(20.h),
                       Text(StringManager.emailText),
                       verticalSpace(10.h),
                       AppTextField(
-                        // controller: controller.emailController,
-                        // validator: (value)=>controller.validateEmail(value!),
+                        controller: authController.emailController,
+                        validator: (value)=>authController.validateEmail(value!),
                         hintText: StringManager.enterEmailText,
                       ),
                       verticalSpace(20.h),
                       Text(StringManager.passwordText),
                       verticalSpace(10.h),
                       AppTextField(
-                        // controller: controller.passwordController,
-                        // validator: (value)=>controller.validatePassword(value!),
+                        controller: authController.passwordController,
+                        validator: (value)=>authController.validatePassword(value!),
                         hintText: StringManager.enterPasswordText,
                         obscureText: true,
                         suffixIcon: true,
@@ -86,8 +93,10 @@ class _SignupScreenWidgetState extends State<SignupScreenWidget> {
                       Text(StringManager.confirmPasswordText),
                       verticalSpace(10.h),
                       AppTextField(
-                        // controller: controller.confirmPasswordController,
-                        // validator: (value)=>,
+                        controller: authController.confirmPasswordController,
+                        validator: (value) =>
+                            authController.validateConfirmPassword(value ?? '', authController.passwordController.value.text),
+
                         hintText: StringManager.enterConfirmPasswordText,
                         obscureText: true,
                         suffixIcon: true,
@@ -120,6 +129,10 @@ class _SignupScreenWidgetState extends State<SignupScreenWidget> {
                             .toList(),
                         onChanged: (value) {
                           typeUser = value;
+                          authController.typeUser=
+                          value==ConstValueManager.typeUserList[1]? AppConstants.collectionWorker:
+                          value==ConstValueManager.typeUserList[2]? AppConstants.collectionOwner:
+                          AppConstants.collectionUser;
                           setState(() {});
                         },
                         validator: (value) {
@@ -131,20 +144,23 @@ class _SignupScreenWidgetState extends State<SignupScreenWidget> {
                       verticalSpace(20.h),
                       AppButton(
                         onPressed: () {
-                          if (typeUser == 'مستخدم عادي') {
-                            context.pushReplacement(
-                              Routes.customerHomeRoute
-                            );
-                          }
-                          if (typeUser == 'عامل توصيل') {
-                            context.pushReplacement(
-                                Routes.orderTakerHomeRoute
-                            );
-                          }
-                          if (typeUser == 'مالك معدات') {
-                            context.pushReplacement(
-                                Routes.ownerHomeRoute
-                            );
+                          // if (typeUser == 'مستخدم عادي') {
+                          //   context.pushReplacement(
+                          //     Routes.customerHomeRoute
+                          //   );
+                          // }
+                          // if (typeUser == 'عامل توصيل') {
+                          //   context.pushReplacement(
+                          //       Routes.orderTakerHomeRoute
+                          //   );
+                          // }
+                          // if (typeUser == 'مالك معدات') {
+                          //   context.pushReplacement(
+                          //       Routes.ownerHomeRoute
+                          //   );
+                          // }
+                          if (authController.formKey.currentState!.validate()) {
+                            authController.signUp(context);
                           }
                         },
                         text: StringManager.signUpText,

@@ -1,4 +1,12 @@
+import '../../../../core/local/storage.dart';
+import '../../../../core/models/user_model.dart';
+import '../../../../core/routing/routes.dart';
+import '../../../../core/utils/app_constant.dart';
 import '../../../../core/utils/string_manager.dart';
+import '../../../../core/widgets/constants_widgets.dart';
+import '../../core/controllers/firebase/firebase_constants.dart';
+import '../../core/controllers/firebase/firebase_fun.dart';
+import '../../profile/controller/profile_controller.dart';
 import '/core/helpers/extensions.dart';
 import '/core/helpers/validator.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
@@ -18,7 +26,7 @@ class AuthController extends GetxController {
   final phoneController = TextEditingController();
   final passwordController = TextEditingController();
   final confirmPasswordController = TextEditingController();
-
+  String typeUser=AppConstants.collectionUser;
   init() {
     formKey = GlobalKey<FormState>();
     nameController.clear();
@@ -26,6 +34,7 @@ class AuthController extends GetxController {
     phoneController.clear();
     passwordController.clear();
     confirmPasswordController.clear();
+    typeUser=AppConstants.collectionUser;
   }
 
   int currentIndex = 0;
@@ -83,6 +92,19 @@ class AuthController extends GetxController {
     }
   }
 
+  validateConfirmPassword(String value,String password) {
+    if (value.isEmpty) {
+      return StringManager.requiredField;
+    }
+    else if (value!=password) {
+
+      return 'Not Match';
+    }
+    else {
+      return null;
+    }
+  }
+
   String? validateFullName(String value) {
     if (value.isEmpty) {
       return StringManager.requiredField;
@@ -91,7 +113,7 @@ class AuthController extends GetxController {
   }
 
 
-  /*
+
   Future<void> login(BuildContext context) async {
     String userName = emailController.value.text;
     String password = passwordController.value.text;
@@ -138,14 +160,20 @@ class AuthController extends GetxController {
         await profileController.getUser(context);
         context.pop();
         // Get.back();
-        if (profileController.currentUser.value?.isAdmin ?? false)
-          context.pushAndRemoveUntil(Routes.adminNavbarRoute,
-              predicate: (Route<dynamic> route) => false);
+        if (profileController.currentUser.value?.isAdmin ?? false);
+          // context.pushAndRemoveUntil(Routes.adminNavbarRoute,
+          //     predicate: (Route<dynamic> route) => false);
 
         // Get.offAll(NavbarScreen());
         // Get.offAll(NavBarAdminScreen());
+        else if (profileController.currentUser.value?.isOwner ?? false)
+        context.pushAndRemoveUntil(Routes.ownerHomeRoute,
+            predicate: (Route<dynamic> route) => false);
+        else if (profileController.currentUser.value?.isWorker ?? false)
+          context.pushAndRemoveUntil(Routes.orderTakerHomeRoute,
+              predicate: (Route<dynamic> route) => false);
         else
-          context.pushAndRemoveUntil(Routes.navbarRoute,
+          context.pushAndRemoveUntil(Routes.customerHomeRoute,
               predicate: (Route<dynamic> route) => false);
 
         // Get.offAll(NavbarScreen());
@@ -187,7 +215,7 @@ class AuthController extends GetxController {
           phoneNumber: phoneNumber,
           // userName: userName,
           password: password,
-          typeUser: AppConstants.collectionUser,
+          typeUser: typeUser,
           photoUrl: '');
       await FirebaseFirestore.instance
           .collection(FirebaseConstants.collectionUser)
@@ -201,14 +229,20 @@ class AuthController extends GetxController {
       ProfileController profileController = Get.put(ProfileController());
       profileController.currentUser.value = user;
       // if(profileController.currentUser.value?.isAdmin??false)
-      if (user.isAdmin)
-        context.pushAndRemoveUntil(Routes.adminNavbarRoute,
-            predicate: (Route<dynamic> route) => false);
+      if (user.isAdmin);
+        // context.pushAndRemoveUntil(Routes.adminNavbarRoute,
+        //     predicate: (Route<dynamic> route) => false);
 
       // Get.offAll(NavbarScreen());
       // Get.offAll(NavBarAdminScreen());
+      if (user.isOwner)
+      context.pushAndRemoveUntil(Routes.ownerHomeRoute,
+          predicate: (Route<dynamic> route) => false);
+      if (user.isWorker)
+        context.pushAndRemoveUntil(Routes.orderTakerHomeRoute,
+            predicate: (Route<dynamic> route) => false);
       else
-        context.pushAndRemoveUntil(Routes.navbarRoute,
+        context.pushAndRemoveUntil(Routes.customerHomeRoute,
             predicate: (Route<dynamic> route) => false);
 
       // Get.offAll(NavbarScreen());
@@ -242,7 +276,7 @@ class AuthController extends GetxController {
     if (!result['status']) return null;
     Users users = Users.fromJson(result['body']);
     for (int i = 0; i < 10000; i++) {
-      bool exists = users.items.any((user) => user.userName == userName);
+      bool exists = users.users.any((user) => user.userName == userName);
       if (exists)
         userName = genUserName + '$i';
       else
@@ -268,7 +302,20 @@ class AuthController extends GetxController {
 
     // Get.offAll(SplashScreen());
   }
+  sendPasswordResetEmail(BuildContext context, {required String email}) async {
+    ConstantsWidgets.showLoading();
+    var result = await FirebaseFun.sendPasswordResetEmail(email: email);
+    ConstantsWidgets.closeDialog();
 
+    if (result['status']) {
+      context.pushReplacement(Routes.checkYourInboxRoute);
+    }else{
+      ConstantsWidgets.TOAST(context,
+          textToast: FirebaseFun.findTextToast(result['message'].toString()),state: result['status']);
+    }
+    return result;
+
+  }
   @override
   void onInit() {
     // _initPageView();
@@ -278,6 +325,36 @@ class AuthController extends GetxController {
 
     super.onInit();
   }
+  Future<void> seeder() async {
+    List<UserModel> users=[
+      UserModel(email: 'admin@gmail.com', name: 'Admin Acc', password: '12345678', typeUser: AppConstants.collectionAdmin),
+      UserModel(email: 'worker@gmail.com', name: 'Worker Acc', password: '12345678', typeUser: AppConstants.collectionWorker),
+      UserModel(email: 'user@gmail.com', name: 'Customer Acc', password: '12345678', typeUser: AppConstants.collectionUser),
+      UserModel(email: 'owner@gmail.com', name: 'Owner Acc', password: '12345678', typeUser: AppConstants.collectionOwner),
+      // UserModel(email: 'mr.ahmadmriwed@gmail.com', name: 'Ahmad Mriwed', password: '12345678', typeUser: AppConstants.collectionUser,phoneNumber: '0937954969'),
+    ];
+    try {
+      ConstantsWidgets.showLoading();
+      for(UserModel userModel in users){
+        UserCredential userCredential = await auth
+            .createUserWithEmailAndPassword(email: userModel.email!, password: userModel.password!)
+            .timeout(FirebaseFun.timeOut);
+        if(userCredential.user!=null){
+          userModel.uid=userCredential.user!.uid;
+          await FirebaseFirestore.instance
+              .collection(FirebaseConstants.collectionUser)
+              .doc(userModel.uid)
+              .set(userModel.toJson());
+        }
+      }
+      ConstantsWidgets.closeDialog();
+    } on FirebaseAuthException catch (e) {
+      String errorMessage = FirebaseFun.findTextToast(e.code);
+      ConstantsWidgets.closeDialog();
+      ConstantsWidgets.TOAST(null, textToast: errorMessage, state: false);
+    }
+  }
+
 
   @override
   void onClose() {
@@ -289,5 +366,5 @@ class AuthController extends GetxController {
 
     super.onClose();
   }
-   */
+
 }
