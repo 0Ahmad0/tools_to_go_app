@@ -11,10 +11,10 @@ import 'core/routing/routes.dart';
 import 'core/utils/const_value_manager.dart';
 
 Future<void> main() async {
-  // WidgetsFlutterBinding.ensureInitialized();
+  WidgetsFlutterBinding.ensureInitialized();
 
   /// To Init Firebase
-  // await Firebase.initializeApp();
+  await Firebase.initializeApp();
 
   /// To Fix Bug In Text Showing In Release Mode
   await ScreenUtil.ensureScreenSize();
