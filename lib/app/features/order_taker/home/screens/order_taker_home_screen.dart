@@ -2,6 +2,9 @@ import 'package:animate_do/animate_do.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:get/get.dart';
+import 'package:get/get_core/src/get_main.dart';
+import 'package:get/get_state_manager/src/simple/get_state.dart';
 import 'package:tools_to_go_app/app/features/auth/screens/change_password_screen.dart';
 import 'package:tools_to_go_app/app/features/order_taker/home/widgets/order_taker_order_widget.dart';
 import 'package:tools_to_go_app/core/helpers/extensions.dart';
@@ -14,6 +17,9 @@ import 'package:tools_to_go_app/core/widgets/app_padding.dart';
 
 import '../../../../../core/dialogs/delete_dialog.dart';
 import '../../../../../core/routing/routes.dart';
+import '../../../../../core/widgets/image_user_provider.dart';
+import '../../../auth/controller/auth_controller.dart';
+import '../../../profile/controller/profile_controller.dart';
 
 class OrderTakerHomeScreen extends StatelessWidget {
   const OrderTakerHomeScreen({super.key});
@@ -28,22 +34,34 @@ class OrderTakerHomeScreen extends StatelessWidget {
         drawer: Drawer(
           child: Column(
             children: [
-              UserAccountsDrawerHeader(
-                margin: EdgeInsets.zero,
-                decoration: BoxDecoration(
-                  color: ColorManager.orangeColor,
-                ),
-                accountName: Text(
-                  'عامل توصيل',
-                  style: StyleManager.font14SemiBold(),
-                ),
-                accountEmail: Text(
-                  'email@gmail.com',
-                  style: StyleManager.font12SemiBold(),
-                ),
-                currentAccountPicture: CircleAvatar(
-                  child: Icon(FontAwesomeIcons.userLarge),
-                ),
+              GetBuilder<ProfileController>(
+                  init: Get.put(ProfileController()),
+                  builder: (controller) {
+                    return
+                      UserAccountsDrawerHeader(
+                          margin: EdgeInsets.zero,
+                          decoration: BoxDecoration(
+                            color: ColorManager.orangeColor,
+                          ),
+                          accountName: Text(
+                            controller.currentUser.value?.name ??
+                                'عامل توصيل' ,
+                            style: StyleManager.font14SemiBold(),
+                          ),
+                          accountEmail: Text(
+                            controller.currentUser.value?.email ??
+                                'email@gmail.com',
+                            style: StyleManager.font12SemiBold(),
+                          ),
+                          currentAccountPicture:
+                          ImageUserProvider(
+                            url: controller.currentUser.value?.photoUrl,
+                          )
+                        // CircleAvatar(
+                        //   child: Icon(FontAwesomeIcons.userLarge),
+                        // ),
+                      );
+                  }
               ),
               ListTile(
                 dense: true,
@@ -122,7 +140,10 @@ class OrderTakerHomeScreen extends StatelessWidget {
                         title: StringManager.logoutText,
                         subTitle: StringManager.areYouSureLogoutText,
                         onDeleteTap: () {
-                          context.pushReplacement(Routes.loginRoute);
+                          context.pop();
+                          Get.lazyPut(() => AuthController());
+                          AuthController.instance.signOut(context);
+                          // context.pushReplacement(Routes.loginRoute);
                         },
                       ),
                     );
