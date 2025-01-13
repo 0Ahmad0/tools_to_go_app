@@ -1,4 +1,6 @@
 
+import 'package:tools_to_go_app/core/models/review_model.dart';
+
 class ToolModel {
   String? id;
   String? name;
@@ -7,6 +9,7 @@ class ToolModel {
   String? photoUrl;
   List<String>? images;
   num? fee;
+  List<ReviewModel>? reviews;
 
   ToolModel({
     this.id,
@@ -16,13 +19,29 @@ class ToolModel {
     this.photoUrl,
     this.fee,
     this.images=const [],
+    this.reviews,
   });
+  double get  getRate{
+    double rate=0;
+    if(reviews?.isEmpty??true)
+      return 0;
+    for(ReviewModel review in reviews??[]){
+      rate+=review.avgRate;
+    }
+    return rate/(reviews?.length??1);
+  }
 
   factory ToolModel.fromJson(json) {
     var data = ['_JsonDocumentSnapshot','_JsonQueryDocumentSnapshot'].contains(json.runtimeType.toString())?json.data():json;
     List<String> tempList = [];
     for(var element in data["images"]){
       tempList.add("${element}");
+    }
+
+    List<ReviewModel> tempListReviews = [];
+
+    for(var review in data["reviews"]??[]){
+      tempListReviews.add(ReviewModel.fromJson(review));
     }
 
     return ToolModel(
@@ -33,6 +52,7 @@ class ToolModel {
       specifications: data["specifications"],
       fee: num.tryParse("${data["fee"]}"),
       images: tempList,
+      reviews: tempListReviews
 
     );
   }
@@ -43,7 +63,10 @@ class ToolModel {
 
   Map<String, dynamic> toJson() {
 
-
+    List<Map<String, dynamic>> tempListReviews = [];
+    for(ReviewModel review in reviews??[]){
+      tempListReviews.add(review.toJson());
+    }
     return{
       'id': id,
     'name': name,
@@ -52,6 +75,7 @@ class ToolModel {
     'photoUrl': photoUrl,
     'images': images,
     'fee': fee,
+      'reviews':tempListReviews
   };
   }
 }

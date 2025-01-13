@@ -4,6 +4,8 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'app/features/owner_tools/add_tool/screens/owner_add_tool_screen.dart';
+import 'app/features/profile/controller/profile_controller.dart';
+import 'app/features/tool_details/screen/tool_details_screen.dart';
 import 'core/routing/app_router.dart';
 import 'core/routing/routes.dart';
 import 'core/utils/color_manager.dart';
@@ -19,6 +21,7 @@ class ToolsToGoApp extends StatelessWidget {
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
+    Get.put(ProfileController());
     return ScreenUtilInit(
         minTextAdapt: true,
         designSize: const Size(
@@ -93,6 +96,7 @@ class ToolsToGoApp extends StatelessWidget {
             onGenerateRoute: appRouter.generateRoute,
             routes: {
               Routes.ownerAddToolRoute: (_) => OwnerAddToolScreen(),
+              Routes.toolDetailsRoute: (_) => ToolDetailsScreen(),
             }
           );
         });

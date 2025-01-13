@@ -4,7 +4,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:tools_to_go_app/app/features/auth/controller/auth_controller.dart';
 import 'package:tools_to_go_app/core/helpers/extensions.dart';
+import 'package:tools_to_go_app/core/models/tool.dart';
 import 'package:tools_to_go_app/core/routing/routes.dart';
+import 'package:tools_to_go_app/core/widgets/image_tool.dart';
 import '/core/helpers/spacing.dart';
 import '/core/utils/color_manager.dart';
 import '/core/utils/string_manager.dart';
@@ -25,6 +27,7 @@ class _ToolDetailsScreenState extends State<ToolDetailsScreen> {
       'سعة الظرف : 13 مم\n'
       'وزن : 2.5 كجم';
   List<String> featuresList = [];
+   ToolModel? tool;
 
   List<String> getFeaturesToolAsList(String text) {
     featuresList = text
@@ -37,6 +40,10 @@ class _ToolDetailsScreenState extends State<ToolDetailsScreen> {
 
   @override
   Widget build(BuildContext context) {
+    final args =
+    ModalRoute.of(context)!.settings.arguments as Map<String, dynamic>?;
+    tool=args?["tool"];
+
     return FadeInUp(
       child: Scaffold(
         appBar: AppBar(
@@ -52,31 +59,43 @@ class _ToolDetailsScreenState extends State<ToolDetailsScreen> {
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        verticalSpace(20.h),
-                        CarouselSlider(
-                          items: [1, 2, 3, 4, 5]
-                              .map((item) => Container(
-                                    alignment: Alignment.center,
-                                    width: double.infinity,
-                                    height: 250.h,
-                                    decoration: BoxDecoration(
-                                        color: ColorManager.grayColor,
-                                        borderRadius:
-                                            BorderRadius.circular(12.r)),
-                                    child: Text(
-                                      item.toString(),
-                                      style: StyleManager.font20SemiBold(),
-                                    ),
-                                  ))
-                              .toList(),
-                          options: CarouselOptions(
-                            autoPlay: true,
-                            enlargeCenterPage: true,
+                        if(tool?.images?.isNotEmpty??false)...[
+                          verticalSpace(20.h),
+                          CarouselSlider(
+                            items:
+                            // [1, 2, 3, 4, 5]
+                            (tool?.images??[]).map((item) => Container(
+                                alignment: Alignment.center,
+                                width: double.infinity,
+                                height: 250.h,
+                                decoration: BoxDecoration(
+                                    color: ColorManager.grayColor,
+                                    borderRadius:
+                                    BorderRadius.circular(12.r)),
+                                child:
+                                Padding(
+                                  padding:  EdgeInsets.all(4.sp),
+                                  child: ImageTool(
+                                    url: item,
+                                  ),
+                                )
+                              // Text(
+                              //   item.toString(),
+                              //   style: StyleManager.font20SemiBold(),
+                              // ),
+                            ))
+                                .toList(),
+                            options: CarouselOptions(
+                              autoPlay: true,
+                              enlargeCenterPage: true,
 
-                          ),
-                        ),
+                            ),
+                          )
+                        ]
+                       ,
                         verticalSpace(20.h),
                         Text(
+                          tool?.name??
                           'مثقاب كهربائي احترافي',
                           style: StyleManager.font16SemiBold(),
                         ),
@@ -97,7 +116,8 @@ class _ToolDetailsScreenState extends State<ToolDetailsScreen> {
                         ),
                         verticalSpace(10.h),
                         Text(
-                          '25 ريال/يوم',
+                          '${ tool?.fee??'??'} ريال/يوم',
+                          // '25 ريال/يوم',
                           style: StyleManager.font14SemiBold(),
                         ),
                         verticalSpace(20.h),
@@ -106,6 +126,7 @@ class _ToolDetailsScreenState extends State<ToolDetailsScreen> {
                           style: StyleManager.font18SemiBold(),
                         ),
                         Text(
+                          tool?.description??
                           'مثقاب كهربائي احترافي وقوي متعدد الاستخدامات, مثالي للأعمال المنزلية و المهنية',
                           style:
                               StyleManager.font14Regular().copyWith(height: 1.8),
@@ -117,7 +138,9 @@ class _ToolDetailsScreenState extends State<ToolDetailsScreen> {
                         ),
                         Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
-                          children: getFeaturesToolAsList(featuresTool)
+                          children: getFeaturesToolAsList(
+                              tool?.specifications??
+                              featuresTool)
                               .map((e) => Text(
                                     '* ' + e,
                                     style: StyleManager.font14SemiBold()

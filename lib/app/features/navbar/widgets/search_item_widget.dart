@@ -3,23 +3,25 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:tools_to_go_app/app/features/auth/controller/auth_controller.dart';
 import 'package:tools_to_go_app/core/helpers/extensions.dart';
+import 'package:tools_to_go_app/core/models/tool.dart';
 import 'package:tools_to_go_app/core/routing/routes.dart';
+import 'package:tools_to_go_app/core/widgets/image_tool.dart';
 import '/core/helpers/spacing.dart';
 import '/core/utils/style_manager.dart';
 
 import '../../../../core/utils/color_manager.dart';
 
 class SearchItemWidget extends StatelessWidget {
-  const SearchItemWidget({super.key, required this.index});
+  const SearchItemWidget({super.key, required this.index, this.tool});
 
   final int index;
-
+  final ToolModel? tool;
   @override
   Widget build(BuildContext context) {
     return InkWell(
       borderRadius: BorderRadius.circular(12.r),
       onTap: (){
-        context.pushNamed(Routes.toolDetailsRoute);
+        context.pushNamed(Routes.toolDetailsRoute,arguments: {'tool':tool});
       },
       child: Container(
         padding: EdgeInsets.symmetric(horizontal: 10.w, vertical: 10.h),
@@ -38,6 +40,7 @@ class SearchItemWidget extends StatelessWidget {
                   contentPadding: EdgeInsets.zero,
                   dense: true,
                   title: Text(
+                    tool?.name??
                     'مثقاب كهربائي${index}',
                     style: StyleManager.font14SemiBold(),
                     maxLines: 1,
@@ -63,7 +66,8 @@ class SearchItemWidget extends StatelessWidget {
                       ),
                       verticalSpace(10.h),
                       Text(
-                        '25 ريال/يوم',
+                        '${ tool?.fee??''} ريال/يوم',
+                        // '25 ريال/يوم',
                       ),
                     ],
                   ),
@@ -71,10 +75,17 @@ class SearchItemWidget extends StatelessWidget {
               ),
               horizontalSpace(10.w),
               Container(
+                constraints: BoxConstraints( maxHeight: 100.h),
                 width: 80.w,
+
                 decoration: BoxDecoration(
                     color: ColorManager.grayColor,
                     borderRadius: BorderRadius.circular(8.r)
+                ),
+                child: ImageTool(
+                  width: 80.w,
+
+                  url:  tool?.photoUrl,
                 ),
               )
             ],

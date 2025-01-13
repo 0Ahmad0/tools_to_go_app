@@ -137,8 +137,8 @@ class AuthController extends GetxController {
           .signInWithEmailAndPassword(email: email, password: password)
           .timeout(FirebaseFun.timeOut)
           .then((value) async {
-        ConstantsWidgets.TOAST(null,
-            textToast: StringManager.message_successful_login, state: true);
+        // ConstantsWidgets.TOAST(null,
+        //     textToast: StringManager.message_successful_login, state: true);
         // Get.snackbar(
         //     AppString.message_success,
         //     AppString.message_successful_login,
@@ -159,7 +159,11 @@ class AuthController extends GetxController {
         ;
         await profileController.getUser(context);
         context.pop();
+        if(profileController.currentUser.value==null)
+          return;
         // Get.back();
+        ConstantsWidgets.TOAST(null,
+            textToast: StringManager.message_successful_login, state: true);
         if (profileController.currentUser.value?.isAdmin ?? false);
           // context.pushAndRemoveUntil(Routes.adminNavbarRoute,
           //     predicate: (Route<dynamic> route) => false);

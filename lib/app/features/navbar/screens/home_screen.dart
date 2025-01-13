@@ -1,4 +1,5 @@
 import 'package:animate_do/animate_do.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
@@ -13,14 +14,29 @@ import 'package:tools_to_go_app/core/utils/style_manager.dart';
 import 'package:tools_to_go_app/core/widgets/app_padding.dart';
 
 import '../../../../core/dialogs/delete_dialog.dart';
+import '../../../../core/models/tool.dart';
 import '../../../../core/routing/routes.dart';
+import '../../../../core/widgets/constants_widgets.dart';
 import '../../../../core/widgets/image_user_provider.dart';
+import '../../../../core/widgets/no_data_found_widget.dart';
 import '../../auth/controller/auth_controller.dart';
+import '../../owner_tools/home/controller/tools_controller.dart';
 import '../../profile/controller/profile_controller.dart';
 
-class HomeScreen extends StatelessWidget {
+class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
 
+  @override
+  State<HomeScreen> createState() => _HomeScreenState();
+}
+
+class _HomeScreenState extends State<HomeScreen> {
+  late ToolsController controller;
+  void initState() {
+    controller = Get.put(ToolsController());
+    controller.onInit();
+    super.initState();
+  }
   @override
   Widget build(BuildContext context) {
     return FadeInUp(
@@ -61,10 +77,8 @@ class HomeScreen extends StatelessWidget {
               ListTile(
                 dense: true,
                 onTap: () {
-                  context.pop();
-                  Get.lazyPut(() => AuthController());
-                  AuthController.instance.signOut(context);
-                  // context.pushNamed(Routes.customerRequestsRoute);
+
+                  context.pushNamed(Routes.customerRequestsRoute);
                 },
                 leading: Icon(
                   Icons.shopping_cart,
@@ -179,7 +193,10 @@ class HomeScreen extends StatelessWidget {
                         title: StringManager.logoutText,
                         subTitle: StringManager.areYouSureLogoutText,
                         onDeleteTap: () {
-                          context.pushReplacement(Routes.loginRoute);
+                          context.pop();
+                          Get.lazyPut(() => AuthController());
+                          AuthController.instance.signOut(context);
+                          // context.pushReplacement(Routes.loginRoute);
                         },
                       ),
                     );
@@ -293,13 +310,41 @@ class HomeScreen extends StatelessWidget {
                 SliverToBoxAdapter(
                   child: verticalSpace(20.h),
                 ),
-                SliverList.separated(
-                  itemBuilder: (context, index) => HomeToolItemWidget(
-                    index: ++index,
-                  ),
-                  separatorBuilder: (_, __) => verticalSpace(10.h),
-                  itemCount: 10,
-                )
+
+                StreamBuilder<QuerySnapshot>(
+                    stream: controller.getTools,
+                    builder: (context, snapshot) {
+                      if (snapshot.connectionState == ConnectionState.waiting) {
+                        return   SliverToBoxAdapter(child: ConstantsWidgets.circularProgress(),) ;
+                      } else if (snapshot.connectionState ==
+                          ConnectionState.active) {
+                        if (snapshot.hasError) {
+                          return  SliverToBoxAdapter(child: Text('Error'));
+                        } else if (snapshot.hasData) {
+                          SliverToBoxAdapter(child: ConstantsWidgets.circularProgress(),);
+                          controller.tools.items.clear();
+                          if (snapshot.data!.docs.length > 0) {
+
+                            controller.tools.items =
+                                Tools.fromJson(snapshot.data?.docs).items;
+                          }
+                          // controller.classification();
+                          return
+                            GetBuilder<ToolsController>(
+                                builder: (ToolsController toolsController)=>
+
+                                (toolsController.tools.items.isEmpty ?? true)
+                                    ?
+                                SliverFillRemaining(child: Center(child: NoDataFoundWidget(text: StringManager.noToolsText)))
+                                    :
+                                buildTools(context, toolsController.tools.items));
+                        } else {
+                          return SliverToBoxAdapter(child: const Text('Empty data'));
+                        }
+                      } else {
+                        return SliverToBoxAdapter(child: Text('State: ${snapshot.connectionState}'));
+                      }
+                    })
               ],
             ),
           ),
@@ -307,4 +352,16 @@ class HomeScreen extends StatelessWidget {
       ),
     );
   }
+  Widget buildTools(BuildContext context,List<ToolModel> items){
+    return
+      SliverList.separated(
+        itemBuilder: (context, index) => HomeToolItemWidget(
+          index: index+1,
+            tool:items[index]
+        ),
+        separatorBuilder: (_, __) => verticalSpace(10.h),
+        itemCount: items.length,
+      );
+  }
+
 }

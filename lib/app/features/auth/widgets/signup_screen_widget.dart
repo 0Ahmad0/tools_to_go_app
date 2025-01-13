@@ -133,6 +133,7 @@ class _SignupScreenWidgetState extends State<SignupScreenWidget> {
                           value==ConstValueManager.typeUserList[1]? AppConstants.collectionWorker:
                           value==ConstValueManager.typeUserList[2]? AppConstants.collectionOwner:
                           AppConstants.collectionUser;
+                          print(authController.typeUser);
                           setState(() {});
                         },
                         validator: (value) {

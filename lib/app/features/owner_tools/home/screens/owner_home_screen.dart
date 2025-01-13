@@ -19,7 +19,9 @@ import 'package:tools_to_go_app/core/widgets/app_padding.dart';
 
 import '../../../../../core/models/tool.dart';
 import '../../../../../core/widgets/constants_widgets.dart';
+import '../../../../../core/widgets/image_user_provider.dart';
 import '../../../../../core/widgets/no_data_found_widget.dart';
+import '../../../profile/controller/profile_controller.dart';
 import '../controller/tools_controller.dart';
 
 class OwnerHomeScreen extends StatefulWidget {
@@ -46,22 +48,34 @@ class _OwnerHomeScreenState extends State<OwnerHomeScreen> {
         drawer: Drawer(
           child: Column(
             children: [
-              UserAccountsDrawerHeader(
-                margin: EdgeInsets.zero,
-                decoration: BoxDecoration(
-                  color: ColorManager.orangeColor,
-                ),
-                accountName: Text(
-                  'ياسر',
-                  style: StyleManager.font14SemiBold(),
-                ),
-                accountEmail: Text(
-                  'email@gmail.com',
-                  style: StyleManager.font12SemiBold(),
-                ),
-                currentAccountPicture: CircleAvatar(
-                  child: Icon(FontAwesomeIcons.userLarge),
-                ),
+              GetBuilder<ProfileController>(
+                  init: Get.put(ProfileController()),
+                  builder: (controller) {
+                    return
+                      UserAccountsDrawerHeader(
+                          margin: EdgeInsets.zero,
+                          decoration: BoxDecoration(
+                            color: ColorManager.orangeColor,
+                          ),
+                          accountName: Text(
+                            controller.currentUser.value?.name ??
+                                'ياسر',
+                            style: StyleManager.font14SemiBold(),
+                          ),
+                          accountEmail: Text(
+                            controller.currentUser.value?.email ??
+                                'email@gmail.com',
+                            style: StyleManager.font12SemiBold(),
+                          ),
+                          currentAccountPicture:
+                          ImageUserProvider(
+                            url: controller.currentUser.value?.photoUrl,
+                          )
+                        // CircleAvatar(
+                        //   child: Icon(FontAwesomeIcons.userLarge),
+                        // ),
+                      );
+                  }
               ),
               ListTile(
                 dense: true,
@@ -120,7 +134,10 @@ class _OwnerHomeScreenState extends State<OwnerHomeScreen> {
                         title: StringManager.logoutText,
                         subTitle: StringManager.areYouSureLogoutText,
                         onDeleteTap: () {
-                          context.pushReplacement(Routes.loginRoute);
+                          context.pop();
+                          Get.lazyPut(() => AuthController());
+                          AuthController.instance.signOut(context);
+                          // context.pushReplacement(Routes.loginRoute);
                         },
                       ),
                     );
