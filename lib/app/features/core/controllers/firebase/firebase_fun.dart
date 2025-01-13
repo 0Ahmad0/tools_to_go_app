@@ -7,6 +7,7 @@ import 'package:firebase_storage/firebase_storage.dart';
 import 'package:get/get.dart';
 import 'package:image_picker/image_picker.dart';
 import '../../../../../core/models/notification_model.dart';
+import '../../../../../core/models/tool.dart';
 import '../../../../../core/models/user_model.dart';
 import '../../../../../core/utils/color_manager.dart';
 import 'firebase_constants.dart';
@@ -86,35 +87,35 @@ class FirebaseFun {
     return result;
   }
 
-  //Problem
-  // static addProblem( {required ProblemModel problem}) async {
-  //   final result= await FirebaseFirestore.instance.collection(FirebaseConstants.collectionProblem)
-  //       .doc(problem.id)
-  //       .set(problem.toJson()).then(onValueAddProblem).catchError(onError).timeout(timeOut,onTimeout: onTimeOut);
-  //   return result;
-  // }
-  // static deleteProblem( {required String idProblem}) async {
-  //   final result =await FirebaseFirestore.instance
-  //       .collection(FirebaseConstants.collectionProblem)
-  //       .doc(idProblem)
-  //       .delete().then(onValueDeleteProblem)
-  //       .catchError(onError);
-  //   return result;
-  // }
-  // static updateProblem( {required ProblemModel problem}) async {
-  //   final result= await FirebaseFirestore.instance.collection(FirebaseConstants.collectionProblem).doc(
-  //       problem.id
-  //   ).update(problem.toJson()).then(onValueUpdateProblem).catchError(onError).timeout(timeOut,onTimeout: onTimeOut);
-  //   return result;
-  // }
-  // static fetchProblemsByIdUser({required String idUser})  async {
-  //   final result=await FirebaseFirestore.instance.collection(FirebaseConstants.collectionProblem)
-  //       .where('idUser',isEqualTo: idUser)
-  //       .get()
-  //       .then((onValueFetchProblems))
-  //       .catchError(onError).timeout(timeOut,onTimeout: onTimeOut);
-  //   return result;
-  // }
+  ///Tools
+  static addTool( {required ToolModel tool}) async {
+    final result= await FirebaseFirestore.instance.collection(FirebaseConstants.collectionTool)
+        .doc(tool.id)
+        .set(tool.toJson()).then(onValueAddTool).catchError(onError).timeout(timeOut,onTimeout: onTimeOut);
+    return result;
+  }
+  static deleteTool( {required String idTool}) async {
+    final result =await FirebaseFirestore.instance
+        .collection(FirebaseConstants.collectionTool)
+        .doc(idTool)
+        .delete().then(onValueDeleteTool)
+        .catchError(onError);
+    return result;
+  }
+  static updateTool( {required ToolModel tool}) async {
+    final result= await FirebaseFirestore.instance.collection(FirebaseConstants.collectionTool).doc(
+        tool.id
+    ).update(tool.toJson()).then(onValueUpdateTool).catchError(onError).timeout(timeOut,onTimeout: onTimeOut);
+    return result;
+  }
+  static fetchToolsByIdUser({required String idUser})  async {
+    final result=await FirebaseFirestore.instance.collection(FirebaseConstants.collectionTool)
+        .where('idUser',isEqualTo: idUser)
+        .get()
+        .then((onValueFetchTools))
+        .catchError(onError).timeout(timeOut,onTimeout: onTimeOut);
+    return result;
+  }
 
   ///Notification
   static addNotification( {required NotificationModel notification}) async {
@@ -222,31 +223,31 @@ class FirebaseFun {
 
 
 
-  static Future<Map<String,dynamic>>onValueAddProblem(value) async{
+  static Future<Map<String,dynamic>>onValueAddTool(value) async{
     return {
       'status':true,
-      'message':'Problem successfully add',
+      'message':'Tool successfully add',
       'body':{},//{'id':value.id}
     };
   }
-  static Future<Map<String,dynamic>>onValueUpdateProblem(value) async{
+  static Future<Map<String,dynamic>>onValueUpdateTool(value) async{
     return {
       'status':true,
-      'message':'Problem successfully update',
+      'message':'Tool successfully update',
       'body':{}
     };
   }
-  static Future<Map<String,dynamic>> onValueFetchProblems(value) async{
+  static Future<Map<String,dynamic>> onValueFetchTools(value) async{
     return {
       'status':true,
-      'message':'Problems successfully fetch',
+      'message':'Tools successfully fetch',
       'body':value.docs
     };
   }
-  static Future<Map<String,dynamic>>onValueDeleteProblem(value) async{
+  static Future<Map<String,dynamic>>onValueDeleteTool(value) async{
     return {
       'status':true,
-      'message':'Problem successfully delete',
+      'message':'Tool successfully delete',
       'body':{}
     };
   }
@@ -341,15 +342,15 @@ class FirebaseFun {
         "تم جلب معلومات المستخدمين بنجاح";
         errorMessage = "Users successfully fetch";
         break;
-      case "problem successfully add":
+      case "Tool successfully add":
         errorMessage =
         "تمت إضافة مشكلة بنجاح";
         break;
-      case "problem successfully update":
+      case "Tool successfully update":
         errorMessage =
         "تم تحديث المشكلة بنجاح";
         break;
-      case "problem successfully fetch":
+      case "Tool successfully fetch":
         errorMessage =
         "تم جلب المشكلة بنجاح";
         break;
@@ -357,7 +358,7 @@ class FirebaseFun {
         errorMessage =
         "تم انشاء الحساب بنجاح";
         break;
-      case "problem successfully delete":
+      case "Tool successfully delete":
         errorMessage =
         "تم حذف المشكلة بنجاح";
         break;

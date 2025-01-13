@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'app/features/owner_tools/add_tool/screens/owner_add_tool_screen.dart';
 import 'core/routing/app_router.dart';
 import 'core/routing/routes.dart';
 import 'core/utils/color_manager.dart';
@@ -90,7 +91,9 @@ class ToolsToGoApp extends StatelessWidget {
             // home: NavbarScreen(),
             initialRoute: Routes.initialRoute,
             onGenerateRoute: appRouter.generateRoute,
-            routes: {},
+            routes: {
+              Routes.ownerAddToolRoute: (_) => OwnerAddToolScreen(),
+            }
           );
         });
   }

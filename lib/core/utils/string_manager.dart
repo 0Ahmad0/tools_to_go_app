@@ -14,16 +14,20 @@ class StringManager {
   static const String activeOrderText = "الطلبات النشطة";
   static const String completeOrderTodayText = "الطلبات المنتهية";
   static const String addNewToolsText = "أضف معدات جديدة";
+  static const String updateToolsText = "تعديل المعدات";
   static const String nameToolText = "اسم الأداة";
   static const String nameToolHintText = "أدخل اسم الأداة";
   static const String addNewProductText = "أضف منتج جديد";
+  static const String saveNewProductText = "حفظ المنتج";
   static const String imageProductText = "صورة المنتج";
   static const String nameProductText = "اسم المنتج";
   static const String nameProductHintText = "أدخل اسم المنتج";
   static const String priceProductText = "سعر المنتج";
   static const String priceProductHintText = "أدخل سعر المنتج";
   static const String descriptionProductText = "وصف المنتج";
+  static const String specificationsProductText = "مواصفات المنتج";
   static const String descriptionProductHintText = "أدخل وصف المنتج";
+  static const String specificationsProductHintText = "أدخل مواصفات المنتج";
   static const String propertyProductText = "مواصفات المنتج";
   static const String propertyProductHintText = "أدخل مواصفات المنتج";
   static const String dateOfBookText = "تاريخ حجز المنتج : ";
@@ -224,9 +228,11 @@ class StringManager {
   static const String becomeCarText = 'Become a Consultant or Service Provider and Start Earning Today';
   static const String homeText = 'الصفحة الرئيسية';
 
+  ///Tools Screen
+  static const String noToolsText = 'لا يوجد معدات بعد';
+
   /// Notification Screen
-  static const String noNotificationText =
-      'You don’t have any notifications yet';
+  static const String noNotificationText = 'You don’t have any notifications yet';
 
   /// Appointments Screen
   static const String appointmentsText = 'Appointments';

@@ -1,7 +1,10 @@
 import 'package:animate_do/animate_do.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:get/get.dart';
+import 'package:get/get_core/src/get_main.dart';
 import 'package:tools_to_go_app/app/features/auth/controller/auth_controller.dart';
 import 'package:tools_to_go_app/app/features/navbar/widgets/chat_item_widget.dart';
 import 'package:tools_to_go_app/app/features/owner_tools/home/widgets/owner_home_tool_widget.dart';
@@ -14,9 +17,25 @@ import 'package:tools_to_go_app/core/utils/string_manager.dart';
 import 'package:tools_to_go_app/core/utils/style_manager.dart';
 import 'package:tools_to_go_app/core/widgets/app_padding.dart';
 
-class OwnerHomeScreen extends StatelessWidget {
+import '../../../../../core/models/tool.dart';
+import '../../../../../core/widgets/constants_widgets.dart';
+import '../../../../../core/widgets/no_data_found_widget.dart';
+import '../controller/tools_controller.dart';
+
+class OwnerHomeScreen extends StatefulWidget {
   const OwnerHomeScreen({super.key});
 
+  @override
+  State<OwnerHomeScreen> createState() => _OwnerHomeScreenState();
+}
+
+class _OwnerHomeScreenState extends State<OwnerHomeScreen> {
+  late ToolsController controller;
+  void initState() {
+    controller = Get.put(ToolsController());
+    controller.onInit();
+    super.initState();
+  }
   @override
   Widget build(BuildContext context) {
     return FadeInUp(
@@ -132,13 +151,51 @@ class OwnerHomeScreen extends StatelessWidget {
           ),
         ),
         body: AppPaddingWidget(
-          child: ListView.separated(
-              padding: EdgeInsets.only(bottom: 70.h),
-              itemBuilder: (context, index) => OwnerHomeToolWidget(),
-              separatorBuilder: (_, __) => verticalSpace(20.h),
-              itemCount: 13),
+          child:  StreamBuilder<QuerySnapshot>(
+              stream: controller.getTools,
+              builder: (context, snapshot) {
+                if (snapshot.connectionState == ConnectionState.waiting) {
+                  return    ConstantsWidgets.circularProgress();
+                } else if (snapshot.connectionState ==
+                    ConnectionState.active) {
+                  if (snapshot.hasError) {
+                    return  Text('Error');
+                  } else if (snapshot.hasData) {
+                    ConstantsWidgets.circularProgress();
+                    controller.tools.items.clear();
+                    if (snapshot.data!.docs.length > 0) {
+
+                      controller.tools.items =
+                          Tools.fromJson(snapshot.data?.docs).items;
+                    }
+                    // controller.classification();
+                    return
+                      GetBuilder<ToolsController>(
+                          builder: (ToolsController toolsController)=>
+
+                          (toolsController.tools.items.isEmpty ?? true)
+                              ?
+                          Center(child: NoDataFoundWidget(text: StringManager.noToolsText))
+                              :
+                              buildTools(context, toolsController.tools.items));
+                  } else {
+                    return const Text('Empty data');
+                  }
+                } else {
+                  return Text('State: ${snapshot.connectionState}');
+                }
+              }),
         ),
       ),
     );
   }
+  Widget buildTools(BuildContext context,List<ToolModel> items){
+    return
+      ListView.separated(
+          padding: EdgeInsets.only(bottom: 70.h),
+          itemBuilder: (context, index) => OwnerHomeToolWidget(tool:items[index]),
+          separatorBuilder: (_, __) => verticalSpace(20.h),
+          itemCount: items.length);
+  }
+
 }
