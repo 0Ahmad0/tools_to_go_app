@@ -1,17 +1,23 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:get/get.dart';
+import 'package:get/get_core/src/get_main.dart';
 import 'package:intl/intl.dart';
 
+import '../../../../core/enums/enums.dart';
 import '../../../../core/helpers/sizer.dart';
 import '../../../../core/helpers/spacing.dart';
+import '../../../../core/models/message_model.dart';
 import '../../../../core/utils/color_manager.dart';
 import '../../../../core/utils/style_manager.dart';
+import '../controller/chat_room_controller.dart';
 
 class SenderTextWidget extends StatelessWidget {
   const SenderTextWidget({
-    super.key, required this.text,
+    super.key, required this.text, this.sendingTime,
   });
   final String text;
+  final DateTime? sendingTime;
 
   @override
   Widget build(BuildContext context) {
@@ -47,7 +53,7 @@ class SenderTextWidget extends StatelessWidget {
             ),
             horizontalSpace(8.w),
             Text(
-              DateFormat().add_jm().format(DateTime.now()),
+              DateFormat().add_jm().format(sendingTime??DateTime.now()),
               style: StyleManager.font10Bold(
                   color: ColorManager.hintTextColor
               ),
@@ -57,4 +63,5 @@ class SenderTextWidget extends StatelessWidget {
       ),
     );
   }
+
 }

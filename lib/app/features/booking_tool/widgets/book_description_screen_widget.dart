@@ -62,9 +62,10 @@ class _BookDescriptionScreenWidgetState
               barrierDismissible: true,
               context: context,
               builder: (context) => SelectLocationUserWidget(
-                confirmLocation: (selectedLocation){
+                confirmLocation: (selectedLocation,address){
                   if(selectedLocation!=null){
                     customerBookingToolController.appointment?.deliveryAddress=LocationModel(
+                      address: address,
                         latitude: selectedLocation?.longitude,
                         longitude:selectedLocation?.latitude
                     );

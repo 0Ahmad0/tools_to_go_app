@@ -9,10 +9,11 @@ import '../../../../core/utils/style_manager.dart';
 
 class ReceiverTextWidget extends StatelessWidget {
   const ReceiverTextWidget({
-    super.key, required this.text,
+    super.key, required this.text, this.sendingTime,
   });
 
   final String text;
+  final DateTime? sendingTime;
 
   @override
   Widget build(BuildContext context) {
@@ -28,7 +29,7 @@ class ReceiverTextWidget extends StatelessWidget {
           children: [
 
             Text(
-              DateFormat().add_jm().format(DateTime.now()),
+              DateFormat().add_jm().format(sendingTime??DateTime.now()),
               style: StyleManager.font10Bold(
                   color: ColorManager.hintTextColor
               ),

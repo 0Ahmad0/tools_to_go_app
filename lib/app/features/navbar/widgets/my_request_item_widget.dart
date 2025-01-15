@@ -1,6 +1,8 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:get/get.dart';
+import 'package:get/get_core/src/get_main.dart';
 import 'package:intl/intl.dart';
 import 'package:tools_to_go_app/app/features/auth/controller/auth_controller.dart';
 import 'package:tools_to_go_app/core/helpers/extensions.dart';
@@ -14,6 +16,7 @@ import 'package:tools_to_go_app/core/widgets/app_button.dart';
 
 import '../../../../../core/dialogs/delete_dialog.dart';
 import '../../../../core/helpers/get_color_status_appointments.dart';
+import '../controller/user_appointments_controller.dart';
 
 class MyRequestItemWidget extends StatelessWidget {
   const MyRequestItemWidget({super.key, this.item});
@@ -54,7 +57,8 @@ final Appointment? item;
             item?.idWorker!=null&&([ColorAppointments.Ongoing,ColorAppointments.StartingSoon,ColorAppointments.Concluded].contains(item?.getState))?
             IconButton(
               onPressed: () {
-                context.pushNamed(Routes.messagesRoute);
+                Get.put(UserAppointmentsController()).connectionPerson(context, item?.idWorker);
+                // context.pushNamed(Routes.messagesRoute);
               },
               icon: Icon(
                 Icons.chat,

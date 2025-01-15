@@ -1,4 +1,9 @@
 
+import 'dart:convert';
+
+import 'package:http/http.dart' as http;
+
+import '../../../../core/widgets/constants_widgets.dart';
 import '/core/helpers/extensions.dart';
 import '/core/utils/color_manager.dart';
 import '/core/utils/string_manager.dart';
@@ -12,7 +17,7 @@ import 'package:google_maps_flutter/google_maps_flutter.dart';
 
 class SelectLocationUserWidget extends StatefulWidget {
   const SelectLocationUserWidget({super.key, this.confirmLocation});
-  final Function(LatLng? selectedLocation)? confirmLocation;
+  final Function(LatLng? selectedLocation,String? address)? confirmLocation;
 
   @override
   State<SelectLocationUserWidget> createState() =>
@@ -22,17 +27,17 @@ class SelectLocationUserWidget extends StatefulWidget {
 class _SelectLocationUserWidgetState extends State<SelectLocationUserWidget> {
   late GoogleMapController _mapController;
   LatLng? _selectedLocation;
-
+String? areaName;
   void _onMapTap(LatLng position) {
     setState(() {
       _selectedLocation = position;
     });
   }
 
-  void _confirmLocation() {
+  Future<void> _confirmLocation() async {
     if (LatLng != null) {
-
-     widget.confirmLocation!=null? widget.confirmLocation!(_selectedLocation):"";
+      await getAreaName(_selectedLocation?.latitude,_selectedLocation?.longitude);
+     widget.confirmLocation!=null? widget.confirmLocation!(_selectedLocation,areaName):"";
       Navigator.pop(context, _selectedLocation);
     } else {
       ScaffoldMessenger.of(context).showSnackBar(
@@ -131,5 +136,32 @@ class _SelectLocationUserWidgetState extends State<SelectLocationUserWidget> {
         ),
       ),
     );
+  }
+  Future<void> getAreaName(double? latitude, double? longitude) async {
+    ConstantsWidgets.showLoading();
+
+    final url = Uri.parse(
+        'https://nominatim.openstreetmap.org/reverse?format=json&lat=$latitude&lon=$longitude&zoom=18&addressdetails=1');
+    final response = await http.get(url);
+
+    if (response.statusCode == 200) {
+      final data = json.decode(response.body);
+      final address = data['address'];
+      final area = address['suburb'] ??
+          address['municipality'] ??
+          address['province'] ??
+          address['state'] ??
+          address['country'] ??
+          'غير معروف';
+      print(address);
+      setState(() {
+        areaName = area;
+      });
+    } else {
+      setState(() {
+        areaName = 'غير معروف';
+      });
+    }
+    ConstantsWidgets.closeDialog();
   }
 }
