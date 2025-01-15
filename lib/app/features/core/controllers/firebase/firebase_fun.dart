@@ -472,49 +472,55 @@ class FirebaseFun {
       // login
       case "user-not-found":
         errorMessage = "No user found with this email.";
-        // errorMessage = "لا يوجد مستخدم لهذا البريد.";
+        errorMessage = "لا يوجد مستخدم لهذا البريد.";
         break;
       case "wrong-password":
         errorMessage = "Incorrect password.";
-        // errorMessage = "كلمة السر غير صحيحة.";
+        errorMessage = "كلمة السر غير صحيحة.";
         break;
       case "invalid-email":
-        // errorMessage = "البريد الالكتروني البدخل غير صالح";
+        errorMessage = "البريد الالكتروني البدخل غير صالح";
         break;
       case "user-disabled":
-        // errorMessage = "المستخدم غير مفعل.";
+        errorMessage = "المستخدم غير مفعل.";
         break;
       case "too-many-requests":
         errorMessage =
+            errorMessage="Too many requests";
         ".حاولت تسجيل الدخول مرات عديدة، حاول لاحقاً";
-        errorMessage="Too many requests";
+
         break;
       // register
       case "email-already-in-use":
-        errorMessage = ".هذا البريد موجود مسبقاً";
         errorMessage="email already in use";
+        errorMessage = ".هذا البريد موجود مسبقاً";
+
         break;
       case "invalid-email":
-        errorMessage = "البريد الالكتروني غير صالح.";
         errorMessage = "Invalid email";
+        errorMessage = "البريد الالكتروني غير صالح.";
+
         break;
       case "weak-password":
         errorMessage = "Password is too weak. It must be at least 6 characters long, including at least one uppercase letter, one lowercase letter, and one digit.";
-        // errorMessage = "كلمة المرور ضعيفة، يجب أن تحوي 6 محارف، وتتضمن حرف كبير وحرف صغير، وأيضا علامة ترقيم";
+        errorMessage = "كلمة المرور ضعيفة، يجب أن تحوي 6 محارف، وتتضمن حرف كبير وحرف صغير، وأيضا علامة ترقيم";
         break;
       case "invalid email":
-        errorMessage = "البريد الالكتروني غير صالح.";
+
         errorMessage = "Invalid email";
+        errorMessage = "البريد الالكتروني غير صالح.";
         break;
       case "invalid-credential":
-        errorMessage = "المستخدم غير صحيح.";
+
         errorMessage = "Invalid credential";
+        errorMessage = "المستخدم غير صحيح.";
         break;
 
       case "account successfully logged":
+
+        errorMessage = "Account successfully logged";
         errorMessage =
         "تم تسجيل الدخول بنجاح";
-        errorMessage = "Account successfully logged";
         break;
       case "users successfully fetch":
         errorMessage =
@@ -554,8 +560,9 @@ class FirebaseFun {
         "";
         break;
       default:
-        errorMessage = "An unexpected error occurred. Please try again later.";
         errorMessage = "حصل خطأ، الرجاء المحاولة لاحقاً";
+        errorMessage = "An unexpected error occurred. Please try again later.";
+
         errorMessage = text;
     }
     print("error trans: $errorMessage");

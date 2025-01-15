@@ -393,18 +393,26 @@ class StringManager {
       'Please ensure your review is honest, constructive, and respectful';
 
   /// Message Screen
-  static const String searchMessageText = 'search Message..';
-  static const String noMessageYetText = 'No messages yet';
-  static const String errorTryAgainLater = 'Error try again later';
-  static const String emptyData = 'Empty Data';
+     static const String searchMessageText = 'ابحث عن رسائل ..';
+    static const String noMessageYetText = 'لا يوجد رسائل بعد';
+    static const String errorTryAgainLater = 'خطأ، حاول مرة أخرى لاحقاً';
+    static const String emptyData = 'Empty Data';
+  // static const String searchMessageText = 'search Message..';
+  // static const String noMessageYetText = 'No messages yet';
+  // static const String errorTryAgainLater = 'Error try again later';
+  // static const String emptyData = 'Empty Data';
   static const String startChatText =
       'Start a conversation with proofreaders,\nand get the job done';
 
   ///<Message Firebase>//
-  static const message_success = "Success";
-  static const message_failure = "Failure";
-  static const message_successful_login = "Successful login";
-  static const message_successfully_update = "Successful update";
+  static const message_success = "نجاح";
+  static const message_failure = "فشل";
+  static const message_successful_login = "تم تسجيل الدخول بنجاح";
+  static const message_successfully_update = "تم التحديث بنجاح";
+  // static const message_success = "Success";
+  // static const message_failure = "Failure";
+  // static const message_successful_login = "Successful login";
+  // static const message_successfully_update = "Successful update";
 
   ///Admin
   static const usersText = "Users";
