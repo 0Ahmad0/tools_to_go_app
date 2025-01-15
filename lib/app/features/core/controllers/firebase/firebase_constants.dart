@@ -4,5 +4,6 @@ class FirebaseConstants{
   static String collectionUser = "Users";
   static String collectionTool = "Tools";
   static String collectionNotification = "Notifications";
+  static String collectionAppointment = "Appointments";
 
 }

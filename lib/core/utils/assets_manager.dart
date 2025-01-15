@@ -7,6 +7,8 @@ class AssetsManager {
   static const logoIMG = '$_pathImages/logo_with_text.png';
   static const logo2IMG = '$_pathImages/logo.png';
   static const mailBoxIMG = '$_pathImages/mail_box.json';
+  static const noNotificationIMG = '$_pathImages/no_notification.png';
+  static const noMessagesIMG = '$_pathImages/no_messages.png';
 
   ///<==== Svg ====>
   static const usernameIcon = '$_pathSVGs/username.svg';

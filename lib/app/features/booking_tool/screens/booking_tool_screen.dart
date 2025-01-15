@@ -1,11 +1,14 @@
 import 'package:animate_do/animate_do.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:get/get.dart';
+import 'package:get/get_core/src/get_main.dart';
 import 'package:tools_to_go_app/app/features/auth/screens/change_password_screen.dart';
 import 'package:tools_to_go_app/app/features/booking_tool/widgets/book_dates_screen_widget.dart';
 import 'package:tools_to_go_app/app/features/booking_tool/widgets/book_description_screen_widget.dart';
 import 'package:tools_to_go_app/app/features/booking_tool/widgets/book_payment_screen_widget.dart';
 import 'package:tools_to_go_app/core/helpers/spacing.dart';
+import 'package:tools_to_go_app/core/models/appointment.dart';
 import 'package:tools_to_go_app/core/utils/const_value_manager.dart';
 import 'package:tools_to_go_app/core/utils/string_manager.dart';
 import 'package:tools_to_go_app/core/utils/style_manager.dart';
@@ -13,6 +16,7 @@ import 'package:tools_to_go_app/core/widgets/app_button.dart';
 import 'package:tools_to_go_app/core/widgets/app_padding.dart';
 
 import '../../../../core/utils/color_manager.dart';
+import '../controller/customer_booking_tool_controller.dart';
 
 class BookingToolScreen extends StatefulWidget {
   const BookingToolScreen({super.key});
@@ -33,6 +37,16 @@ class _BookingToolScreenState extends State<BookingToolScreen> {
         case 2:
         return BookPaymentScreenWidget();
     }
+  }
+  late CustomerBookingToolController controller;
+
+  @override
+  void initState() {
+    controller = Get.put(CustomerBookingToolController());
+    controller.onInit();
+    controller.appointment=Appointment();
+
+    super.initState();
   }
 
   @override
@@ -105,7 +119,12 @@ class _BookingToolScreenState extends State<BookingToolScreen> {
                 verticalSpace(10.h),
                 _getCurrentScreen(_currentIndex),
                 verticalSpace(20.h),
-                AppButton(onPressed: (){}, text:
+                AppButton(onPressed: (){
+
+                  if(controller.validateBook(context)){
+                    controller.addAppointment(context);
+                  }
+                }, text:
                 StringManager.confirmBookingText)
 
               ],

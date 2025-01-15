@@ -1,7 +1,10 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:get/get.dart';
+import 'package:get/get_core/src/get_main.dart';
 import 'package:tools_to_go_app/app/features/auth/controller/auth_controller.dart';
+import 'package:tools_to_go_app/app/features/booking_tool/controller/customer_booking_tool_controller.dart';
 import 'package:tools_to_go_app/core/helpers/extensions.dart';
 import 'package:tools_to_go_app/core/utils/style_manager.dart';
 
@@ -21,6 +24,7 @@ class HomeToolItemWidget extends StatelessWidget {
     return InkWell(
       borderRadius: BorderRadius.circular(12.r),
       onTap: (){
+
         context.pushNamed(Routes.toolDetailsRoute,arguments: {"tool":tool});
       },
       child: Container(

@@ -5,6 +5,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:get/get.dart';
 import '../../../../core/models/notification_model.dart';
+import '../../../../core/utils/app_constant.dart';
 import '../../core/controllers/firebase/firebase_constants.dart';
 import '../../core/controllers/firebase/firebase_fun.dart';
 import 'package:get/get_core/src/get_main.dart';
@@ -40,6 +41,7 @@ class NotificationsController extends GetxController{
 
 
   _fetchNotificationsStream() {
+
     final result= FirebaseFirestore.instance
         .collection(FirebaseConstants.collectionNotification)
         .where('typeUser',isEqualTo: typeUser)
@@ -53,6 +55,7 @@ class NotificationsController extends GetxController{
     seenNotifications.items.clear();
     unSeenNotifications.items.clear();
     notifications.items.forEach((element) {
+      if(AppConstants.collectionOwner==typeUser||element.idUser==uid)
       if(element.checkRec)
         seenNotifications.items.add(element);
       else

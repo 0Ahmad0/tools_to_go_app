@@ -1,19 +1,26 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:get/get.dart';
+import 'package:get/get_core/src/get_main.dart';
 import 'package:intl/intl.dart';
+import 'package:tools_to_go_app/app/features/auth/controller/auth_controller.dart';
 import 'package:tools_to_go_app/core/dialogs/general_dialog.dart';
+import 'package:tools_to_go_app/core/helpers/extensions.dart';
+import 'package:tools_to_go_app/core/helpers/get_color_status_appointments.dart';
 import 'package:tools_to_go_app/core/helpers/spacing.dart';
+import 'package:tools_to_go_app/core/models/appointment.dart';
 import 'package:tools_to_go_app/core/utils/color_manager.dart';
 import 'package:tools_to_go_app/core/utils/string_manager.dart';
 import 'package:tools_to_go_app/core/utils/style_manager.dart';
 import 'package:tools_to_go_app/core/widgets/app_button.dart';
 
 import '../../../../../core/dialogs/delete_dialog.dart';
+import '../controller/owner_appointments_controller.dart';
 
 class OwnerToolsRequestsWidget extends StatelessWidget {
-  const OwnerToolsRequestsWidget({super.key});
-
+  const OwnerToolsRequestsWidget({super.key, this.item});
+final Appointment? item;
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -31,6 +38,7 @@ class OwnerToolsRequestsWidget extends StatelessWidget {
       child: Column(
         children: [
           Text(
+            item?.nameTool??
             'اسم المنتج',
             style: StyleManager.font14SemiBold(),
           ),
@@ -38,7 +46,7 @@ class OwnerToolsRequestsWidget extends StatelessWidget {
           ListTile(
             contentPadding: EdgeInsets.zero,
             title: Text(
-              'اسم العميل',
+              'اسم العميل'+" "+"${item?.nameCustomer??""}",
               style: StyleManager.font14SemiBold(),
             ),
             subtitle: Padding(
@@ -53,6 +61,7 @@ class OwnerToolsRequestsWidget extends StatelessWidget {
                           style: StyleManager.font14SemiBold()),
                       TextSpan(
                         text: DateFormat.yMd().add_jm().format(
+                          item?.selectDate??
                           DateTime.now(),
                         ),
                       ),
@@ -65,7 +74,7 @@ class OwnerToolsRequestsWidget extends StatelessWidget {
                           text: StringManager.locationBookText,
                           style: StyleManager.font14SemiBold()),
                       TextSpan(
-                        text: 'الرياض - الشارع الرئيسي 123',
+                        text: item?.deliveryAddress?.address??'الرياض - الشارع الرئيسي 123',
                       ),
                     ]),
                   ),
@@ -85,7 +94,10 @@ class OwnerToolsRequestsWidget extends StatelessWidget {
                           GeneralDialog(
                             title: StringManager.approvedRequestText,
                             subTitle: StringManager.areYouSureApprovedRequestText,
-                            onOkTap: () {},
+                            onOkTap: () {
+                              context.pop();
+                              Get.put(OwnerAppointmentsController()).acceptOrRejectedRequest(context, ColorAppointments.Ongoing, item);
+                            },
                           ),
                     );
                   },
@@ -119,7 +131,10 @@ class OwnerToolsRequestsWidget extends StatelessWidget {
                           DeleteDialog(
                             title: StringManager.cancelRequestText,
                             subTitle: StringManager.areYouSureCancelRequestText,
-                            onDeleteTap: () {},
+                            onDeleteTap: () {
+                              context.pop();
+                              Get.put(OwnerAppointmentsController()).acceptOrRejectedRequest(context, ColorAppointments.Rejected, item);
+                            },
                           ),
                     );
                   },

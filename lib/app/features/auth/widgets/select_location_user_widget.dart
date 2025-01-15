@@ -1,3 +1,4 @@
+
 import '/core/helpers/extensions.dart';
 import '/core/utils/color_manager.dart';
 import '/core/utils/string_manager.dart';
@@ -10,7 +11,8 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 
 class SelectLocationUserWidget extends StatefulWidget {
-  const SelectLocationUserWidget({super.key});
+  const SelectLocationUserWidget({super.key, this.confirmLocation});
+  final Function(LatLng? selectedLocation)? confirmLocation;
 
   @override
   State<SelectLocationUserWidget> createState() =>
@@ -28,7 +30,9 @@ class _SelectLocationUserWidgetState extends State<SelectLocationUserWidget> {
   }
 
   void _confirmLocation() {
-    if (_selectedLocation != null) {
+    if (LatLng != null) {
+
+     widget.confirmLocation!=null? widget.confirmLocation!(_selectedLocation):"";
       Navigator.pop(context, _selectedLocation);
     } else {
       ScaffoldMessenger.of(context).showSnackBar(

@@ -6,6 +6,7 @@ import 'package:firebase_database/firebase_database.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:get/get.dart';
 import 'package:image_picker/image_picker.dart';
+import '../../../../../core/models/appointment.dart';
 import '../../../../../core/models/notification_model.dart';
 import '../../../../../core/models/tool.dart';
 import '../../../../../core/models/user_model.dart';
@@ -154,6 +155,30 @@ class FirebaseFun {
   // }
 
 
+  ///Appointment
+  static addRequestAppointment( {required Appointment appointment}) async {
+    final result= await FirebaseFirestore.instance.collection(FirebaseConstants.collectionAppointment)
+        .doc(appointment.id)
+        .set(appointment.toJson()).then(onValueAddAppointment).catchError(onError).timeout(timeOut,onTimeout: onTimeOut);
+    return result;
+  }
+  static deleteAppointment( {required String idAppointment}) async {
+    final result =await FirebaseFirestore.instance
+        .collection(FirebaseConstants.collectionAppointment)
+        .doc(idAppointment)
+        .delete().then(onValueDeleteAppointment)
+        .catchError(onError);
+    return result;
+  }
+  static updateAppointment( {required Appointment appointment}) async {
+    final result= await FirebaseFirestore.instance.collection(FirebaseConstants.collectionAppointment).doc(
+        appointment.id
+    ).update(appointment.toJson()).then(onValueUpdateAppointment).catchError(onError).timeout(timeOut,onTimeout: onTimeOut);
+    return result;
+  }
+
+
+
 
   static Future<Map<String,dynamic>>  onError(error) async {
     return {
@@ -281,6 +306,34 @@ class FirebaseFun {
     };
   }
 
+  static Future<Map<String,dynamic>>onValueAddAppointment(value) async{
+    return {
+      'status':true,
+      'message':'Appointment successfully add',
+      'body':{},//{'id':value.id}
+    };
+  }
+  static Future<Map<String,dynamic>>onValueUpdateAppointment(value) async{
+    return {
+      'status':true,
+      'message':'Appointment successfully update',
+      'body':{}
+    };
+  }
+  static Future<Map<String,dynamic>> onValueFetchAppointments(value) async{
+    return {
+      'status':true,
+      'message':'Appointment successfully fetch',
+      'body':value.docs
+    };
+  }
+  static Future<Map<String,dynamic>>onValueDeleteAppointment(value) async{
+    return {
+      'status':true,
+      'message':'Appointment successfully delete',
+      'body':{}
+    };
+  }
 
 
 

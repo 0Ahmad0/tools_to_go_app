@@ -7,6 +7,7 @@ class NotificationModel {
   String? idUser;
   DateTime? dateTime;
   String? subtitle;
+  String? typeUser;
   String title;
   String? message;
   bool checkSend;
@@ -15,6 +16,7 @@ class NotificationModel {
     this.id="",
     this.idNotification='',
      this.idUser,
+     this.typeUser,
     required this.subtitle,
     required this.dateTime,
     required this.title,
@@ -28,6 +30,7 @@ class NotificationModel {
       id: json['id'],
       idNotification: json['idNotification'],
       idUser: json['idUser'],
+      typeUser: json['typeUser'],
       subtitle: json['subtitle'],
       title: json['title'],
       message: json['message'],
@@ -41,6 +44,7 @@ class NotificationModel {
     return {
       'id': id,
       'idNotification': idNotification,
+      'typeUser': typeUser,
       'idUser': idUser,
       'subtitle': subtitle,
       'title': title,

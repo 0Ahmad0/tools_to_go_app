@@ -1,4 +1,5 @@
 import 'package:animate_do/animate_do.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
@@ -16,14 +17,29 @@ import 'package:tools_to_go_app/core/utils/style_manager.dart';
 import 'package:tools_to_go_app/core/widgets/app_padding.dart';
 
 import '../../../../../core/dialogs/delete_dialog.dart';
+import '../../../../../core/models/appointment.dart';
 import '../../../../../core/routing/routes.dart';
+import '../../../../../core/widgets/constants_widgets.dart';
 import '../../../../../core/widgets/image_user_provider.dart';
+import '../../../../../core/widgets/no_data_found_widget.dart';
 import '../../../auth/controller/auth_controller.dart';
 import '../../../profile/controller/profile_controller.dart';
+import '../controller/worker_appointments_controller.dart';
 
-class OrderTakerHomeScreen extends StatelessWidget {
+class OrderTakerHomeScreen extends StatefulWidget {
   const OrderTakerHomeScreen({super.key});
 
+  @override
+  State<OrderTakerHomeScreen> createState() => _OrderTakerHomeScreenState();
+}
+
+class _OrderTakerHomeScreenState extends State<OrderTakerHomeScreen> {
+  late WorkerAppointmentsController controller;
+  void initState() {
+    controller = Get.put(WorkerAppointmentsController());
+    controller.onInit();
+    super.initState();
+  }
   @override
   Widget build(BuildContext context) {
     return FadeInUp(
@@ -163,105 +179,151 @@ class OrderTakerHomeScreen extends StatelessWidget {
             ],
           ),
         ),
-        body: CustomScrollView(
-          slivers: [
-            SliverToBoxAdapter(
-              child: Container(
-                width: double.maxFinite,
-                decoration: BoxDecoration(color: ColorManager.grayColor),
-                child: AppPaddingWidget(
-                  child: Row(
-                    children: [
-                      Flexible(
-                        child: Container(
-                          padding: EdgeInsets.symmetric(
-                              horizontal: 12.w, vertical: 10.h),
-                          decoration: BoxDecoration(
-                              color: ColorManager.whiteColor,
-                              borderRadius: BorderRadius.circular(12.r),
-                              boxShadow: [
-                                BoxShadow(
-                                    color: ColorManager.shadowColor,
-                                    blurRadius: 8.sp)
-                              ]),
-                          child: Column(
-                            crossAxisAlignment: CrossAxisAlignment.stretch,
-                            children: [
-                              Image.asset(
-                                AssetsManager.completeOrdersIcon,
-                                width: 50.w,
-                                height: 50.h,
-                              ),
-                              verticalSpace(10.h),
-                              Text(
-                                StringManager.completeOrderTodayText,
-                                textAlign: TextAlign.center,
-                                style: StyleManager.font12SemiBold(),
-                              ),
-                              verticalSpace(10.h),
-                              Text(
-                                '${4}',
-                                textAlign: TextAlign.center,
-                                style: StyleManager.font30Bold(
-                                    color: ColorManager.errorColor),
-                              ),
-                            ],
-                          ),
-                        ),
-                      ),
-                      horizontalSpace(20.w),
-                      Flexible(
-                        child: Container(
-                          padding: EdgeInsets.symmetric(
-                              horizontal: 12.w, vertical: 10.h),
-                          decoration: BoxDecoration(
-                              color: ColorManager.whiteColor,
-                              borderRadius: BorderRadius.circular(12.r),
-                              boxShadow: [
-                                BoxShadow(
-                                    color: ColorManager.shadowColor,
-                                    blurRadius: 8.sp)
-                              ]),
-                          child: Column(
-                            crossAxisAlignment: CrossAxisAlignment.stretch,
-                            children: [
-                              Image.asset(
-                                AssetsManager.activeOrderIcon,
-                                width: 50.w,
-                                height: 50.h,
-                              ),
-                              verticalSpace(10.h),
-                              Text(
-                                StringManager.activeOrderText,
-                                textAlign: TextAlign.center,
-                                style: StyleManager.font12SemiBold(),
-                              ),
-                              verticalSpace(10.h),
-                              Text(
-                                '${13}',
-                                textAlign: TextAlign.center,
-                                style: StyleManager.font30Bold(
-                                    color: ColorManager.successColor),
-                              ),
-                            ],
-                          ),
-                        ),
-                      ),
-                    ],
-                  ),
-                ),
-              ),
-            ),
-            SliverList.separated(
-              itemBuilder: (context, index) => OrderTakerOrderWidget(
-                index: ++index,
-              ),
-              separatorBuilder: (_, __) => Divider(),
-              itemCount: 14,
-            )
-          ],
-        ),
+        body:
+
+        StreamBuilder<QuerySnapshot>(
+            stream: controller.getAppointments,
+            builder: (context, snapshot) {
+              if (snapshot.connectionState == ConnectionState.waiting) {
+                return   ConstantsWidgets.circularProgress();
+              } else if (snapshot.connectionState ==
+                  ConnectionState.active) {
+                if (snapshot.hasError) {
+                  return  Text('Error');
+                } else if (snapshot.hasData) {
+                  ConstantsWidgets.circularProgress();
+                  controller.appointments.items.clear();
+                  if (snapshot.data!.docs.length > 0) {
+
+                    controller.appointments.items =
+                        Appointments.fromJson(snapshot.data?.docs).items;
+                  }
+                  controller.filter(term: controller.searchController.value.text);
+                  return
+                    GetBuilder<WorkerAppointmentsController>(
+                        builder: (WorkerAppointmentsController workerAppointmentsController)=>
+
+
+                        buildAppointments(context, controller));
+                } else {
+                  return SliverToBoxAdapter(child: const Text('Empty data'));
+                }
+              } else {
+                return Text('State: ${snapshot.connectionState}');
+              }
+            }),
+
+
       ),
     );
   }
+  Widget buildAppointments(BuildContext context,WorkerAppointmentsController workerAppointmentsController){
+    return
+      CustomScrollView(
+        slivers: [
+          SliverToBoxAdapter(
+            child: Container(
+              width: double.maxFinite,
+              decoration: BoxDecoration(color: ColorManager.grayColor),
+              child: AppPaddingWidget(
+                child: Row(
+                  children: [
+                    Flexible(
+                      child: Container(
+                        padding: EdgeInsets.symmetric(
+                            horizontal: 12.w, vertical: 10.h),
+                        decoration: BoxDecoration(
+                            color: ColorManager.whiteColor,
+                            borderRadius: BorderRadius.circular(12.r),
+                            boxShadow: [
+                              BoxShadow(
+                                  color: ColorManager.shadowColor,
+                                  blurRadius: 8.sp)
+                            ]),
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.stretch,
+                          children: [
+                            Image.asset(
+                              AssetsManager.completeOrdersIcon,
+                              width: 50.w,
+                              height: 50.h,
+                            ),
+                            verticalSpace(10.h),
+                            Text(
+                              StringManager.completeOrderTodayText,
+                              textAlign: TextAlign.center,
+                              style: StyleManager.font12SemiBold(),
+                            ),
+                            verticalSpace(10.h),
+                            Text(
+                              '${workerAppointmentsController.concludedAppointments.items.length}',
+                              textAlign: TextAlign.center,
+                              style: StyleManager.font30Bold(
+                                  color: ColorManager.errorColor),
+                            ),
+                          ],
+                        ),
+                      ),
+                    ),
+                    horizontalSpace(20.w),
+                    Flexible(
+                      child: Container(
+                        padding: EdgeInsets.symmetric(
+                            horizontal: 12.w, vertical: 10.h),
+                        decoration: BoxDecoration(
+                            color: ColorManager.whiteColor,
+                            borderRadius: BorderRadius.circular(12.r),
+                            boxShadow: [
+                              BoxShadow(
+                                  color: ColorManager.shadowColor,
+                                  blurRadius: 8.sp)
+                            ]),
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.stretch,
+                          children: [
+                            Image.asset(
+                              AssetsManager.activeOrderIcon,
+                              width: 50.w,
+                              height: 50.h,
+                            ),
+                            verticalSpace(10.h),
+                            Text(
+                              StringManager.activeOrderText,
+                              textAlign: TextAlign.center,
+                              style: StyleManager.font12SemiBold(),
+                            ),
+                            verticalSpace(10.h),
+                            Text(
+                              '${workerAppointmentsController.currentAppointments.items.length}',
+                              textAlign: TextAlign.center,
+                              style: StyleManager.font30Bold(
+                                  color: ColorManager.successColor),
+                            ),
+                          ],
+                        ),
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+            ),
+          ),
+
+          (workerAppointmentsController.currentAppointments.items.isEmpty ?? true)
+              ?
+          SliverFillRemaining(child: Center(child: NoDataFoundWidget(text: "لا يوجد طلبات حالية")))
+              :
+          SliverList.separated(
+            itemBuilder: (context, index) => OrderTakerOrderWidget(
+              index: 1+index,
+              item:workerAppointmentsController.currentAppointments.items[index]
+            ),
+            separatorBuilder: (_, __) => Divider(),
+            itemCount: workerAppointmentsController.currentAppointments.items.length,
+          )
+        ],
+      );
+
+  }
+
 }

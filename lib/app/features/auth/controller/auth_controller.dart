@@ -280,7 +280,7 @@ class AuthController extends GetxController {
     if (!result['status']) return null;
     Users users = Users.fromJson(result['body']);
     for (int i = 0; i < 10000; i++) {
-      bool exists = users.users.any((user) => user.userName == userName);
+      bool exists = users.items.any((user) => user.userName == userName);
       if (exists)
         userName = genUserName + '$i';
       else

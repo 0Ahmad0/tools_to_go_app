@@ -87,11 +87,11 @@ class UserModel {
 
 //users
 class Users {
-  List<UserModel> users;
+  List<UserModel> items;
 
   //DateTime date;
 
-  Users({required this.users});
+  Users({required this.items});
 
   factory Users.fromJson(json) {
     List<UserModel> tempUsers = [];
@@ -101,12 +101,12 @@ class Users {
       tempUser.id = json[i].id;
       tempUsers.add(tempUser);
     }
-    return Users(users: tempUsers);
+    return Users(items: tempUsers);
   }
 
   Map<String, dynamic> toJson() {
     List<Map<String, dynamic>> tempUsers = [];
-    for (UserModel user in users) {
+    for (UserModel user in items) {
       tempUsers.add(user.toJson());
     }
     return {

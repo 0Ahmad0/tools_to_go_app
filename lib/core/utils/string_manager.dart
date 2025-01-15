@@ -139,6 +139,7 @@ class StringManager {
   static const String myRequestsText = 'طلباتي';
   static const String myCurrentRequestsText = 'طلباتي الحالية';
   static const String myCompletedOrdersText = 'طلباتي المنتهية';
+  static const String myUpcomingOrdersText = 'طلباتي القادمة';
   static const String requestedToBeText = 'Requested To Be a';
   static const String viewText = 'View';
   static const String dismissText = 'Dismiss';
@@ -232,7 +233,8 @@ class StringManager {
   static const String noToolsText = 'لا يوجد معدات بعد';
 
   /// Notification Screen
-  static const String noNotificationText = 'You don’t have any notifications yet';
+  static const String noNotificationText = 'لا يوجد لديك اشعارات بعد';
+  // static const String noNotificationText = 'You don’t have any notifications yet';
 
   /// Appointments Screen
   static const String appointmentsText = 'Appointments';
@@ -496,15 +498,28 @@ You can’t undo this action""";
 
 
   //notification
-  static const notificationTitleNewAppointment = "Book a new appointment";
-  static const notificationSubTitleNewAppointment = "You have a request to book an appointment";
+  static const notificationTitleNewAppointment = "طلب حجز جديد";
+  // static const notificationTitleNewAppointment = "Book a new appointment";
+  static const notificationSubTitleNewAppointment = "لديك طلب لحجز المُعدة من قبل";
+  // static const notificationSubTitleNewAppointment = "You have a request to book an appointment";
   static const notificationTitleUpdateAppointment = "Update appointment";
   static const notificationSubTitleUpdateAppointment = "Appointment booking has been modified";
 
-  static const notificationTitleAcceptAppointment = "Requested accepted";
-  static const notificationSubTitleAcceptAppointment = "Your requested has been accepted by";
-  static const notificationTitleCanceledAppointment = "Requested Canceled";
-  static const notificationSubTitleCanceledAppointment = "Your requested has been canceled by";
+  static const notificationTitleDoneDeliveryAppointment = "تم توصيل الطلب";
+  static const notificationSubTitleDoneDeliveryAppointment = "قام السائق بتوصيل الطلب بنجاح";
+
+
+  static const notificationTitleNewDeliveryAppointment = "طلب توصيل جديد";
+  static const notificationSubTitleNewDeliveryAppointment = "لديك طلب توصيل جديد للعميل";
+
+  static const notificationTitleAcceptAppointment = "تم قبول الطلب";
+  // static const notificationTitleAcceptAppointment = "Requested accepted";
+  static const notificationSubTitleAcceptAppointment = "تم قبول طلبك من قبل المالك للمنتج";
+  // static const notificationSubTitleAcceptAppointment = "Your requested has been accepted by";
+  static const notificationTitleCanceledAppointment = "تم رفض الطلب";
+  // static const notificationTitleCanceledAppointment = "Requested Canceled";
+  static const notificationSubTitleCanceledAppointment = "تم رفض طلبك من قبل المالك للمنتج";
+  // static const notificationSubTitleCanceledAppointment = "Your requested has been canceled by";
 
   static const notificationTitleAcceptRequestProvider = "Requested provider accepted";
   static const notificationSubTitleAcceptRequestProvider = "Your requested has been accepted as ";

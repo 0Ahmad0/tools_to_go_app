@@ -1,13 +1,12 @@
 import 'package:flutter/animation.dart';
 
 enum ColorAppointments {
-  Ongoing,
   StartingSoon,
   Pending,
-  Rescheduled,
-  Confirmed,
+  Ongoing,
   Concluded,
-  Canceled,
+  Rejected,
+  Canceled
 }
 
 Color getColorStatusAppointments(ColorAppointments status) {
@@ -21,14 +20,16 @@ Color getColorStatusAppointments(ColorAppointments status) {
     case ColorAppointments.Pending:
       color = Color(0xffFFA756);
 
-    case ColorAppointments.Rescheduled:
-      color = Color(0xff53CCF3);
-
-    case ColorAppointments.Confirmed:
-      color = Color(0xff00B69B);
+    // case ColorAppointments.Rescheduled:
+    //   color = Color(0xff53CCF3);
+    //
+    // case ColorAppointments.Confirmed:
+    //   color = Color(0xff00B69B);
       case ColorAppointments.Concluded:
       color = Color(0xff00B69B);
       case ColorAppointments.Canceled:
+      color = Color(0xffEF3826);
+    case ColorAppointments.Rejected:
       color = Color(0xffEF3826);
     default:
       color = Color(0xffFFFFFF);

@@ -2,11 +2,14 @@ import 'package:animate_do/animate_do.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:get/get.dart';
+import 'package:get/get_core/src/get_main.dart';
 import 'package:tools_to_go_app/app/features/auth/controller/auth_controller.dart';
 import 'package:tools_to_go_app/core/helpers/extensions.dart';
 import 'package:tools_to_go_app/core/models/tool.dart';
 import 'package:tools_to_go_app/core/routing/routes.dart';
 import 'package:tools_to_go_app/core/widgets/image_tool.dart';
+import '../../booking_tool/controller/customer_booking_tool_controller.dart';
 import '/core/helpers/spacing.dart';
 import '/core/utils/color_manager.dart';
 import '/core/utils/string_manager.dart';
@@ -153,6 +156,8 @@ class _ToolDetailsScreenState extends State<ToolDetailsScreen> {
                   ),
                 ),
                 AppButton(onPressed: () {
+                  Get.put(CustomerBookingToolController()).tool=tool;
+                  Get.put(CustomerBookingToolController()).appointment=null;
                   context.pushNamed(Routes.bookingToolRoute);
                 }, text: StringManager.orderNowText)
               ],

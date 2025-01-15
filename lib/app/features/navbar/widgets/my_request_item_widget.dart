@@ -5,6 +5,7 @@ import 'package:intl/intl.dart';
 import 'package:tools_to_go_app/app/features/auth/controller/auth_controller.dart';
 import 'package:tools_to_go_app/core/helpers/extensions.dart';
 import 'package:tools_to_go_app/core/helpers/spacing.dart';
+import 'package:tools_to_go_app/core/models/appointment.dart';
 import 'package:tools_to_go_app/core/routing/routes.dart';
 import 'package:tools_to_go_app/core/utils/color_manager.dart';
 import 'package:tools_to_go_app/core/utils/string_manager.dart';
@@ -12,10 +13,11 @@ import 'package:tools_to_go_app/core/utils/style_manager.dart';
 import 'package:tools_to_go_app/core/widgets/app_button.dart';
 
 import '../../../../../core/dialogs/delete_dialog.dart';
+import '../../../../core/helpers/get_color_status_appointments.dart';
 
 class MyRequestItemWidget extends StatelessWidget {
-  const MyRequestItemWidget({super.key});
-
+  const MyRequestItemWidget({super.key, this.item});
+final Appointment? item;
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -34,6 +36,7 @@ class MyRequestItemWidget extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Text(
+            item?.nameTool??
             'اسم المنتج',
             style: StyleManager.font14SemiBold(),
           ),
@@ -43,17 +46,23 @@ class MyRequestItemWidget extends StatelessWidget {
             isThreeLine: true,
             contentPadding: EdgeInsets.zero,
             title: Text(
-              'اسم عالم التوصيل : ',
+
+              'اسم عالم التوصيل : '+"${ item?.nameWorker??""}",
               style: StyleManager.font14SemiBold(),
             ),
-            trailing: IconButton(
+            trailing:
+            item?.idWorker!=null&&([ColorAppointments.Ongoing,ColorAppointments.StartingSoon,ColorAppointments.Concluded].contains(item?.getState))?
+            IconButton(
               onPressed: () {
                 context.pushNamed(Routes.messagesRoute);
               },
               icon: Icon(
                 Icons.chat,
               ),
-            ),
+            )
+            :SizedBox.shrink()
+
+            ,
             subtitle: Padding(
               padding: EdgeInsets.only(top: 8.h),
               child: Column(
@@ -66,6 +75,7 @@ class MyRequestItemWidget extends StatelessWidget {
                           style: StyleManager.font14SemiBold()),
                       TextSpan(
                         text: DateFormat.yMd().add_jm().format(
+                          item?.selectDate??
                               DateTime.now(),
                             ),
                       ),
@@ -78,7 +88,7 @@ class MyRequestItemWidget extends StatelessWidget {
                           text: StringManager.locationBookText,
                           style: StyleManager.font14SemiBold()),
                       TextSpan(
-                        text: 'الرياض - الشارع الرئيسي 123',
+                        text:   item?.deliveryAddress?.address??'الرياض - الشارع الرئيسي 123',
                       ),
                     ]),
                   ),
@@ -90,10 +100,13 @@ class MyRequestItemWidget extends StatelessWidget {
           Container(
             padding: EdgeInsets.symmetric(horizontal: 10.w, vertical: 4.h),
             decoration: BoxDecoration(
-              color: ColorManager.orangeColor,
+              color:
+              getColorStatusAppointments(item?.getState??ColorAppointments.Pending),
+              // ColorManager.orangeColor,
               borderRadius: BorderRadius.circular(100.r),
             ),
             child: Text(
+              item?.getStateArabic??
               'حالة الطلب',
               style: StyleManager.font10Bold(
                 color: ColorManager.whiteColor
