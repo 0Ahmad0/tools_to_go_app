@@ -15,6 +15,7 @@ class Routes {
   static const String customerRequestsRoute = '/customerRequestsScreen';
 
   static const String showLocationOnMapRoute = '/showLocationOnMapScreen';
+  static const String orderTakerToolsRequestsRoute = '/orderTakerToolsRequestsScreen';
 
   ///Owner
   static const String ownerHomeRoute = '/ownerHomeScreen';

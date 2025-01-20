@@ -96,7 +96,7 @@ final Appointment? item;
                             subTitle: StringManager.areYouSureApprovedRequestText,
                             onOkTap: () {
                               context.pop();
-                              Get.put(OwnerAppointmentsController()).acceptOrRejectedRequest(context, ColorAppointments.Ongoing, item);
+                              Get.put(OwnerAppointmentsController()).acceptOrRejectedRequest(context,item?.withDelivery??false? ColorAppointments.StartingSoon:ColorAppointments.Concluded, item);
                             },
                           ),
                     );

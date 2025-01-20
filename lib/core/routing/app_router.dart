@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import '../../app/features/order_taker/order_taker_tools_requests/screens/order_taker_tools_requestes_screen.dart';
 import '/app/features/navbar/screens/customers_requests_screen.dart';
 import '/app/features/navbar/screens/chats_screen.dart';
 import '/app/features/navbar/screens/home_screen.dart';
@@ -109,6 +110,10 @@ class AppRouter {
       case Routes.showLocationOnMapRoute:
         return MaterialPageRoute(
           builder: (_) => ShowLocationOnMapScreen(),
+        );
+      case Routes.orderTakerToolsRequestsRoute:
+        return MaterialPageRoute(
+          builder: (_) => OrderTakerToolsRequestsScreen(),
         );
 
       default:

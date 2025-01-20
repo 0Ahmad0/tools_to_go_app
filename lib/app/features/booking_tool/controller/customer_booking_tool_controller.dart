@@ -82,9 +82,9 @@ class CustomerBookingToolController extends GetxController{
     else if(appointment?.deliveryAddress==null){
       error="الرجاء اختيار موقع من الخريطة";
     }
-    else if(appointment?.withDelivery==true&&appointment?.idWorker==null){
-      error="الرجاء اختيار عامل التوصيل";
-    }
+    // else if(appointment?.withDelivery==true&&appointment?.idWorker==null){
+    //   error="الرجاء اختيار عامل التوصيل";
+    // }
 
     if(error!=null)
     ScaffoldMessenger.of(context).showSnackBar(

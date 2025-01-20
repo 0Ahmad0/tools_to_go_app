@@ -5,21 +5,21 @@ import 'package:get/get.dart';
 import 'package:get/get_core/src/get_main.dart';
 import 'package:intl/intl.dart';
 import 'package:tools_to_go_app/app/features/auth/controller/auth_controller.dart';
+import 'package:tools_to_go_app/core/dialogs/general_dialog.dart';
 import 'package:tools_to_go_app/core/helpers/extensions.dart';
+import 'package:tools_to_go_app/core/helpers/get_color_status_appointments.dart';
 import 'package:tools_to_go_app/core/helpers/spacing.dart';
 import 'package:tools_to_go_app/core/models/appointment.dart';
-import 'package:tools_to_go_app/core/routing/routes.dart';
 import 'package:tools_to_go_app/core/utils/color_manager.dart';
 import 'package:tools_to_go_app/core/utils/string_manager.dart';
 import 'package:tools_to_go_app/core/utils/style_manager.dart';
 import 'package:tools_to_go_app/core/widgets/app_button.dart';
 
 import '../../../../../core/dialogs/delete_dialog.dart';
-import '../../../../core/helpers/get_color_status_appointments.dart';
-import '../controller/user_appointments_controller.dart';
+import '../controller/order_taker_appointments_controller.dart';
 
-class MyRequestItemWidget extends StatelessWidget {
-  const MyRequestItemWidget({super.key, this.item});
+class OrderTakerToolsRequestsWidget extends StatelessWidget {
+  const OrderTakerToolsRequestsWidget({super.key, this.item});
 final Appointment? item;
   @override
   Widget build(BuildContext context) {
@@ -36,7 +36,6 @@ final Appointment? item;
         ),
       ),
       child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Text(
             item?.nameTool??
@@ -45,30 +44,11 @@ final Appointment? item;
           ),
           Divider(),
           ListTile(
-            dense: true,
-            isThreeLine: true,
             contentPadding: EdgeInsets.zero,
             title: Text(
-              item?.withDelivery??false?
-
-              'اسم عالم التوصيل : '+"${ item?.nameWorker??"غير موجود بعد"}"
-              : "استلام من الفرع",
+              'اسم العميل'+" "+"${item?.nameCustomer??""}",
               style: StyleManager.font14SemiBold(),
             ),
-            trailing:
-            item?.idWorker!=null&&([ColorAppointments.Ongoing,ColorAppointments.StartingSoon,ColorAppointments.Concluded].contains(item?.getState))?
-            IconButton(
-              onPressed: () {
-                Get.put(UserAppointmentsController()).connectionPerson(context, item?.idWorker);
-                // context.pushNamed(Routes.messagesRoute);
-              },
-              icon: Icon(
-                Icons.chat,
-              ),
-            )
-            :SizedBox.shrink()
-
-            ,
             subtitle: Padding(
               padding: EdgeInsets.only(top: 8.h),
               child: Column(
@@ -82,8 +62,8 @@ final Appointment? item;
                       TextSpan(
                         text: DateFormat.yMd().add_jm().format(
                           item?.selectDate??
-                              DateTime.now(),
-                            ),
+                          DateTime.now(),
+                        ),
                       ),
                     ]),
                   ),
@@ -94,7 +74,7 @@ final Appointment? item;
                           text: StringManager.locationBookText,
                           style: StyleManager.font14SemiBold()),
                       TextSpan(
-                        text:   item?.deliveryAddress?.address??'الرياض - الشارع الرئيسي 123',
+                        text: item?.deliveryAddress?.address??'الرياض - الشارع الرئيسي 123',
                       ),
                     ]),
                   ),
@@ -103,22 +83,46 @@ final Appointment? item;
             ),
           ),
           verticalSpace(10.h),
-          Container(
-            padding: EdgeInsets.symmetric(horizontal: 10.w, vertical: 4.h),
-            decoration: BoxDecoration(
-              color:
-              getColorStatusAppointments(item?.getState??ColorAppointments.Pending),
-              // ColorManager.orangeColor,
-              borderRadius: BorderRadius.circular(100.r),
-            ),
-            child: Text(
-              item?.getStateArabic??
-              'حالة الطلب',
-              style: StyleManager.font10Bold(
-                color: ColorManager.whiteColor
+          Row(
+            children: [
+              Expanded(
+                child: InkWell(
+                  onTap: () {
+                    showDialog(
+                      context: context,
+                      builder: (context) =>
+                          GeneralDialog(
+                            title: StringManager.approvedRequestText,
+                            subTitle: StringManager.areYouSureApprovedRequestText,
+                            onOkTap: () {
+                              context.pop();
+                              Get.put(OrderTakerAppointmentsController()).acceptOrRejectedRequest(context, ColorAppointments.Ongoing, item);
+                            },
+                          ),
+                    );
+                  },
+                  borderRadius: BorderRadius.circular(8.r),
+                  child: Container(
+                    alignment: Alignment.center,
+                    padding: EdgeInsets.symmetric(
+                      horizontal: 12.w,
+                      vertical: 10.h,
+                    ),
+                    decoration: BoxDecoration(
+                      color: ColorManager.successColor,
+                      borderRadius: BorderRadius.circular(8.r),
+                    ),
+                    child: Text(
+                      StringManager.approvedRequestText,
+                      style: StyleManager.font14Regular(
+                          color: ColorManager.whiteColor),
+                    ),
+                  ),
+                ),
               ),
-            ),
-          ),
+
+            ],
+          )
         ],
       ),
     );

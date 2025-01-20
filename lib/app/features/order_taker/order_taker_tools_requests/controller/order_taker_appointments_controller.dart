@@ -14,7 +14,7 @@ import '../../../core/controllers/firebase/firebase_fun.dart';
 import '../../../notification/controller/notifications_controller.dart';
 import '../../../profile/controller/profile_controller.dart';
 
-class OwnerAppointmentsController extends GetxController{
+class OrderTakerAppointmentsController extends GetxController{
 
   final searchController = TextEditingController();
   Appointments appointments=Appointments(items: []);
@@ -43,6 +43,8 @@ class OwnerAppointmentsController extends GetxController{
   _fetchAppointmentsStream() {
     final result = FirebaseFirestore.instance
         .collection(FirebaseConstants.collectionAppointment)
+    .where("withDelivery",isEqualTo: true)
+    .where("idWorker",isNull: true)
         .snapshots();
 
     return result;
@@ -50,8 +52,9 @@ class OwnerAppointmentsController extends GetxController{
   filter({required String term}) async {
     appointmentsWithFilter.items=[];
     appointments.items.forEach((element) {
-
-      if(element.getState==null||element.getState==ColorAppointments.Pending)
+      print(element.getState);
+      print(element.toJson());
+      if(element.state==ColorAppointments.StartingSoon.name)
       if((element.nameCustomer?.toLowerCase().contains(term.toLowerCase())??false)||
           (element.nameWorker?.toLowerCase().contains(term.toLowerCase())??false)||
           ((element.state??"Pending").toLowerCase().contains(term.toLowerCase())??false)
@@ -66,6 +69,8 @@ class OwnerAppointmentsController extends GetxController{
   acceptOrRejectedRequest(BuildContext context ,ColorAppointments? state,Appointment? appointment) async {
     var result;
     appointment?.state=state?.name;
+    appointment?.idWorker=Get.put(ProfileController()).currentUser.value?.uid;
+    appointment?.nameWorker=Get.put(ProfileController()).currentUser.value?.name;
     ConstantsWidgets.showLoading();
     {
       result=await FirebaseFun.updateAppointment(appointment:appointment!);
@@ -79,17 +84,13 @@ class OwnerAppointmentsController extends GetxController{
           if(state==ColorAppointments.Ongoing||state==ColorAppointments.StartingSoon){
             Get.put(NotificationsController()).addNotification(context, notification: NotificationModel(
               typeUser: AppConstants.collectionUser,
-                idUser: appointment?.idUser, subtitle: StringManager.notificationSubTitleAcceptAppointment+' '+(appointment.nameTool??''), dateTime: DateTime.now(), title: StringManager.notificationTitleAcceptAppointment, message: ''));
+                idUser: appointment?.idUser, subtitle: StringManager.notificationSubTitleOngoingDeliveryAppointment+' '+( Get.put(ProfileController()).currentUser.value?.name??'')+' ('+(appointment.nameTool??')'), dateTime: DateTime.now(), title: StringManager.notificationTitleOngoingDeliveryAppointment, message: ''));
 //             Get.put(NotificationsController()).addNotification(context, notification: NotificationModel(
 //                 typeUser: AppConstants.collectionWorker,
 //                 idUser: appointment?.idWorker, subtitle: StringManager.notificationSubTitleNewDeliveryAppointment+' '+(appointment.nameCustomer??''), dateTime: DateTime.now(), title: StringManager.notificationTitleNewDeliveryAppointment, message: ''))
 // ;
           }
-          if(state==ColorAppointments.Concluded){
-            Get.put(NotificationsController()).addNotification(context, notification: NotificationModel(
-                typeUser: AppConstants.collectionUser,
-                idUser: appointment?.idUser, subtitle: StringManager.notificationSubTitleDoneAppointment+' '+( Get.put(ProfileController()).currentUser.value?.name??'')+' ('+(appointment.nameTool??')'), dateTime: DateTime.now(), title: StringManager.notificationTitleDoneAppointment, message: ''));
-          }
+
           else{
             Get.put(NotificationsController()).addNotification(context, notification: NotificationModel(
                 typeUser: AppConstants.collectionUser,

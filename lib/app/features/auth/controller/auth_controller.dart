@@ -158,6 +158,7 @@ class AuthController extends GetxController {
         ProfileController profileController = Get.put(ProfileController());
         ;
         await profileController.getUser(context);
+
         context.pop();
         if(profileController.currentUser.value==null)
           return;

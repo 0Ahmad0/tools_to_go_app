@@ -260,7 +260,8 @@ class ProfileController extends GetxController {
 
 
     } catch (e) {
-      currentUser.value=null;
+
+      currentUser.value= null;
       String errorMessage;
       // errorMessage = "An unexpected error occurred. Please try again later.";
       errorMessage = "An unexpected error occurred. Please try again later.";

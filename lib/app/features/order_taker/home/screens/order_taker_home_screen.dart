@@ -100,6 +100,21 @@ class _OrderTakerHomeScreenState extends State<OrderTakerHomeScreen> {
                 dense: true,
                 onTap: () {
                   context.pop();
+                  context.pushNamed(Routes.orderTakerToolsRequestsRoute);
+                },
+                leading: Icon(Icons.delivery_dining),
+                title: Text(
+                  StringManager.deliveryRequestsText,
+                  style: StyleManager.font14SemiBold(),
+                ),
+              ),
+              Divider(
+                height: 0,
+              ),
+              ListTile(
+                dense: true,
+                onTap: () {
+                  context.pop();
                   context.pushNamed(Routes.showLocationOnMapRoute);
                 },
                 leading: Icon(Icons.map),

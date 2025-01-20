@@ -136,6 +136,7 @@ class StringManager {
   static const String appointmentRequestsText = 'Appointment Requests';
   static const String newText = 'New';
   static const String requestsText = 'طلبات الحجز';
+  static const String deliveryRequestsText = 'طلبات التوصيل';
   static const String myRequestsText = 'طلباتي';
   static const String myCurrentRequestsText = 'طلباتي الحالية';
   static const String myCompletedOrdersText = 'طلباتي المنتهية';
@@ -516,9 +517,15 @@ You can’t undo this action""";
   static const notificationTitleDoneDeliveryAppointment = "تم توصيل الطلب";
   static const notificationSubTitleDoneDeliveryAppointment = "قام السائق بتوصيل الطلب بنجاح";
 
+  static const notificationTitleDoneAppointment = "تم نسليم الطلب";
+  static const notificationSubTitleDoneAppointment = "تم تسليم طلبك من الفرع بنجاح من قبل";
+
 
   static const notificationTitleNewDeliveryAppointment = "طلب توصيل جديد";
   static const notificationSubTitleNewDeliveryAppointment = "لديك طلب توصيل جديد للعميل";
+
+  static const notificationTitleOngoingDeliveryAppointment = "طلب قيد التوصيل";
+  static const notificationSubTitleOngoingDeliveryAppointment = "جاري توصيل طلبك من قبل";
 
   static const notificationTitleAcceptAppointment = "تم قبول الطلب";
   // static const notificationTitleAcceptAppointment = "Requested accepted";

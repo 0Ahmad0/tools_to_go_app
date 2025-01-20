@@ -86,7 +86,7 @@ class Appointment {
     if(selectDate==null||state==null||([ColorAppointments.Pending.name].contains(state)))
       return ColorAppointments.Pending;
     DateTime? current=DateFormat.yMd().parse(DateFormat.yMd().format(selectDate!));
-    if([ColorAppointments.Canceled.name,ColorAppointments.Concluded.name,ColorAppointments.Rejected.name].contains(state))
+    if([ColorAppointments.Canceled.name,ColorAppointments.Concluded.name,ColorAppointments.Rejected.name,ColorAppointments.StartingSoon].contains(state))
    return ColorAppointments.values.where((e)=>e.name.contains(state??"")).first;
     if(now.isBefore(current!))
       return ColorAppointments.StartingSoon;
