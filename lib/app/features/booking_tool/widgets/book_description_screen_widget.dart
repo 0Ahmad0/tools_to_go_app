@@ -99,60 +99,44 @@ class _BookDescriptionScreenWidgetState
         StatefulBuilder(builder: (context, orderTakerState) {
           return Column(
             children: [
-              CheckboxListTile(
-                  contentPadding: EdgeInsets.zero,
-                  value: withOrderTaker,
-                  title: Text(
-                    StringManager.withOrderTakerText,
-                    style: StyleManager.font14SemiBold(),
+              Center(
+                child: Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: Text(
+                    "توصيل بواسطة",
+                    style: TextStyle(
+                      fontSize: 16,
+                      fontWeight: FontWeight.bold,
+                    ),
                   ),
+                ),
+              ),
+
+              ListTile(
+                title: Text("المندوب"),
+                leading: Radio<bool>(
+                  value: true,
+                  groupValue: customerBookingToolController.appointment?.withDelivery,
                   onChanged: (value) {
                     orderTakerState(() {
-                      withOrderTaker = value!;
-                      customerBookingToolController.appointment?.withDelivery=withOrderTaker;
+                      customerBookingToolController.appointment?.withDelivery = value!;
                     });
-                  }),
-              Visibility(
-                visible: withOrderTaker,
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text(
-                      'عامل التوصيل',
-                      style: StyleManager.font14SemiBold(),
-                    ),
-                    verticalSpace(10.h),
-                    AppTextField(
-                      controller: nameWorkerController,
-                      readOnly: true,
-                      onTap: () {
-                        showModalBottomSheet(
-                            isScrollControlled: true,
-                            showDragHandle: true,
-                            backgroundColor: ColorManager.whiteColor,
-                            shape: RoundedRectangleBorder(
-                                borderRadius: BorderRadius.vertical(
-                              top: Radius.circular(14.r),
-                            )),
-                            context: context,
-                            builder: (context) => SelectOrderTakerWidget(
-                              confirmLocation: (selectedWorker){
-                                if(selectedWorker!=null){
-                                  customerBookingToolController.appointment?.idWorker=selectedWorker.uid;
-                                  customerBookingToolController.appointment?.nameWorker=selectedWorker.name;
-                                  nameWorkerController.text=customerBookingToolController.appointment?.nameWorker??"";
-                                  context.pop();
-                                }
-
-                              },
-
-                            ));
-                      },
-                      hintText: 'اختر عامل التوصيل',
-                    ),
-                  ],
+                  },
                 ),
-              )
+              ),
+              ListTile(
+                title: Text("استلام من الفرع"),
+                leading: Radio<bool>(
+                  value: false,
+                  groupValue: customerBookingToolController.appointment?.withDelivery,
+                  onChanged: (value) {
+                    orderTakerState(() {
+                      customerBookingToolController.appointment?.withDelivery = value!;
+                    });
+                  },
+                ),
+              ),
+
             ],
           );
         }),
@@ -160,3 +144,57 @@ class _BookDescriptionScreenWidgetState
     );
   }
 }
+//CheckboxListTile(
+//                   contentPadding: EdgeInsets.zero,
+//                   value: withOrderTaker,
+//                   title: Text(
+//                     StringManager.withOrderTakerText,
+//                     style: StyleManager.font14SemiBold(),
+//                   ),
+//                   onChanged: (value) {
+//                     orderTakerState(() {
+//                       withOrderTaker = value!;
+//                       customerBookingToolController.appointment?.withDelivery=withOrderTaker;
+//                     });
+//                   }),
+//               Visibility(
+//                 visible: withOrderTaker,
+//                 child: Column(
+//                   crossAxisAlignment: CrossAxisAlignment.start,
+//                   children: [
+//                     Text(
+//                       'عامل التوصيل',
+//                       style: StyleManager.font14SemiBold(),
+//                     ),
+//                     verticalSpace(10.h),
+//                     AppTextField(
+//                       controller: nameWorkerController,
+//                       readOnly: true,
+//                       onTap: () {
+//                         showModalBottomSheet(
+//                             isScrollControlled: true,
+//                             showDragHandle: true,
+//                             backgroundColor: ColorManager.whiteColor,
+//                             shape: RoundedRectangleBorder(
+//                                 borderRadius: BorderRadius.vertical(
+//                               top: Radius.circular(14.r),
+//                             )),
+//                             context: context,
+//                             builder: (context) => SelectOrderTakerWidget(
+//                               confirmLocation: (selectedWorker){
+//                                 if(selectedWorker!=null){
+//                                   customerBookingToolController.appointment?.idWorker=selectedWorker.uid;
+//                                   customerBookingToolController.appointment?.nameWorker=selectedWorker.name;
+//                                   nameWorkerController.text=customerBookingToolController.appointment?.nameWorker??"";
+//                                   context.pop();
+//                                 }
+//
+//                               },
+//
+//                             ));
+//                       },
+//                       hintText: 'اختر عامل التوصيل',
+//                     ),
+//                   ],
+//                 ),
+//               )
