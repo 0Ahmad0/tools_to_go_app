@@ -119,7 +119,8 @@ class _ToolDetailsScreenState extends State<ToolDetailsScreen> {
                         ),
                         verticalSpace(10.h),
                         Text(
-                          '${ tool?.fee??'??'} ريال/يوم',
+                          '${ tool?.fee??'??'} ريال/كل اسبوع',
+                          // '${ tool?.fee??'??'} ريال/يوم',
                           // '25 ريال/يوم',
                           style: StyleManager.font14SemiBold(),
                         ),

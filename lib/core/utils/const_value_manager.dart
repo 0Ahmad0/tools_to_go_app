@@ -19,6 +19,10 @@ class ConstValueManager {
 
   static const int animationDuration = 600;
 
+  static const String pkStripe="pk_test_51OU4F9IbCfScbSkE9u6Ba86tVXGhRzhNauEKgLt8JzF5OqljCgBuioQHuI0HsuVgLGuKk7rWhhGbAKfviC7yaSkV00zVQkaQ7y";
+  static const String skStripe="sk_test_51OU4F9IbCfScbSkE73fqVohKNoGKYh7jpzmsTArqrTyZaU8KsAwy7RwPUDXnFlv8ulsiFpPD1Bv3y1dtrJdpoTWP00HkkNVm0d";
+
+
   /// Duration Delayed Second
   static const int delayedSplash = 3;
 

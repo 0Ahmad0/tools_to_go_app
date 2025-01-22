@@ -119,9 +119,9 @@ class _BookingToolScreenState extends State<BookingToolScreen> {
                 verticalSpace(10.h),
                 _getCurrentScreen(_currentIndex),
                 verticalSpace(20.h),
-                AppButton(onPressed: (){
+                AppButton(onPressed: () async {
 
-                  if(controller.validateBook(context)){
+                  if(await controller.validateBook(context)){
                     controller.addAppointment(context);
                   }
                 }, text:

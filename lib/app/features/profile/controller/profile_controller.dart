@@ -92,6 +92,7 @@ class ProfileController extends GetxController {
       print(profileImage);
       if(email!=currentUser.value?.email)
         auth.currentUser?.verifyBeforeUpdateEmail(email);
+
       // auth.currentUser?.updateEmail();
       // if(password!=''&&password!=null)
       //   auth.currentUser?.updatePassword(password!);

@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get_core/src/get_main.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:get/get.dart';
+import 'package:tools_to_go_app/app/features/booking_tool/controller/payment_controller.dart';
 import 'package:tools_to_go_app/core/helpers/extensions.dart';
 import 'package:tools_to_go_app/core/models/tool.dart';
 
@@ -27,7 +28,7 @@ class CustomerBookingToolController extends GetxController{
   String? uid,nameCustomer;
   Appointment? appointment;
   ToolModel? tool;
-
+  bool isPayment=false;
   @override
   void onInit() {
     // provider=null;
@@ -35,7 +36,7 @@ class CustomerBookingToolController extends GetxController{
 
     uid= profileController.currentUser.value?.uid;
     nameCustomer= profileController.currentUser.value?.name;
-
+    isPayment=false;
     super.onInit();
     }
 
@@ -68,13 +69,13 @@ class CustomerBookingToolController extends GetxController{
       Get.back();
       Get.back();
       ConstantsWidgets.TOAST(context,textToast: "تم الحجز بنجاح",state: result['status']);
-
+      isPayment=false;
     }else
     ConstantsWidgets.TOAST(context,textToast: FirebaseFun.findTextToast(result['message'].toString()),state: result['status']);
     return result;
   }
 
- bool validateBook(BuildContext context){
+ Future<bool> validateBook(BuildContext context) async {
     String? error;
     if(appointment?.selectDate==null){
       error="الرجاء تحديد التاريخ";
@@ -86,10 +87,24 @@ class CustomerBookingToolController extends GetxController{
     //   error="الرجاء اختيار عامل التوصيل";
     // }
 
+    if( !isPayment&&error==null)
+
+    try {
+      PaymentController paymentController = PaymentController();
+      await paymentController.processPayment(
+          (tool?.fee?.toInt()??
+          0)*100, nameCustomer??"Test User"); // 50.00 دولار أمريكي
+      isPayment=true;
+    } catch (e) {
+      print("Error: $e");
+      error="لم تكتمل عملية الدفع، حاول مرة أخرى";
+    }
+
     if(error!=null)
     ScaffoldMessenger.of(context).showSnackBar(
       SnackBar(content: Text(error)),
     );
+
     return error==null;
   }
 

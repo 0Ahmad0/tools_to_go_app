@@ -9,7 +9,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get_storage/get_storage.dart';
 import 'core/routing/routes.dart';
 import 'core/utils/const_value_manager.dart';
-
+import 'package:flutter_stripe/flutter_stripe.dart';
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
 
@@ -19,7 +19,13 @@ Future<void> main() async {
   /// To Fix Bug In Text Showing In Release Mode
   await ScreenUtil.ensureScreenSize();
 
+
   await GetStorage.init();
+
+  /// To Register Stripe
+  Stripe.publishableKey=ConstValueManager.pkStripe;
+  await Stripe.instance.applySettings();
+
   runApp(
     ToolsToGoApp(
       appRouter: AppRouter(),
