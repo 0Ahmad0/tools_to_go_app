@@ -8,6 +8,7 @@ version: 1.0.0+1
 
 environment:
   sdk: ^3.5.0-203
+#  sdk: ^3.5.3
 
 
 dependencies:
@@ -41,7 +42,7 @@ dependencies:
   bcrypt: ^1.1.3
   http: ^1.2.2
   flutter_stripe: ^11.0.0
-
+  flutter_rating_bar:
 
 
 

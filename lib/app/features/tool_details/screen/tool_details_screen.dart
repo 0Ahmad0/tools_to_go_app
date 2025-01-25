@@ -5,6 +5,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:get/get_core/src/get_main.dart';
 import 'package:tools_to_go_app/app/features/auth/controller/auth_controller.dart';
+import 'package:tools_to_go_app/app/features/tool_details/widgets/rate_dialog_widget.dart';
 import 'package:tools_to_go_app/core/helpers/extensions.dart';
 import 'package:tools_to_go_app/core/models/tool.dart';
 import 'package:tools_to_go_app/core/routing/routes.dart';
@@ -103,19 +104,24 @@ class _ToolDetailsScreenState extends State<ToolDetailsScreen> {
                           style: StyleManager.font16SemiBold(),
                         ),
                         verticalSpace(10.h),
-                        Row(
-                          crossAxisAlignment: CrossAxisAlignment.center,
-                          children: [
-                            Icon(
-                              Icons.star,
-                              color: ColorManager.rateStarColor,
-                              size: 20.sp,
-                            ),
-                            horizontalSpace(10.w),
-                            Text(
-                              '4.5 (20 تقييم)',
-                            ),
-                          ],
+                        InkWell(
+                          onTap: (){
+                            showDialog(context: context, builder: (_)=>RateDialogWidget());
+                          },
+                          child: Row(
+                            crossAxisAlignment: CrossAxisAlignment.center,
+                            children: [
+                              Icon(
+                                Icons.star,
+                                color: ColorManager.rateStarColor,
+                                size: 20.sp,
+                              ),
+                              horizontalSpace(10.w),
+                              Text(
+                                '4.5 (20 تقييم)',
+                              ),
+                            ],
+                          ),
                         ),
                         verticalSpace(10.h),
                         Text(

@@ -9,6 +9,9 @@ class StringManager {
   static const String englishText = "الإنجليزية";
   static const String darkModeText = "داكن";
   static const String lightModeText = "فاتح";
+  static const String rateToolText = "تقييم المنتج";
+  static const String rateText = "تقييم";
+
   static const String selectBookDateText = "اختر تاريخ الحجز";
   static const String confirmBookingText = "تأكيد الحجز";
   static const String activeOrderText = "الطلبات النشطة";

@@ -35,191 +35,211 @@ class OrderTakerHomeScreen extends StatefulWidget {
 
 class _OrderTakerHomeScreenState extends State<OrderTakerHomeScreen> {
   late WorkerAppointmentsController controller;
+
   void initState() {
     controller = Get.put(WorkerAppointmentsController());
     controller.onInit();
     super.initState();
   }
+
   @override
   Widget build(BuildContext context) {
     return FadeInUp(
       child: Scaffold(
         appBar: AppBar(
           title: Text(StringManager.homeText),
+          actions: [
+            Image.asset(
+              AssetsManager.logoIMG,
+            ),
+          ],
         ),
         drawer: Drawer(
-          child: Column(
+          child: Stack(
             children: [
-              GetBuilder<ProfileController>(
-                  init: Get.put(ProfileController()),
-                  builder: (controller) {
-                    return
-                      UserAccountsDrawerHeader(
-                          margin: EdgeInsets.zero,
-                          decoration: BoxDecoration(
-                            color: ColorManager.orangeColor,
-                          ),
-                          accountName: Text(
-                            controller.currentUser.value?.name ??
-                                'عامل توصيل' ,
-                            style: StyleManager.font14SemiBold(),
-                          ),
-                          accountEmail: Text(
-                            controller.currentUser.value?.email ??
-                                'email@gmail.com',
-                            style: StyleManager.font12SemiBold(),
-                          ),
-                          currentAccountPicture:
-                          ImageUserProvider(
-                            url: controller.currentUser.value?.photoUrl,
-                          )
-                        // CircleAvatar(
-                        //   child: Icon(FontAwesomeIcons.userLarge),
-                        // ),
-                      );
-                  }
-              ),
-              ListTile(
-                dense: true,
-                onTap: () {
-                  context.pop();
-                  context.pushNamed(Routes.profileRoute);
-                },
-                leading: Icon(
-                  Icons.person,
-                ),
-                title: Text(
-                  StringManager.profileText,
-                  style: StyleManager.font14SemiBold(),
-                ),
-              ),
-              Divider(
-                height: 0,
-              ),
-              ListTile(
-                dense: true,
-                onTap: () {
-                  context.pop();
-                  context.pushNamed(Routes.orderTakerToolsRequestsRoute);
-                },
-                leading: Icon(Icons.delivery_dining),
-                title: Text(
-                  StringManager.deliveryRequestsText,
-                  style: StyleManager.font14SemiBold(),
-                ),
-              ),
-              Divider(
-                height: 0,
-              ),
-              ListTile(
-                dense: true,
-                onTap: () {
-                  context.pop();
-                  context.pushNamed(Routes.showLocationOnMapRoute);
-                },
-                leading: Icon(Icons.map),
-                title: Text(
-                  StringManager.mapViewText,
-                  style: StyleManager.font14SemiBold(),
-                ),
-              ),
-              Divider(
-                height: 0,
-              ),
-              ListTile(
-                dense: true,
-                onTap: () {
-                  context.pop();
-                  context.pushNamed(Routes.customerChatsRoute);
-                },
-                leading: Icon(
-                  Icons.chat_sharp,
-                ),
-                trailing: Badge.count(
-                  count: 1,
-                  textStyle: StyleManager.font10Bold(),
-                ),
-                title: Text(
-                  StringManager.chatScreenText,
-                  style: StyleManager.font14SemiBold(),
-                ),
-              ),
-              Divider(
-                height: 0,
-              ),
-              ListTile(
-                dense: true,
-                onTap: () {
-                  context.pop();
-                  context.pushNamed(Routes.notificationRoute);
-                },
-                leading: Icon(Icons.notifications),
-                title: Text(
-                  StringManager.notificationText,
-                  style: StyleManager.font14SemiBold(),
-                ),
-              ),
-              const Spacer(),
-              Container(
-                color: ColorManager.orangeColor,
-                child: ListTile(
-                  dense: true,
-                  onTap: () {
-                    showDialog(
-                      context: context,
-                      builder: (context) => DeleteDialog(
-                        title: StringManager.logoutText,
-                        subTitle: StringManager.areYouSureLogoutText,
-                        onDeleteTap: () {
-                          context.pop();
-                          Get.lazyPut(() => AuthController());
-                          AuthController.instance.signOut(context);
-                          // context.pushReplacement(Routes.loginRoute);
-                        },
-                      ),
-                    );
-                  },
-                  leading: Icon(
-                    Icons.logout,
-                    color: ColorManager.whiteColor,
-                  ),
-                  title: Text(
-                    StringManager.logoutText,
-                    style: StyleManager.font14SemiBold(
-                      color: ColorManager.whiteColor
+              Column(
+                children: [
+                  GetBuilder<ProfileController>(
+                      init: Get.put(ProfileController()),
+                      builder: (controller) {
+                        return UserAccountsDrawerHeader(
+                            margin: EdgeInsets.zero,
+                            decoration: BoxDecoration(
+                              color: ColorManager.orangeColor,
+                            ),
+                            accountName: Text(
+                              controller.currentUser.value?.name ??
+                                  'عامل توصيل',
+                              style: StyleManager.font14SemiBold(),
+                            ),
+                            accountEmail: Text(
+                              controller.currentUser.value?.email ??
+                                  'email@gmail.com',
+                              style: StyleManager.font12SemiBold(),
+                            ),
+                            currentAccountPicture: ImageUserProvider(
+                              url: controller.currentUser.value?.photoUrl,
+                            )
+                            // CircleAvatar(
+                            //   child: Icon(FontAwesomeIcons.userLarge),
+                            // ),
+                            );
+                      }),
+                  ListTile(
+                    dense: true,
+                    onTap: () {
+                      context.pop();
+                      context.pushNamed(Routes.profileRoute);
+                    },
+                    leading: Icon(
+                      Icons.person,
+                    ),
+                    title: Text(
+                      StringManager.profileText,
+                      style: StyleManager.font14SemiBold(),
                     ),
                   ),
-                ),
+                  Divider(
+                    height: 0,
+                  ),
+                  ListTile(
+                    dense: true,
+                    onTap: () {
+                      context.pop();
+                      context.pushNamed(Routes.orderTakerToolsRequestsRoute);
+                    },
+                    leading: Icon(Icons.delivery_dining),
+                    title: Text(
+                      StringManager.deliveryRequestsText,
+                      style: StyleManager.font14SemiBold(),
+                    ),
+                  ),
+                  Divider(
+                    height: 0,
+                  ),
+                  ListTile(
+                    dense: true,
+                    onTap: () {
+                      context.pop();
+                      context.pushNamed(Routes.showLocationOnMapRoute);
+                    },
+                    leading: Icon(Icons.map),
+                    title: Text(
+                      StringManager.mapViewText,
+                      style: StyleManager.font14SemiBold(),
+                    ),
+                  ),
+                  Divider(
+                    height: 0,
+                  ),
+                  ListTile(
+                    dense: true,
+                    onTap: () {
+                      context.pop();
+                      context.pushNamed(Routes.customerChatsRoute);
+                    },
+                    leading: Icon(
+                      Icons.chat_sharp,
+                    ),
+                    trailing: Badge.count(
+                      count: 1,
+                      textStyle: StyleManager.font10Bold(),
+                    ),
+                    title: Text(
+                      StringManager.chatScreenText,
+                      style: StyleManager.font14SemiBold(),
+                    ),
+                  ),
+                  Divider(
+                    height: 0,
+                  ),
+                  ListTile(
+                    dense: true,
+                    onTap: () {
+                      context.pop();
+                      context.pushNamed(Routes.notificationRoute);
+                    },
+                    leading: Icon(Icons.notifications),
+                    title: Text(
+                      StringManager.notificationText,
+                      style: StyleManager.font14SemiBold(),
+                    ),
+                  ),
+                  const Spacer(),
+                  Container(
+                    color: ColorManager.orangeColor,
+                    child: ListTile(
+                      dense: true,
+                      onTap: () {
+                        showDialog(
+                          context: context,
+                          builder: (context) => DeleteDialog(
+                            title: StringManager.logoutText,
+                            subTitle: StringManager.areYouSureLogoutText,
+                            onDeleteTap: () {
+                              context.pop();
+                              Get.lazyPut(() => AuthController());
+                              AuthController.instance.signOut(context);
+                              // context.pushReplacement(Routes.loginRoute);
+                            },
+                          ),
+                        );
+                      },
+                      leading: Icon(
+                        Icons.logout,
+                        color: ColorManager.whiteColor,
+                      ),
+                      title: Text(
+                        StringManager.logoutText,
+                        style: StyleManager.font14SemiBold(
+                            color: ColorManager.whiteColor),
+                      ),
+                    ),
+                  ),
+                ],
               ),
+              SafeArea(
+                  child: AppPaddingWidget(
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.end,
+                                    children: [
+                    Container(
+                      padding: EdgeInsets.all(10.sp),
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(8.r),
+                        color: ColorManager.whiteColor
+                      ),
+                      child: Text(
+                        'Order Taker',
+                      ),
+                    ),
+                                    ],
+                                  ),
+                  )),
             ],
           ),
         ),
-        body:
-
-        StreamBuilder<QuerySnapshot>(
+        body: StreamBuilder<QuerySnapshot>(
             stream: controller.getAppointments,
             builder: (context, snapshot) {
               if (snapshot.connectionState == ConnectionState.waiting) {
-                return   ConstantsWidgets.circularProgress();
-              } else if (snapshot.connectionState ==
-                  ConnectionState.active) {
+                return ConstantsWidgets.circularProgress();
+              } else if (snapshot.connectionState == ConnectionState.active) {
                 if (snapshot.hasError) {
-                  return  Text('Error');
+                  return Text('Error');
                 } else if (snapshot.hasData) {
                   ConstantsWidgets.circularProgress();
                   controller.appointments.items.clear();
                   if (snapshot.data!.docs.length > 0) {
-
                     controller.appointments.items =
                         Appointments.fromJson(snapshot.data?.docs).items;
                   }
-                  controller.filter(term: controller.searchController.value.text);
-                  return
-                    GetBuilder<WorkerAppointmentsController>(
-                        builder: (WorkerAppointmentsController workerAppointmentsController)=>
-
-
-                        buildAppointments(context, controller));
+                  controller.filter(
+                      term: controller.searchController.value.text);
+                  return GetBuilder<WorkerAppointmentsController>(
+                      builder: (WorkerAppointmentsController
+                              workerAppointmentsController) =>
+                          buildAppointments(context, controller));
                 } else {
                   return SliverToBoxAdapter(child: const Text('Empty data'));
                 }
@@ -227,118 +247,115 @@ class _OrderTakerHomeScreenState extends State<OrderTakerHomeScreen> {
                 return Text('State: ${snapshot.connectionState}');
               }
             }),
-
-
       ),
     );
   }
-  Widget buildAppointments(BuildContext context,WorkerAppointmentsController workerAppointmentsController){
-    return
-      CustomScrollView(
-        slivers: [
-          SliverToBoxAdapter(
-            child: Container(
-              width: double.maxFinite,
-              decoration: BoxDecoration(color: ColorManager.grayColor),
-              child: AppPaddingWidget(
-                child: Row(
-                  children: [
-                    Flexible(
-                      child: Container(
-                        padding: EdgeInsets.symmetric(
-                            horizontal: 12.w, vertical: 10.h),
-                        decoration: BoxDecoration(
-                            color: ColorManager.whiteColor,
-                            borderRadius: BorderRadius.circular(12.r),
-                            boxShadow: [
-                              BoxShadow(
-                                  color: ColorManager.shadowColor,
-                                  blurRadius: 8.sp)
-                            ]),
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.stretch,
-                          children: [
-                            Image.asset(
-                              AssetsManager.completeOrdersIcon,
-                              width: 50.w,
-                              height: 50.h,
-                            ),
-                            verticalSpace(10.h),
-                            Text(
-                              StringManager.completeOrderTodayText,
-                              textAlign: TextAlign.center,
-                              style: StyleManager.font12SemiBold(),
-                            ),
-                            verticalSpace(10.h),
-                            Text(
-                              '${workerAppointmentsController.concludedAppointments.items.length}',
-                              textAlign: TextAlign.center,
-                              style: StyleManager.font30Bold(
-                                  color: ColorManager.errorColor),
-                            ),
-                          ],
-                        ),
+
+  Widget buildAppointments(BuildContext context,
+      WorkerAppointmentsController workerAppointmentsController) {
+    return CustomScrollView(
+      slivers: [
+        SliverToBoxAdapter(
+          child: Container(
+            width: double.maxFinite,
+            decoration: BoxDecoration(color: ColorManager.grayColor),
+            child: AppPaddingWidget(
+              child: Row(
+                children: [
+                  Flexible(
+                    child: Container(
+                      padding: EdgeInsets.symmetric(
+                          horizontal: 12.w, vertical: 10.h),
+                      decoration: BoxDecoration(
+                          color: ColorManager.whiteColor,
+                          borderRadius: BorderRadius.circular(12.r),
+                          boxShadow: [
+                            BoxShadow(
+                                color: ColorManager.shadowColor,
+                                blurRadius: 8.sp)
+                          ]),
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.stretch,
+                        children: [
+                          Image.asset(
+                            AssetsManager.completeOrdersIcon,
+                            width: 50.w,
+                            height: 50.h,
+                          ),
+                          verticalSpace(10.h),
+                          Text(
+                            StringManager.completeOrderTodayText,
+                            textAlign: TextAlign.center,
+                            style: StyleManager.font12SemiBold(),
+                          ),
+                          verticalSpace(10.h),
+                          Text(
+                            '${workerAppointmentsController.concludedAppointments.items.length}',
+                            textAlign: TextAlign.center,
+                            style: StyleManager.font30Bold(
+                                color: ColorManager.errorColor),
+                          ),
+                        ],
                       ),
                     ),
-                    horizontalSpace(20.w),
-                    Flexible(
-                      child: Container(
-                        padding: EdgeInsets.symmetric(
-                            horizontal: 12.w, vertical: 10.h),
-                        decoration: BoxDecoration(
-                            color: ColorManager.whiteColor,
-                            borderRadius: BorderRadius.circular(12.r),
-                            boxShadow: [
-                              BoxShadow(
-                                  color: ColorManager.shadowColor,
-                                  blurRadius: 8.sp)
-                            ]),
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.stretch,
-                          children: [
-                            Image.asset(
-                              AssetsManager.activeOrderIcon,
-                              width: 50.w,
-                              height: 50.h,
-                            ),
-                            verticalSpace(10.h),
-                            Text(
-                              StringManager.activeOrderText,
-                              textAlign: TextAlign.center,
-                              style: StyleManager.font12SemiBold(),
-                            ),
-                            verticalSpace(10.h),
-                            Text(
-                              '${workerAppointmentsController.currentAppointments.items.length}',
-                              textAlign: TextAlign.center,
-                              style: StyleManager.font30Bold(
-                                  color: ColorManager.successColor),
-                            ),
-                          ],
-                        ),
+                  ),
+                  horizontalSpace(20.w),
+                  Flexible(
+                    child: Container(
+                      padding: EdgeInsets.symmetric(
+                          horizontal: 12.w, vertical: 10.h),
+                      decoration: BoxDecoration(
+                          color: ColorManager.whiteColor,
+                          borderRadius: BorderRadius.circular(12.r),
+                          boxShadow: [
+                            BoxShadow(
+                                color: ColorManager.shadowColor,
+                                blurRadius: 8.sp)
+                          ]),
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.stretch,
+                        children: [
+                          Image.asset(
+                            AssetsManager.activeOrderIcon,
+                            width: 50.w,
+                            height: 50.h,
+                          ),
+                          verticalSpace(10.h),
+                          Text(
+                            StringManager.activeOrderText,
+                            textAlign: TextAlign.center,
+                            style: StyleManager.font12SemiBold(),
+                          ),
+                          verticalSpace(10.h),
+                          Text(
+                            '${workerAppointmentsController.currentAppointments.items.length}',
+                            textAlign: TextAlign.center,
+                            style: StyleManager.font30Bold(
+                                color: ColorManager.successColor),
+                          ),
+                        ],
                       ),
                     ),
-                  ],
-                ),
+                  ),
+                ],
               ),
             ),
           ),
-
-          (workerAppointmentsController.currentAppointments.items.isEmpty ?? true)
-              ?
-          SliverFillRemaining(child: Center(child: NoDataFoundWidget(text: "لا يوجد طلبات حالية")))
-              :
-          SliverList.separated(
-            itemBuilder: (context, index) => OrderTakerOrderWidget(
-              index: 1+index,
-              item:workerAppointmentsController.currentAppointments.items[index]
-            ),
-            separatorBuilder: (_, __) => Divider(),
-            itemCount: workerAppointmentsController.currentAppointments.items.length,
-          )
-        ],
-      );
-
+        ),
+        (workerAppointmentsController.currentAppointments.items.isEmpty ?? true)
+            ? SliverFillRemaining(
+                child: Center(
+                    child: NoDataFoundWidget(text: "لا يوجد طلبات حالية")))
+            : SliverList.separated(
+                itemBuilder: (context, index) => OrderTakerOrderWidget(
+                    index: 1 + index,
+                    item: workerAppointmentsController
+                        .currentAppointments.items[index]),
+                separatorBuilder: (_, __) => Divider(),
+                itemCount: workerAppointmentsController
+                    .currentAppointments.items.length,
+              )
+      ],
+    );
   }
-
 }

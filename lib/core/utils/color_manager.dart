@@ -29,7 +29,7 @@ class ColorManager{
 
   static Color blockedColor =  Color(0xffEF3826);
 
-  static Color orangeColor =  Color(0xffffac00);
+  static const Color orangeColor =  Color(0xffffac00);
 
 
 
