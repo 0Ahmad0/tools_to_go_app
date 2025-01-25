@@ -128,7 +128,7 @@ class _BookingToolScreenState extends State<BookingToolScreen> {
                   Text.rich(
                     TextSpan(children: [
                       TextSpan(
-                          text: StringManager.dateOfBookText + ' : ',
+                          text:"تفاصيل المنتج:"+"\n",
                           style: StyleManager.font14SemiBold()),
                       TextSpan(
                         text: DateFormat.yMd().format(
