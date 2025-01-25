@@ -21,10 +21,12 @@ class OwnerAppointmentsController extends GetxController{
   Appointments appointmentsWithFilter=Appointments(items: []);
 
   var getAppointments;
-
+  String? uid;
   @override
   void onInit() {
    searchController.clear();
+   ProfileController profileController=Get.put(ProfileController());
+   uid= profileController.currentUser.value?.uid;
    getAppointmentsFun();
     super.onInit();
     }
@@ -43,6 +45,7 @@ class OwnerAppointmentsController extends GetxController{
   _fetchAppointmentsStream() {
     final result = FirebaseFirestore.instance
         .collection(FirebaseConstants.collectionAppointment)
+        .where("idOwner",isEqualTo: uid)
         .snapshots();
 
     return result;

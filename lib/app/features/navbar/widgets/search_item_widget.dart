@@ -59,14 +59,16 @@ class SearchItemWidget extends StatelessWidget {
                           ),
                           horizontalSpace(10.w),
                           Text(
-                            '4.5 (20 تقييم)',
+                            '${tool?.getRate??"4.5"} (${tool?.reviews?.length??0} تقييم)',
+                            // '4.5 (20 تقييم)',
                             style: StyleManager.font12SemiBold(),
                           )
                         ],
                       ),
                       verticalSpace(10.h),
                       Text(
-                        '${ tool?.fee??''} ريال/يوم',
+                        '${ tool?.fee??''} ريال/كل اسبوع',
+                        // '${ tool?.fee??''} ريال/يوم',
                         // '25 ريال/يوم',
                       ),
                     ],

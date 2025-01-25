@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:get/get_core/src/get_main.dart';
+import 'package:intl/intl.dart';
 import 'package:tools_to_go_app/app/features/auth/screens/change_password_screen.dart';
 import 'package:tools_to_go_app/app/features/booking_tool/widgets/book_dates_screen_widget.dart';
 import 'package:tools_to_go_app/app/features/booking_tool/widgets/book_description_screen_widget.dart';
@@ -66,7 +67,10 @@ class _BookingToolScreenState extends State<BookingToolScreen> {
                 color: ColorManager.whiteColor,
                 border: Border.all(color: ColorManager.hintTextColor),
                 borderRadius: BorderRadius.circular(12.r)),
-            child: Column(
+            child:
+            GetBuilder<CustomerBookingToolController>(
+                builder: (CustomerBookingToolController customerBookingToolController)=>
+            Column(
               mainAxisSize: MainAxisSize.min,
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
@@ -118,6 +122,25 @@ class _BookingToolScreenState extends State<BookingToolScreen> {
                 ),
                 verticalSpace(10.h),
                 _getCurrentScreen(_currentIndex),
+
+                if(customerBookingToolController.appointment?.selectDate!=null)...[
+                  verticalSpace(20.h),
+                  Text.rich(
+                    TextSpan(children: [
+                      TextSpan(
+                          text: StringManager.dateOfBookText + ' : ',
+                          style: StyleManager.font14SemiBold()),
+                      TextSpan(
+                        text: DateFormat.yMd().format(
+                          customerBookingToolController.appointment?.selectDate??
+                          DateTime.now(),
+                        ),
+                      ),
+                    ]),
+                  ),
+                ],
+
+
                 verticalSpace(20.h),
                 AppButton(onPressed: () async {
 
@@ -128,7 +151,7 @@ class _BookingToolScreenState extends State<BookingToolScreen> {
                 StringManager.confirmBookingText)
 
               ],
-            ),
+            )),
           ),
         ),
       ),

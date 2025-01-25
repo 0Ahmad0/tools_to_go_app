@@ -106,6 +106,8 @@ class _ToolDetailsScreenState extends State<ToolDetailsScreen> {
                         verticalSpace(10.h),
                         InkWell(
                           onTap: (){
+                            Get.put(CustomerBookingToolController()).tool=tool;
+
                             showDialog(context: context, builder: (_)=>RateDialogWidget());
                           },
                           child: Row(
@@ -118,7 +120,8 @@ class _ToolDetailsScreenState extends State<ToolDetailsScreen> {
                               ),
                               horizontalSpace(10.w),
                               Text(
-                                '4.5 (20 تقييم)',
+                                '${tool?.getRate??"4.5"} (${tool?.reviews?.length??0} تقييم)',
+                                // '4.5 (20 تقييم)',
                               ),
                             ],
                           ),

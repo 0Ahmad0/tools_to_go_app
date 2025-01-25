@@ -2,15 +2,23 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:get/get.dart';
+import 'package:get/get_core/src/get_main.dart';
 import 'package:tools_to_go_app/core/helpers/spacing.dart';
 import 'package:tools_to_go_app/core/utils/color_manager.dart';
 import 'package:tools_to_go_app/core/utils/string_manager.dart';
 
+import '../../booking_tool/controller/customer_booking_tool_controller.dart';
+
 class RateDialogWidget extends StatelessWidget {
-  const RateDialogWidget({super.key});
+   RateDialogWidget({super.key});
+  double currentRating = 1;
 
   @override
   Widget build(BuildContext context) {
+    currentRating=      Get.put(CustomerBookingToolController()).tool?.getRateUser??currentRating;
+    // currentRating=      Get.put(CustomerBookingToolController()).tool?.getRate?.toInt()??currentRating;
+
     return Column(
       mainAxisAlignment: MainAxisAlignment.center,
       mainAxisSize: MainAxisSize.min,
@@ -30,8 +38,9 @@ class RateDialogWidget extends StatelessWidget {
                 Text(StringManager.rateToolText),
                 verticalSpace(20.h),
                 RatingBar.builder(
-                  initialRating: 1,
+                  initialRating:   currentRating,
                   minRating: 1,
+
                   direction: Axis.horizontal,
                   allowHalfRating: true,
                   itemCount: 5,
@@ -40,10 +49,18 @@ class RateDialogWidget extends StatelessWidget {
                     Icons.star,
                     color: Colors.amber,
                   ),
-                  onRatingUpdate: (rating) {},
+                  onRatingUpdate: (rating) {
+                    currentRating =rating;
+
+                  },
                 ),
                 verticalSpace(20.h),
-                TextButton(onPressed: (){}, child: Text(StringManager.rateText))
+                TextButton(onPressed: (){
+
+                  Get.put(CustomerBookingToolController()).addReview(context, rate: currentRating,text:  "");
+
+
+                }, child: Text(StringManager.rateText))
               ],
             ),
           ),

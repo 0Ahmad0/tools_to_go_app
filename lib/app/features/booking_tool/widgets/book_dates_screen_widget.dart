@@ -58,6 +58,7 @@ class _BookDatesScreenWidgetState extends State<BookDatesScreenWidget> {
               print(controller.displayDate);
               print(controller.selectedDate);
               customerBookingToolController.appointment?.selectDate=controller.selectedDate;
+              customerBookingToolController.update();
             },
             backgroundColor: Colors.transparent,
             todayHighlightColor: ColorManager.primaryColor,

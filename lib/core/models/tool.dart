@@ -1,8 +1,13 @@
 
+import 'package:get/get.dart';
+import 'package:get/get_core/src/get_main.dart';
 import 'package:tools_to_go_app/core/models/review_model.dart';
+
+import '../../app/features/profile/controller/profile_controller.dart';
 
 class ToolModel {
   String? id;
+  String? idOwner;
   String? name;
   String? description;
   String? specifications;
@@ -13,6 +18,7 @@ class ToolModel {
 
   ToolModel({
     this.id,
+    this.idOwner,
     this.name,
     this.description,
     this.specifications,
@@ -31,6 +37,11 @@ class ToolModel {
     return rate/(reviews?.length??1);
   }
 
+  double? get  getRateUser{
+
+    return reviews?.where((e)=>e.idUser==Get.put(ProfileController()).currentUser?.value?.uid)?.firstOrNull?.avgRate;
+  }
+
   factory ToolModel.fromJson(json) {
     var data = ['_JsonDocumentSnapshot','_JsonQueryDocumentSnapshot'].contains(json.runtimeType.toString())?json.data():json;
     List<String> tempList = [];
@@ -46,6 +57,7 @@ class ToolModel {
 
     return ToolModel(
         id: data['id'],
+        idOwner: data['idOwner'],
       name: data["name"],
       description: data["description"],
       photoUrl: data["photoUrl"],
@@ -69,6 +81,7 @@ class ToolModel {
     }
     return{
       'id': id,
+      'idOwner': idOwner,
     'name': name,
     'description': description,
     'specifications': specifications,

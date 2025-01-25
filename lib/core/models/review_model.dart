@@ -30,7 +30,7 @@ class ReviewModel {
 
     return ReviewModel(
       idUser: data["idUser"],
-      review: data["review"],
+      review: double.tryParse('${data["review"]}'),
       text: data["text"],
     );
   }

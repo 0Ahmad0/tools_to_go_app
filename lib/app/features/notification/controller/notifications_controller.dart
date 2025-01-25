@@ -55,7 +55,8 @@ class NotificationsController extends GetxController{
     seenNotifications.items.clear();
     unSeenNotifications.items.clear();
     notifications.items.forEach((element) {
-      if(AppConstants.collectionOwner==typeUser||element.idUser==uid)
+      if(element.idUser==uid)
+      // if(AppConstants.collectionOwner==typeUser||element.idUser==uid)
       if(element.checkRec)
         seenNotifications.items.add(element);
       else

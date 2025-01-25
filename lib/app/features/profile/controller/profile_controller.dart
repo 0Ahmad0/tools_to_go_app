@@ -90,9 +90,10 @@ class ProfileController extends GetxController {
         profileImage=null;
       }
       print(profileImage);
+
       if(email!=currentUser.value?.email)
         auth.currentUser?.verifyBeforeUpdateEmail(email);
-
+      // await auth.currentUser?.updateEmail(email);
       // auth.currentUser?.updateEmail();
       // if(password!=''&&password!=null)
       //   auth.currentUser?.updatePassword(password!);
@@ -133,6 +134,7 @@ class ProfileController extends GetxController {
       });
 
     } catch (e) {
+
       String errorMessage;
       // errorMessage = "An unexpected error occurred. Please try again later.";
       errorMessage = "An unexpected error occurred. Please try again later.";

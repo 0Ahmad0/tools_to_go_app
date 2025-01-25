@@ -112,7 +112,8 @@ class ToolController extends GetxController{
       images: files??[],
       name: name,
         fee: fee,
-      photoUrl: imagePath
+      photoUrl: imagePath,
+        idOwner: uid
     );
     var result=await FirebaseFun.addTool(tool:toolModel);
 

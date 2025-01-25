@@ -41,8 +41,15 @@ class ToolsController extends GetxController{
 
 
   _fetchToolsStream() {
-    final result = FirebaseFirestore.instance.collection(FirebaseConstants.collectionTool)
+    var result;
+    if(Get.put(ProfileController()).currentUser?.value?.isOwner??false)
+     result = FirebaseFirestore.instance.collection(FirebaseConstants.collectionTool)
+    .where("idOwner",isEqualTo: uid)
     .snapshots()
+    ;
+    else
+      result = FirebaseFirestore.instance.collection(FirebaseConstants.collectionTool)
+          .snapshots()
     ;
     return result;
   }

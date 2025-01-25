@@ -11,6 +11,7 @@ import 'package:tools_to_go_app/core/models/tool.dart';
 
 import '../../../../core/models/appointment.dart';
 import '../../../../core/models/notification_model.dart';
+import '../../../../core/models/review_model.dart';
 import '../../../../core/models/user_model.dart';
 import '../../../../core/routing/routes.dart';
 import '../../../../core/utils/app_constant.dart';
@@ -52,12 +53,15 @@ class CustomerBookingToolController extends GetxController{
     appointment?.id=id;
     appointment?.nameTool=tool?.name;
     appointment?.nameCustomer=nameCustomer;
+    appointment?.idOwner=tool?.idOwner;
     var result=await FirebaseFun.addRequestAppointment(appointment:appointment!);
 
     ConstantsWidgets.closeDialog();
     if(result['status']){
       //TODO dd notification
-      Get.put(NotificationsController()).addNotification(context, notification: NotificationModel(idUser: "", subtitle: StringManager.notificationSubTitleNewAppointment+' '+(nameCustomer??''), dateTime: DateTime.now(), title: StringManager.notificationTitleNewAppointment, message: ''));
+      Get.put(NotificationsController()).addNotification(context, notification: NotificationModel(
+          typeUser: AppConstants.collectionOwner,
+          idUser: tool?.idOwner, subtitle: StringManager.notificationSubTitleNewAppointment+' '+(nameCustomer??''), dateTime: DateTime.now(), title: StringManager.notificationTitleNewAppointment, message: ''));
 
       // context.pushNamed(
       //     Routes.paymentSuccessfulRoute
@@ -127,25 +131,37 @@ class CustomerBookingToolController extends GetxController{
 
 
 
-  //
-  // addReview(context,{required int rate,String? text}) async {
-  //   ConstantsWidgets.showLoading();
-  //   ReviewModel review=ReviewModel(
-  //     idUser: uid,
-  //       professionalReview:rate.toDouble(),
-  //     timeScaleReview:rate.toDouble(),
-  //     punctualityReview:rate.toDouble(),
-  //       text:text
-  //   );
-  //   appointment?.review=review;
-  //   var result1=await FirebaseFun.rateProvider(idProvider: appointment!.idProvider??"",review:review!);
-  //   var result2=await FirebaseFun.updateAppointment(appointment:appointment!);
-  //   Get.back();
-  //   Get.back();
-  //   ConstantsWidgets.TOAST(context,textToast: FirebaseFun.findTextToast(result1['message'].toString()),state: result1['status']);
-  //   return result1;
-  // }
-  //
+
+  addReview(context,{required double rate,String? text}) async {
+    ConstantsWidgets.showLoading();
+    ReviewModel review=ReviewModel(
+      idUser: uid,
+       review: rate,
+        text:text
+    );
+    tool?.reviews??=[];
+    if(tool?.reviews?.where((e)=>e.idUser==review.idUser)?.firstOrNull==null)
+      tool?.reviews?.add(review);
+    else
+
+      for(ReviewModel element in tool?.reviews??[]){
+
+        if(element.idUser==review.idUser){
+          tool?.reviews?.elementAt(tool?.reviews?.indexOf(element)??0).review=rate;
+          element=review;
+          element.review=rate;
+        }
+
+      }
+    // var result1=await FirebaseFun.rateProvider(idProvider: appointment!.idProvider??"",review:review!);
+    // var result2=await FirebaseFun.updateAppointment(appointment:appointment!);
+    var result=await FirebaseFun.updateTool(tool:tool!);
+    Get.back();
+    Get.back();
+    ConstantsWidgets.TOAST(context,textToast: FirebaseFun.findTextToast("تم التقييم بنجاح"),state: result['status']);
+    return result;
+  }
+
 
 
 

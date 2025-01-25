@@ -207,6 +207,7 @@ class AuthController extends GetxController {
     // String phoneNumber='0937954969';
     // String password='12345678';
     try {
+
       ConstantsWidgets.showLoading();
       // String userName = await _getUserNameByName(name);
 
@@ -243,7 +244,7 @@ class AuthController extends GetxController {
       if (user.isOwner)
       context.pushAndRemoveUntil(Routes.ownerHomeRoute,
           predicate: (Route<dynamic> route) => false);
-      if (user.isWorker)
+      else if (user.isWorker)
         context.pushAndRemoveUntil(Routes.orderTakerHomeRoute,
             predicate: (Route<dynamic> route) => false);
       else
