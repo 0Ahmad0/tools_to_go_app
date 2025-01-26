@@ -70,87 +70,89 @@ class _BookingToolScreenState extends State<BookingToolScreen> {
             child:
             GetBuilder<CustomerBookingToolController>(
                 builder: (CustomerBookingToolController customerBookingToolController)=>
-            Column(
-              mainAxisSize: MainAxisSize.min,
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Text(
-                  StringManager.bookingOperationText,
-                  style: StyleManager.font24Bold(),
-                ),
-                verticalSpace(20.h),
-                Container(
-                  padding: EdgeInsets.symmetric(
-                      horizontal: 8.w, vertical: 10.h),
-                  decoration: BoxDecoration(
-                    color: ColorManager.grayColor,
-                    borderRadius: BorderRadius.circular(8.r),
+            SingleChildScrollView(
+              child: Column(
+                mainAxisSize: MainAxisSize.min,
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(
+                    StringManager.bookingOperationText,
+                    style: StyleManager.font24Bold(),
                   ),
-                  child: Row(
-                      children: List.generate(
-                          ConstValueManager.bookingList.length,
-                          (index) => Flexible(
-                                child: InkWell(
-                                  onTap: () {
-                                    setState(() {
-                                      _currentIndex = index;
-                                    });
-                                  },
-                                  child: AnimatedContainer(
-                                    duration: Duration(milliseconds: 600),
-                                    alignment: Alignment.center,
-                                    padding: EdgeInsets.symmetric(
-                                      horizontal: 8.w,
-                                      vertical: 8.h,
-                                    ),
-                                    decoration: BoxDecoration(
-                                      color: _currentIndex == index
-                                          ? ColorManager.whiteColor
-                                          : null,
-                                      borderRadius: BorderRadius.circular(4.r),
-                                    ),
-                                    child: Text(
-                                      ConstValueManager.bookingList[index],
-                                      style: StyleManager.font14Regular(
-                                          color: _currentIndex == index
-                                              ? ColorManager.primaryColor
-                                              : ColorManager.hintTextColor),
+                  verticalSpace(20.h),
+                  Container(
+                    padding: EdgeInsets.symmetric(
+                        horizontal: 8.w, vertical: 10.h),
+                    decoration: BoxDecoration(
+                      color: ColorManager.grayColor,
+                      borderRadius: BorderRadius.circular(8.r),
+                    ),
+                    child: Row(
+                        children: List.generate(
+                            ConstValueManager.bookingList.length,
+                            (index) => Flexible(
+                                  child: InkWell(
+                                    onTap: () {
+                                      setState(() {
+                                        _currentIndex = index;
+                                      });
+                                    },
+                                    child: AnimatedContainer(
+                                      duration: Duration(milliseconds: 600),
+                                      alignment: Alignment.center,
+                                      padding: EdgeInsets.symmetric(
+                                        horizontal: 8.w,
+                                        vertical: 8.h,
+                                      ),
+                                      decoration: BoxDecoration(
+                                        color: _currentIndex == index
+                                            ? ColorManager.whiteColor
+                                            : null,
+                                        borderRadius: BorderRadius.circular(4.r),
+                                      ),
+                                      child: Text(
+                                        ConstValueManager.bookingList[index],
+                                        style: StyleManager.font14Regular(
+                                            color: _currentIndex == index
+                                                ? ColorManager.primaryColor
+                                                : ColorManager.hintTextColor),
+                                      ),
                                     ),
                                   ),
-                                ),
-                              ))),
-                ),
-                verticalSpace(10.h),
-                _getCurrentScreen(_currentIndex),
-
-                if(customerBookingToolController.appointment?.selectDate!=null)...[
-                  verticalSpace(20.h),
-                  Text.rich(
-                    TextSpan(children: [
-                      TextSpan(
-                          text:"تفاصيل المنتج:"+"\n",
-                          style: StyleManager.font14SemiBold()),
-                      TextSpan(
-                        text: DateFormat.yMd().format(
-                          customerBookingToolController.appointment?.selectDate??
-                          DateTime.now(),
-                        ),
-                      ),
-                    ]),
+                                ))),
                   ),
+                  verticalSpace(10.h),
+                  _getCurrentScreen(_currentIndex),
+              
+                  if(customerBookingToolController.appointment?.selectDate!=null)...[
+                    verticalSpace(20.h),
+                    Text.rich(
+                      TextSpan(children: [
+                        TextSpan(
+                            text:"تفاصيل المنتج:"+"\n",
+                            style: StyleManager.font14SemiBold()),
+                        TextSpan(
+                          text: DateFormat.yMd().format(
+                            customerBookingToolController.appointment?.selectDate??
+                            DateTime.now(),
+                          ),
+                        ),
+                      ]),
+                    ),
+                  ],
+              
+              
+                  verticalSpace(20.h),
+                  AppButton(onPressed: () async {
+              
+                    if(await controller.validateBook(context)){
+                      controller.addAppointment(context);
+                    }
+                  }, text:
+                  StringManager.confirmBookingText)
+              
                 ],
-
-
-                verticalSpace(20.h),
-                AppButton(onPressed: () async {
-
-                  if(await controller.validateBook(context)){
-                    controller.addAppointment(context);
-                  }
-                }, text:
-                StringManager.confirmBookingText)
-
-              ],
+              ),
             )),
           ),
         ),
