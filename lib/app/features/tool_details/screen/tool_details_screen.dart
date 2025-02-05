@@ -31,7 +31,7 @@ class _ToolDetailsScreenState extends State<ToolDetailsScreen> {
       'سعة الظرف : 13 مم\n'
       'وزن : 2.5 كجم';
   List<String> featuresList = [];
-   ToolModel? tool;
+  ToolModel? tool;
 
   List<String> getFeaturesToolAsList(String text) {
     featuresList = text
@@ -45,8 +45,8 @@ class _ToolDetailsScreenState extends State<ToolDetailsScreen> {
   @override
   Widget build(BuildContext context) {
     final args =
-    ModalRoute.of(context)!.settings.arguments as Map<String, dynamic>?;
-    tool=args?["tool"];
+        ModalRoute.of(context)!.settings.arguments as Map<String, dynamic>?;
+    tool = args?["tool"];
 
     return FadeInUp(
       child: Scaffold(
@@ -63,52 +63,64 @@ class _ToolDetailsScreenState extends State<ToolDetailsScreen> {
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        if(tool?.images?.isNotEmpty??false)...[
+                        if (tool?.images?.isNotEmpty ?? false) ...[
                           verticalSpace(20.h),
                           CarouselSlider(
                             items:
-                            // [1, 2, 3, 4, 5]
-                            (tool?.images??[]).map((item) => Container(
-                                alignment: Alignment.center,
-                                width: double.infinity,
-                                height: 250.h,
-                                decoration: BoxDecoration(
-                                    color: ColorManager.grayColor,
-                                    borderRadius:
-                                    BorderRadius.circular(12.r)),
-                                child:
-                                Padding(
-                                  padding:  EdgeInsets.all(4.sp),
-                                  child: ImageTool(
-                                    url: item,
+                                // [1, 2, 3, 4, 5]
+                                (tool?.images ?? [])
+                                    .map((item) => Container(
+                                  margin: EdgeInsets.symmetric(
+                                    vertical: 14.h
                                   ),
-                                )
-                              // Text(
-                              //   item.toString(),
-                              //   style: StyleManager.font20SemiBold(),
-                              // ),
-                            ))
-                                .toList(),
+                                        alignment: Alignment.center,
+                                        width: double.infinity,
+                                        height: 250.h,
+                                        decoration: BoxDecoration(
+                                          color: ColorManager.grayColor,
+                                          boxShadow: [
+                                            BoxShadow(
+                                              color: ColorManager.shadowColor,
+                                              blurRadius: 16.sp,
+                                              offset: Offset(0, 4),
+                                            )
+                                          ],
+                                          borderRadius:
+                                              BorderRadius.circular(12.r),
+                                        ),
+                                        child: ImageTool(
+                                          url: item,
+                                          fit: BoxFit.fill,
+                                          width: double.maxFinite,
+
+                                        )
+                                        // Text(
+                                        //   item.toString(),
+                                        //   style: StyleManager.font20SemiBold(),
+                                        // ),
+                                        ))
+                                    .toList(),
                             options: CarouselOptions(
                               autoPlay: true,
                               enlargeCenterPage: true,
-
+                              enlargeFactor: .35
                             ),
                           )
-                        ]
-                       ,
+                        ],
                         verticalSpace(20.h),
                         Text(
-                          tool?.name??
-                          'مثقاب كهربائي احترافي',
+                          tool?.name ?? 'مثقاب كهربائي احترافي',
                           style: StyleManager.font16SemiBold(),
                         ),
                         verticalSpace(10.h),
                         InkWell(
-                          onTap: (){
-                            Get.put(CustomerBookingToolController()).tool=tool;
+                          onTap: () {
+                            Get.put(CustomerBookingToolController()).tool =
+                                tool;
 
-                            showDialog(context: context, builder: (_)=>RateDialogWidget());
+                            showDialog(
+                                context: context,
+                                builder: (_) => RateDialogWidget());
                           },
                           child: Row(
                             crossAxisAlignment: CrossAxisAlignment.center,
@@ -120,7 +132,7 @@ class _ToolDetailsScreenState extends State<ToolDetailsScreen> {
                               ),
                               horizontalSpace(10.w),
                               Text(
-                                '${tool?.getRate??"4.5"} (${tool?.reviews?.length??0} تقييم)',
+                                '${tool?.getRate ?? "4.5"} (${tool?.reviews?.length ?? 0} تقييم)',
                                 // '4.5 (20 تقييم)',
                               ),
                             ],
@@ -128,7 +140,7 @@ class _ToolDetailsScreenState extends State<ToolDetailsScreen> {
                         ),
                         verticalSpace(10.h),
                         Text(
-                          '${ tool?.fee??'??'} ريال/كل اسبوع',
+                          '${tool?.fee ?? '??'} ريال/كل اسبوع',
                           // '${ tool?.fee??'??'} ريال/يوم',
                           // '25 ريال/يوم',
                           style: StyleManager.font14SemiBold(),
@@ -139,10 +151,10 @@ class _ToolDetailsScreenState extends State<ToolDetailsScreen> {
                           style: StyleManager.font18SemiBold(),
                         ),
                         Text(
-                          tool?.description??
-                          'مثقاب كهربائي احترافي وقوي متعدد الاستخدامات, مثالي للأعمال المنزلية و المهنية',
-                          style:
-                              StyleManager.font14Regular().copyWith(height: 1.8),
+                          tool?.description ??
+                              'مثقاب كهربائي احترافي وقوي متعدد الاستخدامات, مثالي للأعمال المنزلية و المهنية',
+                          style: StyleManager.font14Regular()
+                              .copyWith(height: 1.8),
                         ),
                         verticalSpace(20.h),
                         Text(
@@ -152,8 +164,7 @@ class _ToolDetailsScreenState extends State<ToolDetailsScreen> {
                         Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: getFeaturesToolAsList(
-                              tool?.specifications??
-                              featuresTool)
+                                  tool?.specifications ?? featuresTool)
                               .map((e) => Text(
                                     '* ' + e,
                                     style: StyleManager.font14SemiBold()
@@ -165,11 +176,14 @@ class _ToolDetailsScreenState extends State<ToolDetailsScreen> {
                     ),
                   ),
                 ),
-                AppButton(onPressed: () {
-                  Get.put(CustomerBookingToolController()).tool=tool;
-                  Get.put(CustomerBookingToolController()).appointment=null;
-                  context.pushNamed(Routes.bookingToolRoute);
-                }, text: StringManager.orderNowText)
+                AppButton(
+                    onPressed: () {
+                      Get.put(CustomerBookingToolController()).tool = tool;
+                      Get.put(CustomerBookingToolController()).appointment =
+                          null;
+                      context.pushNamed(Routes.bookingToolRoute);
+                    },
+                    text: StringManager.orderNowText)
               ],
             ),
           ),

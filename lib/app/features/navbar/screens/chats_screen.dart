@@ -122,6 +122,8 @@ class _ChatsScreenState extends State<ChatsScreen> {
                                     processController.fetchUserAsync(context, idUser: idUser);
                                     UserModel? user = processController.fetchLocalUser(idUser: idUser);
                                     return ImageUserProvider(
+                                      width: 40,
+                                        height: 40,
                                         url: user?.photoUrl,
                                       );}),
                         title:

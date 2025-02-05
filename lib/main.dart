@@ -10,11 +10,15 @@ import 'package:get_storage/get_storage.dart';
 import 'core/routing/routes.dart';
 import 'core/utils/const_value_manager.dart';
 import 'package:flutter_stripe/flutter_stripe.dart';
+
+import 'firebase_options.dart';
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
 
   /// To Init Firebase
-  await Firebase.initializeApp();
+  await Firebase.initializeApp(
+    options: DefaultFirebaseOptions.currentPlatform,
+  );
 
   /// To Fix Bug In Text Showing In Release Mode
   await ScreenUtil.ensureScreenSize();

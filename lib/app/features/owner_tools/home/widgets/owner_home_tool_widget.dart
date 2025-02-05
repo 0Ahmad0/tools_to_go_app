@@ -22,6 +22,7 @@ import '../controller/tools_controller.dart';
 
 class OwnerHomeToolWidget extends StatelessWidget {
   const OwnerHomeToolWidget({super.key, this.tool});
+
   final ToolModel? tool;
 
   @override
@@ -30,8 +31,9 @@ class OwnerHomeToolWidget extends StatelessWidget {
       children: [
         InkWell(
           borderRadius: BorderRadius.circular(14.r),
-          onTap: (){
-            context.pushNamed(Routes.ownerAddToolRoute,arguments: {"tool":tool});
+          onTap: () {
+            context
+                .pushNamed(Routes.ownerAddToolRoute, arguments: {"tool": tool});
           },
           child: Container(
             // padding: EdgeInsets.symmetric(
@@ -45,32 +47,29 @@ class OwnerHomeToolWidget extends StatelessWidget {
               child: Row(
                 children: [
                   Container(
-                    padding: EdgeInsets.all(14.sp),
-                    margin: EdgeInsets.all(8.sp),
-                    width: 80.w,
-                    decoration: BoxDecoration(
-                      color: ColorManager.grayColor,
-                      borderRadius: BorderRadius.circular(12.r),
-                    ),
-                    child:
-                    ImageTool(
-                      url:  tool?.photoUrl,
-
-  width: 50.sp,
+                      padding: EdgeInsets.all(14.sp),
+                      margin: EdgeInsets.all(8.sp),
+                      width: 80.w,
+                      decoration: BoxDecoration(
+                        color: ColorManager.grayColor,
+                        borderRadius: BorderRadius.circular(12.r),
+                      ),
+                      child: ImageTool(
+                        url: tool?.photoUrl,
+                        width: 50.sp,
                         height: 50.sp,
-                    )
-                    // Image.asset(
-                    //   AssetsManager.completeOrdersIcon,
-                    //   width: 50.sp,
-                    //   height: 50.sp,
-                    // ),
-                  ),
+                      )
+                      // Image.asset(
+                      //   AssetsManager.completeOrdersIcon,
+                      //   width: 50.sp,
+                      //   height: 50.sp,
+                      // ),
+                      ),
                   Flexible(
                     child: ListTile(
                       dense: true,
                       title: Text(
-                        tool?.name??""??
-                        'مثقاب كهربائي',
+                        tool?.name ?? "" ?? 'مثقاب كهربائي',
                         style: StyleManager.font14SemiBold(),
                         maxLines: 1,
                         overflow: TextOverflow.ellipsis,
@@ -81,13 +80,17 @@ class OwnerHomeToolWidget extends StatelessWidget {
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
                             Text(
-                              '${tool?.fee??"?"} ريال',
+                              '${tool?.fee ?? "?"} ريال',
                               // '20 ريال',
                               maxLines: 1,
                               overflow: TextOverflow.ellipsis,
                             ),
                             verticalSpace(10.h),
-                            Text(tool?.description??'xx'),
+                            Text(
+                              tool?.description ?? 'xx',
+                              maxLines: 2,
+                            ),
+                            verticalSpace(20.h),
                           ],
                         ),
                       ),

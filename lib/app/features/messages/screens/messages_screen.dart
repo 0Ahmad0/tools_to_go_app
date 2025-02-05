@@ -45,6 +45,7 @@ class _MessagesScreenState extends State<MessagesScreen> {
   late ChatRoomController controller;
   var args;
   var initData;
+
   @override
   void initState() {
     controller = Get.put(ChatRoomController());
@@ -53,8 +54,6 @@ class _MessagesScreenState extends State<MessagesScreen> {
     // });
     super.initState();
   }
-
-
 
   @override
   void dispose() {
@@ -66,84 +65,82 @@ class _MessagesScreenState extends State<MessagesScreen> {
   Widget build(BuildContext context) {
     controller.onInit();
     Get.lazyPut(() => ProcessController());
-    ProcessController.instance.fetchUser(context,idUser: controller.recId??'');
+    ProcessController.instance
+        .fetchUser(context, idUser: controller.recId ?? '');
     return FadeInUp(
       child: Scaffold(
         appBar: AppBar(
-          elevation: 0.0,
-          // actions: [
-          //   IconButton(
-          //       onPressed: () {},
-          //       icon: Icon(
-          //         Icons.more_vert,
-          //       ))
-          // ],
-          leading: CustomBackButton(),
-          titleSpacing: 0,
-          leadingWidth: 30.w,
-          title:
-
-          GetBuilder<ProcessController>(
-              builder: (ProcessController processController) =>
-
-                  ListTile(
-                    leading:  ImageUserProvider(
-                      url:  '${processController.fetchLocalUser(idUser: controller.recId ?? '')?.photoUrl ?? ''}',
-                    ),
-                    title: Text(
-                      '${processController.fetchLocalUser(idUser: controller.recId ?? 'عامل التوصيل')?.name ?? 'عامل التوصيل'}',
-                      // 'البائع',
-                      style: StyleManager.font14Bold(),
-                    ),
-                  ),
-            )
-
-        ),
+            elevation: 0.0,
+            // actions: [
+            //   IconButton(
+            //       onPressed: () {},
+            //       icon: Icon(
+            //         Icons.more_vert,
+            //       ))
+            // ],
+            leading: CustomBackButton(),
+            titleSpacing: 0,
+            leadingWidth: 30.w,
+            title: GetBuilder<ProcessController>(
+              builder: (ProcessController processController) => ListTile(
+                leading: ImageUserProvider(
+                  width: 40.sp,
+                  height: 40.sp,
+                  fit: BoxFit.cover,
+                  url:
+                      '${processController.fetchLocalUser(idUser: controller.recId ?? '')?.photoUrl ?? ''}',
+                ),
+                title: Text(
+                  '${processController.fetchLocalUser(idUser: controller.recId ?? 'عامل التوصيل')?.name ?? 'عامل التوصيل'}',
+                  // 'البائع',
+                  style: StyleManager.font14Bold(),
+                ),
+              ),
+            )),
         body: Column(
           crossAxisAlignment: CrossAxisAlignment.end,
           children: [
+            Expanded(
+              child: StreamBuilder<QuerySnapshot>(
+                  stream: controller.getChat,
+                  builder: (context, snapshot) {
+                    if (snapshot.connectionState == ConnectionState.waiting) {
+                      return ConstantsWidgets.circularProgress();
+                    } else if (snapshot.connectionState ==
+                        ConnectionState.active) {
+                      if (snapshot.hasError) {
+                        return Text(StringManager.emptyData);
+                        // return  Text(tr(LocaleKeys.empty_data));
+                      } else if (snapshot.hasData) {
+                        // ConstantsWidgets.circularProgress();
+                        controller.chat?.messages.clear();
+                        if (snapshot.data!.docs!.length > 1) {
+                          controller.chat?.messages =
+                              Messages.fromJson(snapshot.data!.docs!)
+                                  .listMessage;
+                        }
 
-        Expanded(
-        child:
-        StreamBuilder<QuerySnapshot>(
-            stream: controller.getChat,
-            builder: (context, snapshot) {
-              if (snapshot.connectionState == ConnectionState.waiting) {
-                return    ConstantsWidgets.circularProgress();
-              } else if (snapshot.connectionState ==
-                  ConnectionState.active) {
-                if (snapshot.hasError) {
-                  return  Text(StringManager.emptyData);
-                  // return  Text(tr(LocaleKeys.empty_data));
-                } else if (snapshot.hasData) {
+                        return GetBuilder<ChatRoomController>(
+                            init: controller,
+                            builder: (ChatRoomController chatRoomController) {
+                              Message? message =
+                                  controller.waitMessage.lastOrNull;
+                              message?.checkSend = false;
+                              if (message != null)
+                                controller.chat?.messages.add(message);
 
-                  // ConstantsWidgets.circularProgress();
-                  controller.chat?.messages.clear();
-                  if (snapshot.data!.docs!.length > 1) {
-                    controller.chat?.messages =
-                        Messages.fromJson(snapshot.data!.docs!).listMessage;
-                  }
-
-                  return GetBuilder<ChatRoomController>(
-                      init: controller,
-                      builder: (ChatRoomController chatRoomController){
-                        Message? message=controller.waitMessage.lastOrNull;
-                        message?.checkSend=false;
-                        if(message!=null)
-                          controller.chat?.messages.add( message);
-
-                        return
-                          buildChat(context,controller.chat?.messages ?? []);
-                      });
-
-                } else {
-                  return  Text(StringManager.emptyData);
-                  // return  Text(tr(LocaleKeys.empty_data));
-                }
-              } else {
-                return Text('State: ${snapshot.connectionState}');
-              }
-            }),),
+                              return buildChat(
+                                  context, controller.chat?.messages ?? []);
+                            });
+                      } else {
+                        return Text(StringManager.emptyData);
+                        // return  Text(tr(LocaleKeys.empty_data));
+                      }
+                    } else {
+                      return Text('State: ${snapshot.connectionState}');
+                    }
+                  }),
+            ),
 
             // _listMessages.isEmpty
             //     ? Flexible(
@@ -173,20 +170,21 @@ class _MessagesScreenState extends State<MessagesScreen> {
                     focusedBorder: _borderTextFiled(),
                     border: _borderTextFiled(color: Colors.transparent),
                     enabledBorder: _borderTextFiled(color: Colors.transparent),
-                    errorBorder: _borderTextFiled(color: ColorManager.errorColor),
+                    errorBorder:
+                        _borderTextFiled(color: ColorManager.errorColor),
                     iconColor: ColorManager.grayColor,
                     filled: true,
                     fillColor: ColorManager.grayColor,
                     suffixIcon: IconButton(
                       onPressed: () {
-                        if(controller.messageController.text.trim().isNotEmpty)
-                        // if(_messageController.text.trim().isNotEmpty)
-                        // _listMessages.add(_messageController.text);
-                        // _messageController.clear();
-                        // setState(() {
-                        //
-                        // });
-                        sendText();
+                        if (controller.messageController.text.trim().isNotEmpty)
+                          // if(_messageController.text.trim().isNotEmpty)
+                          // _listMessages.add(_messageController.text);
+                          // _messageController.clear();
+                          // setState(() {
+                          //
+                          // });
+                          sendText();
                       },
                       icon: SvgPicture.asset(
                         AssetsManager.messageSendButtonIcon,
@@ -204,28 +202,34 @@ class _MessagesScreenState extends State<MessagesScreen> {
       ),
     );
   }
+
   Widget buildChat(BuildContext context, List<Message> messages) {
     controller.chatList = messages;
 
     return controller.chatList.isEmpty
         ? Flexible(
             child: Center(
-                        child: Text("لا يوجد رسائل بعد!!😢",
-                        style: StyleManager.font14Bold(),),
-                      ),
+              child: Text(
+                "لا يوجد رسائل بعد!!😢",
+                style: StyleManager.font14Bold(),
+              ),
+            ),
           )
-        :
-
-    ListView.builder(
-                  padding:
-                      EdgeInsets.symmetric(horizontal: 20.w, vertical: 10.h),
-                  itemCount:  messages.length,
-                  itemBuilder: (context, index) => controller.chatList[index].senderId ==
-                      controller.currentUserId
-                      ? SenderTextWidget(text: messages[index].textMessage,sendingTime:messages[index].sendingTime ,)
-                      : ReceiverTextWidget(text: messages[index].textMessage,sendingTime:messages[index].sendingTime),
-                );
+        : ListView.builder(
+            padding: EdgeInsets.symmetric(horizontal: 20.w, vertical: 10.h),
+            itemCount: messages.length,
+            itemBuilder: (context, index) =>
+                controller.chatList[index].senderId == controller.currentUserId
+                    ? SenderTextWidget(
+                        text: messages[index].textMessage,
+                        sendingTime: messages[index].sendingTime,
+                      )
+                    : ReceiverTextWidget(
+                        text: messages[index].textMessage,
+                        sendingTime: messages[index].sendingTime),
+          );
   }
+
   sendText() async {
     if (controller.messageController.value.text.trim().isNotEmpty) {
       String message = controller.messageController.value.text;

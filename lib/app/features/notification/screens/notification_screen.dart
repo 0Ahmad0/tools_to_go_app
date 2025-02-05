@@ -66,6 +66,7 @@ class _NotificationScreenState extends State<NotificationScreen> {
                           children: [
                             Image.asset(
                               AssetsManager.noNotificationIMG,
+                              color: ColorManager.orangeColor,
                               width: 140.w,
                               height: 140.h,
                             ),
@@ -74,7 +75,9 @@ class _NotificationScreenState extends State<NotificationScreen> {
                               StringManager.noNotificationText,
                               textAlign: TextAlign.center,
                               style:
-                              StyleManager.font14Regular(color: ColorManager.hintTextColor),
+                              StyleManager.font14Regular(
+                                  color: ColorManager.blackColor
+                              ),
                             ),
                           ],
                         )
