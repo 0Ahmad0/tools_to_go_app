@@ -185,10 +185,10 @@ class StringManager {
   'يرجى إدخال بريد الكتروني صالح, سنرسل لك رابط تحقق إلى حسابك';
 
   ///Check inbox Screen
-  static const String checkYourInboxText = 'Check Your Inbox';
+  static const String checkYourInboxText = 'تحقق من بريدك الالكتروني الخاص بك';
   static const String sentEmailVerifyToResetPasswordText =
-      'We will sent you a link to Reset Password';
-  static const String goToLoginText = 'Go to login';
+      'سوف نرسل لك رابطًا لإعادة تعيين كلمة المرور';
+  static const String goToLoginText = 'الذهاب إلى تسجيل الدخول';
 
   /// Profile Screen
   static const String profileText = 'الملف الشخصي';
